@@ -12,8 +12,7 @@ import 'package:ditonton/presentation/pages/watchlist_movies_page.dart';
 import 'package:ditonton/presentation/provider/tv_list_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import 'about_page.dart';
+import 'package:about/about_page.dart';
 
 class HomeTVPage extends StatefulWidget {
   static const ROUTE_NAME = '/tvshow';
