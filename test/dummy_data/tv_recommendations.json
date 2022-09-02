@@ -1,0 +1,30 @@
+{
+  "page": 1,
+  "results": [
+    {
+      "adult": false,
+      "backdrop_path": "/yJAOi2n0VYBEXdPI1NXv5FiOcBX.jpg",
+      "id": 62715,
+      "name": "Dragon Ball Super",
+      "original_language": "ja",
+      "original_name": "Dragon Ball Super",
+      "overview": "With Majin Boo defeated half-a-year prior, peace returns to Earth, where Son Goku (now a radish farmer) and his friends now live peaceful lives. However, a new threat appears in the form of Beerus, the God of Destruction. Considered the most terrifying being in the entire universe, Beerus is eager to fight the legendary warrior seen in a prophecy foretold decades ago known as the Super Saiyan God. The series retells the events from the two Dragon Ball Z films, Battle of Gods and Resurrection 'F' before proceeding to an original story about the exploration of alternate universes.",
+      "poster_path": "/qEUrbXJ2qt4Rg84Btlx4STOhgte.jpg",
+      "media_type": "tv",
+      "genre_ids": [
+        16,
+        10759,
+        10765
+      ],
+      "popularity": 530.963,
+      "first_air_date": "2015-07-05",
+      "vote_average": 8.211,
+      "vote_count": 4140,
+      "origin_country": [
+        "JP"
+      ]
+    }
+  ],
+  "total_pages": 2,
+  "total_results": 40
+}

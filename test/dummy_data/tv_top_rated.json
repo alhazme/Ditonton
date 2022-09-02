@@ -1,0 +1,27 @@
+{
+  "page": 1,
+  "results": [
+    {
+      "backdrop_path": "/3ILMlmC30QUnYkY3XEBOyJ82Dqu.jpg",
+      "first_air_date": "2016-04-03",
+      "genre_ids": [
+        10759,
+        16
+      ],
+      "id": 65930,
+      "name": "My Hero Academia",
+      "origin_country": [
+        "JP"
+      ],
+      "original_language": "ja",
+      "original_name": "My Hero Academia",
+      "overview": "In a world where eighty percent of the population has some kind of super-powered Quirk, Izuku was unlucky enough to be born completely normal. But that won't stop him from enrolling in a prestigious hero academy. Now, he'll get his first taste of brutal rivalry from other schools as he braves the cutthroat, no-holds-barred provisional license exam.",
+      "popularity": 52.968,
+      "poster_path": "/phuYuzqWW9ru8EA3HVjE9W2Rr3M.jpg",
+      "vote_average": 8.8,
+      "vote_count": 3778
+    }
+  ],
+  "total_pages": 127,
+  "total_results": 2530
+}
