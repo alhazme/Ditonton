@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:ditonton/common/failure.dart';
-import 'package:ditonton/common/state_enum.dart';
+import 'package:core/utils/failure.dart';
+import 'package:core/utils/state_enum.dart';
 import 'package:ditonton/presentation/provider/popular_tvs_notifier.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';

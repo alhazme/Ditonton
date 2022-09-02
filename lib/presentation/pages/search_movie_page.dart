@@ -1,5 +1,5 @@
-import 'package:ditonton/common/constants.dart';
-import 'package:ditonton/common/state_enum.dart';
+import 'package:core/utils/state_enum.dart';
+import 'package:core/styles/text_styles.dart';
 import 'package:ditonton/presentation/provider/movie_search_notifier.dart';
 import 'package:ditonton/presentation/widgets/movie_card.dart';
 import 'package:flutter/material.dart';

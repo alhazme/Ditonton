@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
-import 'package:ditonton/common/state_enum.dart';
+import 'package:core/utils/state_enum.dart';
 
 import '../../dummy_data/dummy_objects.dart';
 import 'top_rated_tvs_page_test.mocks.dart';

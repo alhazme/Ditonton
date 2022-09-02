@@ -6,7 +6,7 @@
 import 'dart:async' as _i6;
 
 import 'package:dartz/dartz.dart' as _i3;
-import 'package:ditonton/common/failure.dart' as _i7;
+import 'package:core/utils/failure.dart' as _i7;
 import 'package:ditonton/domain/entities/tv.dart' as _i10;
 import 'package:ditonton/domain/entities/tv_detail.dart' as _i8;
 import 'package:ditonton/domain/repositories/tv_repository.dart' as _i2;

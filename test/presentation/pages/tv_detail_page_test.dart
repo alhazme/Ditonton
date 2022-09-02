@@ -6,7 +6,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
 import 'package:ditonton/presentation/provider/tv_detail_notifier.dart';
-import 'package:ditonton/common/state_enum.dart';
+import 'package:core/utils/state_enum.dart';
 
 import '../../dummy_data/dummy_objects.dart';
 import 'tv_detail_page_test.mocks.dart';

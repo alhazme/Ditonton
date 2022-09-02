@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:ditonton/common/exception.dart';
-import 'package:ditonton/common/failure.dart';
+import 'package:core/utils/exception.dart';
+import 'package:core/utils/failure.dart';
 import 'package:ditonton/data/repositories/watchlist_repository_impl.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
