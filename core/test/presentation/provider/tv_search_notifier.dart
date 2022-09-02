@@ -27,7 +27,7 @@ void main() {
   final tQuery = 'dragonball';
 
   group('search tvs', () {
-    test('should change state to loading when usecase is called', () async {
+    test('should change state to loading when usecases is called', () async {
       // arrange
       when(mockSearchTVs.execute(tQuery))
           .thenAnswer((_) async => Right(mockedTVList));

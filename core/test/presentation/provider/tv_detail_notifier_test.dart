@@ -58,7 +58,7 @@ void main() {
   }
 
   group('Get TV Detail', () {
-    test('should get data from the usecase', () async {
+    test('should get data from the usecases', () async {
       // arrange
       _arrangeUsecase();
       // act
@@ -68,7 +68,7 @@ void main() {
       verify(mockGetTVRecommendations.execute(tId));
     });
 
-    test('should change state to Loading when usecase is called', () {
+    test('should change state to Loading when usecases is called', () {
       // arrange
       _arrangeUsecase();
       // act
@@ -102,7 +102,7 @@ void main() {
   });
 
   group('Get TV Recommendations', () {
-    test('should get data from the usecase', () async {
+    test('should get data from the usecases', () async {
       // arrange
       _arrangeUsecase();
       // act

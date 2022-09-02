@@ -25,7 +25,7 @@ void main() {
       });
   });
 
-  test('should change state to loading when usecase is called', () async {
+  test('should change state to loading when usecases is called', () async {
     // arrange
     when(mockGetPopularTVs.execute())
         .thenAnswer((_) async => Right(mockedTVList));

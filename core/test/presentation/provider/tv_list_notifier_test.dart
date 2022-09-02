@@ -39,7 +39,7 @@ void main() {
       expect(provider.nowPlayingTVsState, equals(RequestState.Empty));
     });
 
-    test('should get data from the usecase', () async {
+    test('should get data from the usecases', () async {
       // arrange
       when(mockGetNowPlayingTVs.execute())
           .thenAnswer((_) async => Right(mockedTVList));
@@ -49,7 +49,7 @@ void main() {
       verify(mockGetNowPlayingTVs.execute());
     });
 
-    test('should change state to Loading when usecase is called', () {
+    test('should change state to Loading when usecases is called', () {
       // arrange
       when(mockGetNowPlayingTVs.execute())
           .thenAnswer((_) async => Right(mockedTVList));
@@ -85,7 +85,7 @@ void main() {
   });
 
   group('popular tvs', () {
-    test('should change state to loading when usecase is called', () async {
+    test('should change state to loading when usecases is called', () async {
       // arrange
       when(mockGetPopularTVs.execute())
           .thenAnswer((_) async => Right(mockedTVList));
@@ -123,7 +123,7 @@ void main() {
   });
 
   group('top rated tvs', () {
-    test('should change state to loading when usecase is called', () async {
+    test('should change state to loading when usecases is called', () async {
       // arrange
       when(mockGetTopRatedTVs.execute())
           .thenAnswer((_) async => Right(mockedTVList));

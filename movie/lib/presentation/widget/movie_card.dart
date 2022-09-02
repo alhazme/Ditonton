@@ -1,14 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:core/utils/constants.dart';
 import 'package:core/styles/text_styles.dart';
-import 'package:core/domain/entities/watchlist.dart';
-import 'package:core/utils/routes.dart';
+import 'package:core/domain/entities/movie.dart';
+import 'package:movie/presentation/pages/movie_detail_page.dart';
 import 'package:flutter/material.dart';
 
-class WatchlistCard extends StatelessWidget {
-  final Watchlist watchlist;
+class MovieCard extends StatelessWidget {
+  final Movie movie;
 
-  WatchlistCard(this.watchlist);
+  MovieCard(this.movie);
 
   @override
   Widget build(BuildContext context) {
@@ -16,19 +16,11 @@ class WatchlistCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 4),
       child: InkWell(
         onTap: () {
-          if (watchlist.category == 'movie') {
-            Navigator.pushNamed(
-              context,
-              MOVIE_DETAIL_ROUTE,
-              arguments: watchlist.id,
-            );
-          } else {
-            Navigator.pushNamed(
-              context,
-              TV_DETAIL_ROUTE,
-              arguments: watchlist.id,
-            );
-          }
+          Navigator.pushNamed(
+            context,
+            MovieDetailPage.ROUTE_NAME,
+            arguments: movie.id,
+          );
         },
         child: Stack(
           alignment: Alignment.bottomLeft,
@@ -44,14 +36,14 @@ class WatchlistCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      watchlist.title,
+                      movie.title ?? '-',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: kHeading6,
                     ),
                     SizedBox(height: 16),
                     Text(
-                      watchlist.overview,
+                      movie.overview ?? '-',
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -66,7 +58,7 @@ class WatchlistCard extends StatelessWidget {
               ),
               child: ClipRRect(
                 child: CachedNetworkImage(
-                  imageUrl: '$BASE_IMAGE_URL${watchlist.posterPath}',
+                  imageUrl: '$BASE_IMAGE_URL${movie.posterPath}',
                   width: 80,
                   placeholder: (context, url) => Center(
                     child: CircularProgressIndicator(),
