@@ -30,6 +30,9 @@ dependencies:
   movie:
     path: movie
 
+  tv:
+    path: tv
+
   about:
     path: about
 

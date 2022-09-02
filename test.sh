@@ -17,7 +17,7 @@ where:
     exit 1
 }
 
-# run unit and widget tests
+# run unit and widgets tests
 runTests () {
   cd $1;
   if [ -f "pubspec.yaml" ] && [ -d "test" ]; then
