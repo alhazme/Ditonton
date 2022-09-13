@@ -1,3 +1,4 @@
+/*
 import 'package:tv/presentation/pages/popular_tvs_page.dart';
 import 'package:tv/presentation/provider/popular_tvs_notifier.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,7 @@ import 'package:core/utils/state_enum.dart';
 
 import '../../../../core/test/dummy_data/dummy_objects.dart';
 import '../../../../tv/test/presentation/pages/popular_tvs_page_test.mocks.dart';
-/*
+
 @GenerateMocks([PopularTVsNotifier])
 void main() {
   late MockPopularTVsNotifier mockNotifier;
@@ -65,4 +66,4 @@ void main() {
       });
 
 }
-*/
+ */

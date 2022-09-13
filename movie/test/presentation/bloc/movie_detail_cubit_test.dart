@@ -1,8 +1,8 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:core/core.dart';
 import 'package:core/domain/entities/movie.dart';
-import 'package:core/domain/usecases/get_watchlist_status.dart';
-import 'package:core/domain/usecases/remove_watchlist.dart';
+import 'package:watchlist/domain/usecases/get_watchlist_status.dart';
+import 'package:watchlist/domain/usecases/remove_watchlist.dart';
 import 'package:core/utils/state_enum.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:movie/domain/usecases/get_movie_detail.dart';

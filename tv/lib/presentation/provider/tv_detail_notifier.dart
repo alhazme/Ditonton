@@ -3,8 +3,8 @@ import 'package:core/domain/entities/tv.dart';
 import 'package:core/domain/entities/tv_detail.dart';
 import 'package:tv/domain/usecases/get_tv_detail.dart';
 import 'package:tv/domain/usecases/get_tv_recommendations.dart';
-import 'package:core/domain/usecases/get_watchlist_status.dart';
-import 'package:core/domain/usecases/remove_watchlist.dart';
+import 'package:watchlist/domain/usecases/get_watchlist_status.dart';
+import 'package:watchlist/domain/usecases/remove_watchlist.dart';
 import 'package:tv/domain/usecases/save_tv_watchlist.dart';
 import 'package:flutter/cupertino.dart';
 

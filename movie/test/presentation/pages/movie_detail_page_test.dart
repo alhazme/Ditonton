@@ -1,3 +1,4 @@
+/*
 import 'package:bloc_test/bloc_test.dart';
 import 'package:core/core.dart';
 import 'package:core/utils/state_enum.dart';
@@ -17,8 +18,8 @@ import 'package:mocktail/mocktail.dart';
 import 'dart:ui' as ui;
 
 import '../../../../core/test/dummy_data/dummy_objects.dart';
-// import '../../../../movie/test/presentation/pages/movie_detail_page_test.mocks.dart';
-/*
+import '../../../../movie/test/presentation/pages/movie_detail_page_test.mocks.dart';
+
 class MockMovieDetailCubit extends MockCubit<MovieDetailState> implements MovieDetailCubit {}
 class MovieDetailStateFake extends Fake implements MovieDetailState {}
 

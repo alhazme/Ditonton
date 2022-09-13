@@ -1,3 +1,4 @@
+/*
 import 'package:core/domain/entities/tv.dart';
 import 'package:tv/presentation/pages/tv_detail_page.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,7 @@ import 'package:core/utils/state_enum.dart';
 
 import '../../../../core/test/dummy_data/dummy_objects.dart';
 import '../../../../tv/test/presentation/pages/tv_detail_page_test.mocks.dart';
-/*
+
 @GenerateMocks([TVDetailNotifier])
 void main() {
   late MockTVDetailNotifier mockNotifier;
@@ -263,4 +264,4 @@ void main() {
         expect(find.byKey(testKey), findsOneWidget);
       });
 }
-*/
+ */

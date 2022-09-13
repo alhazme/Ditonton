@@ -1,3 +1,4 @@
+/*
 import 'package:core/utils/state_enum.dart';
 import 'package:movie/presentation/pages/popular_movies_page.dart';
 import 'package:movie/presentation/provider/popular_movies_notifier.dart';
@@ -10,7 +11,6 @@ import 'package:provider/provider.dart';
 import '../../../../core/test/dummy_data/dummy_objects.dart';
 import '../../../../movie/test/presentation/pages/popular_movies_page_test.mocks.dart';
 
-/*
 @GenerateMocks([PopularMoviesNotifier])
 void main() {
   late MockPopularMoviesNotifier mockNotifier;
