@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:dartz/dartz.dart';
 import 'package:core/data/datasources/movie_remote_data_source.dart';
 import 'package:core/domain/entities/movie.dart';

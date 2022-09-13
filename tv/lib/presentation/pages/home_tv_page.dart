@@ -4,6 +4,9 @@ import 'package:core/utils/state_enum.dart';
 import 'package:core/styles/text_styles.dart';
 import 'package:core/utils/routes.dart';
 import 'package:core/domain/entities/tv.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tv/presentation/bloc/tv_list_cubit.dart';
+import 'package:tv/presentation/bloc/tv_list_state.dart';
 import 'package:tv/presentation/provider/tv_list_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,11 +22,16 @@ class _HomeTVPageState extends State<HomeTVPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(
-            () => Provider.of<TVListNotifier>(context, listen: false)
-          ..fetchNowPlayingTVs()
-          ..fetchPopularTVs()
-          ..fetchTopRatedTVs());
+    Future.microtask(() {
+      context.read<TVListCubit>()
+        ..fetchNowPlayingTVs()
+        ..fetchPopularTVs()
+        ..fetchTopRatedTVs();
+      //   () => Provider.of<TVListNotifier>(context, listen: false)
+      // ..fetchNowPlayingTVs()
+      // ..fetchPopularTVs()
+      // ..fetchTopRatedTVs());
+    });
   }
 
   @override
@@ -91,50 +99,92 @@ class _HomeTVPageState extends State<HomeTVPage> {
                 'Now Playing',
                 style: kHeading6,
               ),
-              Consumer<TVListNotifier>(builder: (context, data, child) {
-                final state = data.nowPlayingTVsState;
-                if (state == RequestState.Loading) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (state == RequestState.Loaded) {
-                  return TVList(data.nowPlayingTVs);
-                } else {
-                  return Text('Failed');
-                }
-              }),
+              BlocBuilder<TVListCubit, TVListState>(
+                  builder: (context, state) {
+                    final nowPlayingState = state.nowPlayingTVState;
+                    if (nowPlayingState == RequestState.Loading) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (nowPlayingState == RequestState.Loaded) {
+                      return TVList(state.nowPlayingTVs);
+                    } else {
+                      return Text('Failed');
+                    }
+                  }
+              ),
+              // Consumer<TVListNotifier>(builder: (context, data, child) {
+              //   final state = data.nowPlayingTVsState;
+              //   if (state == RequestState.Loading) {
+              //     return Center(
+              //       child: CircularProgressIndicator(),
+              //     );
+              //   } else if (state == RequestState.Loaded) {
+              //     return TVList(data.nowPlayingTVs);
+              //   } else {
+              //     return Text('Failed');
+              //   }
+              // }),
               _buildSubHeading(
                 title: 'Popular',
                 onTap: () => Navigator.pushNamed(context, TVS_POPULAR_ROUTE),
               ),
-              Consumer<TVListNotifier>(builder: (context, data, child) {
-                final state = data.popularTVsState;
-                if (state == RequestState.Loading) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (state == RequestState.Loaded) {
-                  return TVList(data.popularTVs);
-                } else {
-                  return Text('Failed');
-                }
-              }),
+              BlocBuilder<TVListCubit, TVListState>(
+                  builder: (context, state) {
+                    final popularTVsState = state.popularTVsState;
+                    if (popularTVsState == RequestState.Loading) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (popularTVsState == RequestState.Loaded) {
+                      return TVList(state.popularTVs);
+                    } else {
+                      return Text('Failed');
+                    }
+                  }
+              ),
+              // Consumer<TVListNotifier>(builder: (context, data, child) {
+              //   final state = data.popularTVsState;
+              //   if (state == RequestState.Loading) {
+              //     return Center(
+              //       child: CircularProgressIndicator(),
+              //     );
+              //   } else if (state == RequestState.Loaded) {
+              //     return TVList(data.popularTVs);
+              //   } else {
+              //     return Text('Failed');
+              //   }
+              // }),
               _buildSubHeading(
                 title: 'Top Rated',
                 onTap: () => Navigator.pushNamed(context, TVS_TOP_RATED_ROUTE),
               ),
-              Consumer<TVListNotifier>(builder: (context, data, child) {
-                final state = data.topRatedTVsState;
-                if (state == RequestState.Loading) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (state == RequestState.Loaded) {
-                  return TVList(data.topRatedTVs);
-                } else {
-                  return Text('Failed');
+              BlocBuilder<TVListCubit, TVListState>(
+                builder: (context, state) {
+                  final topRatedTVsState = state.topRatedTVsState;
+                  if (topRatedTVsState == RequestState.Loading) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (topRatedTVsState == RequestState.Loaded) {
+                    return TVList(state.topRatedTVs);
+                  } else {
+                    return Text('Failed');
+                  }
                 }
-              }),
+            ),
+              // Consumer<TVListNotifier>(builder: (context, data, child) {
+              //   final state = data.topRatedTVsState;
+              //   if (state == RequestState.Loading) {
+              //     return Center(
+              //       child: CircularProgressIndicator(),
+              //     );
+              //   } else if (state == RequestState.Loaded) {
+              //     return TVList(data.topRatedTVs);
+              //   } else {
+              //     return Text('Failed');
+              //   }
+              // }),
             ],
           ),
         ),

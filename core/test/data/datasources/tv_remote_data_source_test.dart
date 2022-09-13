@@ -17,10 +17,15 @@ void main() {
 
   late TVRemoteDataSourceImpl dataSource;
   late MockHttpClient mockHttpClient;
+  late MockSslPinningHelper mockSslPinningHelper;
 
   setUp(() {
     mockHttpClient = MockHttpClient();
-    dataSource = TVRemoteDataSourceImpl(client: mockHttpClient);
+    mockSslPinningHelper = MockSslPinningHelper();
+    dataSource = TVRemoteDataSourceImpl(
+      client: mockHttpClient,
+      sslPinningHelper: mockSslPinningHelper
+    );
   });
 
   group('get Now Playing TVs', () {
@@ -31,6 +36,8 @@ void main() {
     test('should return list of TV Model when the response code is 200',
             () async {
           // arrange
+          String url = '$BASE_URL/tv/on_the_air?$API_KEY';
+          when(mockSslPinningHelper.isSecure(url)).thenAnswer((_) async => true);
           when(mockHttpClient
               .get(Uri.parse('$BASE_URL/tv/on_the_air?$API_KEY')))
               .thenAnswer((_) async =>
@@ -41,10 +48,27 @@ void main() {
           expect(result, equals(tTVList));
         });
 
-    test('should throw a ServerException when the response code is 404 or other', () async {
+    test('should return list of TV Model when the response code is 200',
+            () async {
           // arrange
+          String url = '$BASE_URL/tv/on_the_air?$API_KEY';
+          when(mockSslPinningHelper.isSecure(url)).thenAnswer((_) async => false);
           when(mockHttpClient
               .get(Uri.parse('$BASE_URL/tv/on_the_air?$API_KEY')))
+              .thenAnswer((_) async =>
+              http.Response(readJson('dummy_data/tv_now_playing.json'), 200));
+          // act
+          final result = dataSource.getNowPlayingTVs();
+          // assert
+          expect(result, throwsA(isA<ServerException>()));
+        });
+
+    test('should throw a ServerException when the response code is 404 or other', () async {
+          // arrange
+          String url = '$BASE_URL/tv/on_the_air?$API_KEY';
+          when(mockSslPinningHelper.isSecure(url)).thenAnswer((_) async => true);
+          when(mockHttpClient
+              .get(Uri.parse(url)))
               .thenAnswer((_) async => http.Response('Not Found', 404));
           // act
           final call = dataSource.getNowPlayingTVs();

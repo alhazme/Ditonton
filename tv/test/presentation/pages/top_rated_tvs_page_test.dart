@@ -9,7 +9,7 @@ import 'package:core/utils/state_enum.dart';
 
 import '../../../../core/test/dummy_data/dummy_objects.dart';
 import '../../../../tv/test/presentation/pages/top_rated_tvs_page_test.mocks.dart';
-
+/*
 @GenerateMocks([TopRatedTVsNotifier])
 void main() {
   late MockTopRatedTVsNotifier mockNotifier;
@@ -65,3 +65,4 @@ void main() {
       });
 
 }
+*/

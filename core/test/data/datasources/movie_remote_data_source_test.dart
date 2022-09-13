@@ -17,10 +17,15 @@ void main() {
 
   late MovieRemoteDataSourceImpl dataSource;
   late MockHttpClient mockHttpClient;
+  late MockSslPinningHelper mockSslPinningHelper;
 
   setUp(() {
     mockHttpClient = MockHttpClient();
-    dataSource = MovieRemoteDataSourceImpl(client: mockHttpClient);
+    mockSslPinningHelper = MockSslPinningHelper();
+    dataSource = MovieRemoteDataSourceImpl(
+        client: mockHttpClient,
+        sslPinningHelper: mockSslPinningHelper
+    );
   });
 
   group('get Now Playing Movies', () {
@@ -31,6 +36,8 @@ void main() {
     test('should return list of Movie Model when the response code is 200',
         () async {
       // arrange
+      String url = '$BASE_URL/movie/now_playing?$API_KEY';
+      when(mockSslPinningHelper.isSecure(url)).thenAnswer((_) async => true);
       when(mockHttpClient
               .get(Uri.parse('$BASE_URL/movie/now_playing?$API_KEY')))
           .thenAnswer((_) async =>
@@ -41,12 +48,29 @@ void main() {
       expect(result, equals(tMovieList));
     });
 
+    test('should throw a ServerException when ssl is not secure',
+            () async {
+          // arrange
+          String url = '$BASE_URL/movie/now_playing?$API_KEY';
+          when(mockSslPinningHelper.isSecure(url)).thenAnswer((_) async => false);
+          when(mockHttpClient
+              .get(Uri.parse('$BASE_URL/movie/now_playing?$API_KEY')))
+              .thenAnswer((_) async =>
+              http.Response(readJson('dummy_data/movie_now_playing.json'), 200));
+          // act
+          final call = dataSource.getNowPlayingMovies();
+          // assert
+          expect(() => call, throwsA(isA<ServerException>()));
+        });
+
     test(
         'should throw a ServerException when the response code is 404 or other',
         () async {
       // arrange
+      String url = '$BASE_URL/movie/now_playing?$API_KEY';
+      when(mockSslPinningHelper.isSecure(url)).thenAnswer((_) async => true);
       when(mockHttpClient
-              .get(Uri.parse('$BASE_URL/movie/now_playing?$API_KEY')))
+              .get(Uri.parse(url)))
           .thenAnswer((_) async => http.Response('Not Found', 404));
       // act
       final call = dataSource.getNowPlayingMovies();
