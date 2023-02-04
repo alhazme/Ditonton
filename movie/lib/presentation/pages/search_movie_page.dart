@@ -23,6 +23,7 @@ class SearchMoviePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextField(
+              key: Key('search_textfield'),
               onSubmitted: (query) {
                 context.read<MovieSearchCubit>().fetchMovieSearch(query);
               },
@@ -47,6 +48,7 @@ class SearchMoviePage extends StatelessWidget {
                 } else if (state.state == RequestState.Loaded) {
                   final result = state.searchResult;
                   return Expanded(
+                    key: Key('loaded_container'),
                     child: ListView.builder(
                       padding: const EdgeInsets.all(8),
                       itemBuilder: (context, index) {
@@ -58,6 +60,7 @@ class SearchMoviePage extends StatelessWidget {
                   );
                 } else {
                   return Expanded(
+                    key: Key('error_container'),
                     child: Container(),
                   );
                 }

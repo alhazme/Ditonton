@@ -8,13 +8,12 @@ class MovieDetailState extends Equatable {
 
   final String message;
   final RequestState movieDetailState;
-  final MovieDetail? movieDetail;
+  late MovieDetail? movieDetail;
   final RequestState movieRecommendationsState;
   final List<Movie> movieRecommendations;
   final bool isAddedtoWatchlist;
   final String watchlistMessage;
 
-  @immutable
   MovieDetailState({
     this.message = '',
     this.movieDetailState = RequestState.Empty,

@@ -5,6 +5,7 @@ import 'package:core/data/models/movie_response.dart';
 import 'package:core/helper/ssl_pinning.dart';
 import 'package:core/utils/exception.dart';
 import 'package:http/http.dart' as http;
+import 'package:ssl_pinning_plugin/ssl_pinning_plugin.dart';
 
 abstract class MovieRemoteDataSource {
   Future<List<MovieModel>> getNowPlayingMovies();
@@ -26,7 +27,7 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
 
   @override
   Future<List<MovieModel>> getNowPlayingMovies() async {
-    bool isSecure = await _isSecure('$BASE_URL/movie/now_playing?$API_KEY');
+    bool isSecure = await _isSecure('$BASE_URL/movie/now_playing?$API_KEY', HttpMethod.Get);
     if (isSecure) {
       final response = await client.get(
           Uri.parse('$BASE_URL/movie/now_playing?$API_KEY'));
@@ -111,8 +112,8 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
     }
   }
 
-  Future<bool> _isSecure(String url) async {
-    return await sslPinningHelper.isSecure(url);
+  Future<bool> _isSecure(String url, HttpMethod httpMethod) async {
+    return await sslPinningHelper.isSecure(url, httpMethod);
   }
 
 }

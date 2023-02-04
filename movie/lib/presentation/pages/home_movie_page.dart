@@ -44,16 +44,18 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
     final locator = GetIt.instance;
     return Scaffold(
       drawer: Drawer(
+        key: Key('home_drawer'),
         child: Column(
           children: [
             UserAccountsDrawerHeader(
-              currentAccountPicture: CircleAvatar(
-                backgroundImage: AssetImage('assets/circle-g.png'),
-              ),
+              // currentAccountPicture: CircleAvatar(
+              //   backgroundImage: AssetImage('assets/circle-g.png'),
+              // ),
               accountName: Text('Ditonton'),
               accountEmail: Text('ditonton@dicoding.com'),
             ),
             ListTile(
+              key: Key('movie_drawer_list_title'),
               leading: Icon(Icons.movie),
               title: Text('Movies'),
               onTap: () {
@@ -61,6 +63,7 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
               },
             ),
             ListTile(
+              key: Key('tv_drawer_list_title'),
               leading: Icon(Icons.tv),
               title: Text('TV Shows'),
               onTap: () {
@@ -68,6 +71,7 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
               },
             ),
             ListTile(
+              key: Key('watchlist_drawer_list_title'),
               leading: Icon(Icons.save_alt),
               title: Text('Watchlist'),
               onTap: () {
@@ -75,6 +79,7 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
               },
             ),
             ListTile(
+              key: Key('about_drawer_list_title'),
               onTap: () {
                 Navigator.pushNamed(context, ABOUT_ROUTE);
               },
@@ -110,10 +115,14 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
                     final nowPlayingState = state.nowPlayingState;
                     if (nowPlayingState == RequestState.Loading) {
                       return Center(
+                        key: Key('now_playing_progress_indicator'),
                         child: CircularProgressIndicator(),
                       );
                     } else if (nowPlayingState == RequestState.Loaded) {
-                      return MovieList(state.nowPlayingMovies);
+                      return MovieList(
+                          Key('now_playing_movies'),
+                          state.nowPlayingMovies
+                      );
                     } else {
                       return Text('Failed');
                     }
@@ -141,10 +150,14 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
                     final popularMoviesState = state.popularMoviesState;
                     if (popularMoviesState == RequestState.Loading) {
                       return Center(
+                        key: Key('popular_progress_indicator'),
                         child: CircularProgressIndicator(),
                       );
                     } else if (popularMoviesState == RequestState.Loaded) {
-                      return MovieList(state.popularMovies);
+                      return MovieList(
+                          Key('popular_movies'),
+                          state.popularMovies
+                      );
                     } else {
                       return Text('Failed');
                     }
@@ -172,10 +185,14 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
                     final topRatedMoviesState = state.topRatedMoviesState;
                     if (topRatedMoviesState == RequestState.Loading) {
                       return Center(
+                        key: Key('top_rated_progress_indicator'),
                         child: CircularProgressIndicator(),
                       );
                     } else if (topRatedMoviesState == RequestState.Loaded) {
-                      return MovieList(state.topRatedMovies);
+                      return MovieList(
+                          Key('top_rated_movies'),
+                          state.topRatedMovies
+                      );
                     } else {
                       return Text('Failed');
                     }
@@ -223,9 +240,10 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
 }
 
 class MovieList extends StatelessWidget {
+  final Key key;
   final List<Movie> movies;
 
-  MovieList(this.movies);
+  MovieList(this.key, this.movies);
 
   @override
   Widget build(BuildContext context) {

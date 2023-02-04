@@ -7,6 +7,7 @@ import 'package:core/utils/exception.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
+import 'package:ssl_pinning_plugin/ssl_pinning_plugin.dart';
 
 import '../../json_reader.dart';
 import '../../helpers/test_helper.mocks.dart';
@@ -37,7 +38,7 @@ void main() {
         () async {
       // arrange
       String url = '$BASE_URL/movie/now_playing?$API_KEY';
-      when(mockSslPinningHelper.isSecure(url)).thenAnswer((_) async => true);
+      when(mockSslPinningHelper.isSecure(url, HttpMethod.Get)).thenAnswer((_) async => true);
       when(mockHttpClient
               .get(Uri.parse('$BASE_URL/movie/now_playing?$API_KEY')))
           .thenAnswer((_) async =>
@@ -52,7 +53,7 @@ void main() {
             () async {
           // arrange
           String url = '$BASE_URL/movie/now_playing?$API_KEY';
-          when(mockSslPinningHelper.isSecure(url)).thenAnswer((_) async => false);
+          when(mockSslPinningHelper.isSecure(url, HttpMethod.Get)).thenAnswer((_) async => false);
           when(mockHttpClient
               .get(Uri.parse('$BASE_URL/movie/now_playing?$API_KEY')))
               .thenAnswer((_) async =>
@@ -68,7 +69,7 @@ void main() {
         () async {
       // arrange
       String url = '$BASE_URL/movie/now_playing?$API_KEY';
-      when(mockSslPinningHelper.isSecure(url)).thenAnswer((_) async => true);
+      when(mockSslPinningHelper.isSecure(url, HttpMethod.Get)).thenAnswer((_) async => true);
       when(mockHttpClient
               .get(Uri.parse(url)))
           .thenAnswer((_) async => http.Response('Not Found', 404));

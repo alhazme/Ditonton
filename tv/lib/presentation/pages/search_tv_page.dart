@@ -42,11 +42,11 @@ class SearchTVPage extends StatelessWidget {
             ),
             BlocBuilder<TVSearchCubit, TVSearchState>(
               builder: (context, state) {
-                if (state == RequestState.Loading) {
+                if (state.state == RequestState.Loading) {
                   return Center(
                     child: CircularProgressIndicator(),
                   );
-                } else if (state == RequestState.Loaded) {
+                } else if (state.state == RequestState.Loaded) {
                   final result = state.searchResult;
                   return Expanded(
                     child: ListView.builder(

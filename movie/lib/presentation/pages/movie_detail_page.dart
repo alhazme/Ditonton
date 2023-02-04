@@ -139,6 +139,7 @@ class DetailContent extends StatelessWidget {
                               style: kHeading5,
                             ),
                             ElevatedButton(
+                              key: Key('watchlist_button'),
                               onPressed: () async {
                                 if (!isAddedWatchlist) {
                                   await context.read<MovieDetailCubit>().addWatchlist(movie);
@@ -238,47 +239,7 @@ class DetailContent extends StatelessWidget {
                               'Recommendations',
                               style: kHeading6,
                             ),
-                            Container(
-                              key: Key('movie_recommendations_loaded'),
-                              height: 150,
-                              child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, index) {
-                                  final movie = recommendations[index];
-                                  return Padding(
-                                    padding: const EdgeInsets.all(4.0),
-                                    child: InkWell(
-                                      onTap: () {
-                                        Navigator.pushReplacementNamed(
-                                          context,
-                                          MovieDetailPage.ROUTE_NAME,
-                                          arguments: movie.id,
-                                        );
-                                      },
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(8),
-                                        ),
-                                        child: CachedNetworkImage(
-                                          key: Key('movie_recommendations_loaded_image'),
-                                          imageUrl:
-                                          'https://image.tmdb.org/t/p/w500${movie.posterPath}',
-                                          placeholder: (context, url) =>
-                                              Center(
-                                                child:
-                                                CircularProgressIndicator(),
-                                              ),
-                                          errorWidget:
-                                              (context, url, error) =>
-                                              Icon(Icons.error),
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                },
-                                itemCount: recommendations.length,
-                              ),
-                            )
+                            _recommendationMoviesWidget(recommendations)
                             // Consumer<MovieDetailNotifier>(
                             //   builder: (context, data, child) {
                             //     if (data.recommendationState ==
@@ -377,6 +338,60 @@ class DetailContent extends StatelessWidget {
         )
       ],
     );
+  }
+
+  Widget _recommendationMoviesWidget(List<Movie> recommendations) {
+    if (!recommendations.isEmpty) {
+      return
+        Container(
+          key: Key('movie_recommendations_loaded'),
+          height: 150,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index) {
+              final movie = recommendations[index];
+              return Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: InkWell(
+                  onTap: () {
+                    Navigator.pushReplacementNamed(
+                      context,
+                      MovieDetailPage.ROUTE_NAME,
+                      arguments: movie.id,
+                    );
+                  },
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(8),
+                    ),
+                    child: CachedNetworkImage(
+                      key: Key('movie_recommendations_loaded_image'),
+                      imageUrl:
+                      'https://image.tmdb.org/t/p/w500${movie.posterPath}',
+                      placeholder: (context, url) =>
+                          Center(
+                            child:
+                            CircularProgressIndicator(),
+                          ),
+                      errorWidget:
+                          (context, url, error) =>
+                          Icon(Icons.error),
+                    ),
+                  ),
+                ),
+              );
+            },
+            itemCount: recommendations.length,
+          ),
+        )
+      ;
+    } else {
+      return
+        Container(
+          key: Key('movie_recommendations_empty'),
+        )
+      ;
+    }
   }
 
   String _showGenres(List<Genre> genres) {

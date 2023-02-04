@@ -5,6 +5,7 @@ import 'package:core/data/models/tv_detail_response.dart';
 import 'package:core/data/models/tv_model.dart';
 import 'package:core/data/models/tv_response.dart';
 import 'package:core/helper/ssl_pinning.dart';
+import 'package:ssl_pinning_plugin/ssl_pinning_plugin.dart';
 
 abstract class TVRemoteDataSource {
   Future<List<TVModel>> getNowPlayingTVs();
@@ -26,7 +27,7 @@ class TVRemoteDataSourceImpl implements TVRemoteDataSource {
 
   @override
   Future<List<TVModel>> getNowPlayingTVs() async {
-    bool isSecure = await _isSecure('$BASE_URL/tv/on_the_air?$API_KEY');
+    bool isSecure = await _isSecure('$BASE_URL/tv/on_the_air?$API_KEY', HttpMethod.Get);
     if (isSecure) {
       final response = await client.get(
           Uri.parse('$BASE_URL/tv/on_the_air?$API_KEY'));
@@ -111,8 +112,8 @@ class TVRemoteDataSourceImpl implements TVRemoteDataSource {
     }
   }
 
-  Future<bool> _isSecure(String url) async {
-    return await sslPinningHelper.isSecure(url);
+  Future<bool> _isSecure(String url, HttpMethod httpMethod) async {
+    return await sslPinningHelper.isSecure(url, httpMethod);
   }
 
 }
