@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:core/data/datasources/db/database_helper.dart';
 import 'package:core/data/datasources/movie_remote_data_source.dart';
 import 'package:core/data/datasources/tv_remote_data_source.dart';
@@ -8,7 +10,8 @@ import 'package:core/data/repositories/watchlist_repository_impl.dart';
 import 'package:core/domain/repositories/movie_repository.dart';
 import 'package:core/domain/repositories/tv_repository.dart';
 import 'package:core/domain/repositories/watchlist_repository.dart';
-import 'package:core/helper/ssl_pinning.dart';
+import 'package:flutter/services.dart';
+import 'package:http/io_client.dart';
 import 'package:movie/domain/usecases/get_movie_detail.dart';
 import 'package:movie/domain/usecases/get_movie_recommendations.dart';
 import 'package:movie/domain/usecases/get_now_playing_movies.dart';
@@ -48,12 +51,11 @@ import 'package:tv/presentation/provider/tv_list_notifier.dart';
 import 'package:tv/presentation/provider/tv_search_notifier.dart';
 import 'package:watchlist/presentation/bloc/watchlist_cubit.dart';
 import 'package:watchlist/presentation/provider/watchlist_notifier.dart';
-import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
 
 final locator = GetIt.instance;
 
-void init() {
+Future<void> init() async {
   // bloc
   locator.registerFactory(
     () => MovieHomeCubit(
@@ -233,17 +235,31 @@ void init() {
   );
 
   // data sources
-  locator.registerLazySingleton<MovieRemoteDataSource>(
-      () => MovieRemoteDataSourceImpl(client: locator(), sslPinningHelper: locator()));
+  // locator.registerLazySingleton<MovieRemoteDataSource>(
+  //     () => MovieRemoteDataSourceImpl(client: locator(), sslPinningHelper: locator()));
+  // locator.registerLazySingleton<TVRemoteDataSource>(
+  //     () => TVRemoteDataSourceImpl(client: locator(), sslPinningHelper: locator()));
+	locator.registerLazySingleton<MovieRemoteDataSource>(
+      () => MovieRemoteDataSourceImpl(ioClient: locator()));
   locator.registerLazySingleton<TVRemoteDataSource>(
-      () => TVRemoteDataSourceImpl(client: locator(), sslPinningHelper: locator()));
+      () => TVRemoteDataSourceImpl(ioClient: locator()));
   locator.registerLazySingleton<WatchlistLocalDataSource>(
       () => WatchlistLocalDataSourceImpl(databaseHelper: locator()));
 
   // helper
   locator.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper());
-  locator.registerLazySingleton<SslPinningHelper>(() => SslPinningHelper());
+  // locator.registerLazySingleton<SslPinningHelper>(() => SslPinningHelper());
 
   // external
-  locator.registerLazySingleton(() => http.Client());
+	HttpClient client = HttpClient(context: await globalContext);
+	client.badCertificateCallback = (X509Certificate cert, String host, int port) => false;
+  IOClient ioClient = IOClient(client);
+  locator.registerLazySingleton(() => ioClient);
+}
+
+Future<SecurityContext> get globalContext async {
+  final sslCert = await rootBundle.load('certificates/certificates.pem');
+  SecurityContext securityContext = SecurityContext(withTrustedRoots: false);
+  securityContext.setTrustedCertificatesBytes(sslCert.buffer.asInt8List());
+  return securityContext;
 }

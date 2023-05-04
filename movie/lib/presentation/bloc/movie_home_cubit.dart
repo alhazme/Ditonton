@@ -17,7 +17,7 @@ class MovieHomeCubit extends Cubit<MovieHomeState> {
     required this.getPopularMovies,
     required this.getTopRatedMovies,
   }) : super(
-      MovieHomeState(
+      const MovieHomeState(
           message: "",
           nowPlayingState: RequestState.Empty,
           nowPlayingMovies: <Movie>[],
@@ -27,6 +27,12 @@ class MovieHomeCubit extends Cubit<MovieHomeState> {
           topRatedMovies: <Movie>[]
       )
   );
+
+	Future<void> fetchData() async {
+		await fetchNowPlayingMovies();
+		await fetchPopularMovies();
+		await fetchTopRatedMovies();
+	}
 
   Future<void> fetchNowPlayingMovies() async {
     emit(
