@@ -1,267 +1,486 @@
-/*
+import 'package:bloc_test/bloc_test.dart';
+import 'package:core/core.dart';
 import 'package:core/domain/entities/tv.dart';
-import 'package:tv/presentation/pages/tv_detail_page.dart';
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
-import 'package:provider/provider.dart';
-import 'package:tv/presentation/provider/tv_detail_notifier.dart';
-import 'package:core/utils/state_enum.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:tv/presentation/bloc/tv_detail_cubit.dart';
+import 'package:tv/presentation/bloc/tv_detail_state.dart';
+import 'package:tv/presentation/pages/tv_detail_page.dart';
+import 'dart:ui' as ui;
 
-import '../../../../core/test/dummy_data/dummy_objects.dart';
-import '../../../../tv/test/presentation/pages/tv_detail_page_test.mocks.dart';
+import '../../dummy_data/dummy_objects.dart';
 
-@GenerateMocks([TVDetailNotifier])
+class MockedTVDetailCubit extends MockCubit<TVDetailState> implements TVDetailCubit {}
+
 void main() {
-  late MockTVDetailNotifier mockNotifier;
+	late TVDetailCubit tvDetailCubit;
 
-  setUp(() {
-    mockNotifier = MockTVDetailNotifier();
-  });
+	setUp(() {
+		tvDetailCubit = MockedTVDetailCubit();
+	});
 
   Widget _makeTestableWidget(Widget body) {
-    return ChangeNotifierProvider<TVDetailNotifier>.value(
-      value: mockNotifier,
-      child: MaterialApp(
-        home: body,
+    return BlocProvider<TVDetailCubit>(
+      create: (_) => tvDetailCubit,
+      child: MediaQuery(
+        data: MediaQueryData.fromWindow(ui.window),
+        child: Directionality(
+          textDirection: TextDirection.ltr,
+          child: MaterialApp(
+						home: body,
+					),
+        ),
       ),
     );
-  }
+	}
 
-  // TV
+	group('TVDetailPageTest', () {
+		testWidgets('show CircularProgressIndicator when tvs still loading from server', (WidgetTester tester) async {
 
-  testWidgets(
-      'show CircularProgressIndicator when tvs still loading from server',
+			// Arrange
+			const tvId = 1;
+			when(() => tvDetailCubit.fetchTVDetail(tvId))
+				.thenAnswer((_) async => Left(ServerFailure('failed fetchTVDetail')));
+			when(() => tvDetailCubit.loadWatchlistStatus(tvId))
+				.thenAnswer((_) async => Left(ServerFailure('failed loadWatchlistStatus')));
+			final mockedState = TVDetailState(
+        message: '',
+        tvDetailState: RequestState.Loading,
+        tvDetail: mockedTVDetail,
+        tvRecommendationsState: RequestState.Empty,
+        tvRecommendations: const <TV>[],
+        isAddedtoWatchlist: false,
+        watchlistMessage: ''
+			);
+			when(() => tvDetailCubit.state).thenReturn(mockedState);
+
+			// Act
+			await tester.pumpWidget(
+				_makeTestableWidget(
+					const TVDetailPage(id: 1)
+				),
+				const Duration(seconds: 3)
+			);
+
+			// Expect
+			expect(find.byType(CircularProgressIndicator), findsOneWidget);
+		});
+		testWidgets('should display error text when failed to retrieve tv data', (WidgetTester tester) async {
+
+			// Arrange
+			const tvId = 1;
+			const message = 'failed fetchTVDetail';
+			when(() => tvDetailCubit.fetchTVDetail(tvId))
+				.thenAnswer((_) async => Left(ServerFailure(message)));
+			when(() => tvDetailCubit.loadWatchlistStatus(tvId))
+				.thenAnswer((_) async => Left(ServerFailure('failed loadWatchlistStatus')));
+			final mockedState = TVDetailState(
+        message: message,
+        tvDetailState: RequestState.Error,
+        tvDetail: mockedTVDetail,
+        tvRecommendationsState: RequestState.Error,
+        tvRecommendations: const <TV>[],
+        isAddedtoWatchlist: false,
+        watchlistMessage: ''
+			);
+			when(() => tvDetailCubit.state).thenReturn(mockedState);
+
+			// Act
+			await tester.pumpWidget(
+				_makeTestableWidget(
+					const TVDetailPage(id: 1)
+				),
+				const Duration(seconds: 3)
+			);
+
+			// Expect
+			expect(find.text(message), findsOneWidget);
+		});
+		testWidgets('should display container when empty retrieve tv data', (WidgetTester tester) async {
+
+			// Arrange
+			const tvId = 1;
+			const message = 'failed';
+			when(() => tvDetailCubit.fetchTVDetail(tvId))
+				.thenAnswer((_) async => Left(ServerFailure(message)));
+			when(() => tvDetailCubit.loadWatchlistStatus(tvId))
+				.thenAnswer((_) async => Left(ServerFailure('failed loadWatchlistStatus')));
+			final mockedState = TVDetailState(
+        message: message,
+        tvDetailState: RequestState.Empty,
+        tvDetail: null,
+        tvRecommendationsState: RequestState.Error,
+        tvRecommendations: const <TV>[],
+        isAddedtoWatchlist: false,
+        watchlistMessage: ''
+			);
+			when(() => tvDetailCubit.state).thenReturn(mockedState);
+
+			// Act
+			await tester.pumpWidget(
+				_makeTestableWidget(
+					const TVDetailPage(id: 1)
+				),
+				const Duration(seconds: 3)
+			);
+
+			// Expect
+			expect(find.byType(Container), findsOneWidget);
+		});
+
+		testWidgets('Watchlist button should display add icon when tv not added to watchlist', (WidgetTester tester) async {
+
+			// Arrange
+			const tvId = 1;
+			when(() => tvDetailCubit.fetchTVDetail(tvId))
+				.thenAnswer((_) async => const Right(true));
+			when(() => tvDetailCubit.loadWatchlistStatus(tvId))
+				.thenAnswer((_) async => const Right(true));
+			final mockedState = TVDetailState(
+        message: '',
+        tvDetailState: RequestState.Loaded,
+        tvDetail: mockedTVDetail,
+        tvRecommendationsState: RequestState.Loaded,
+        tvRecommendations: const <TV>[],
+        isAddedtoWatchlist: false,
+        watchlistMessage: ''
+			);
+			when(() => tvDetailCubit.state).thenReturn(mockedState);
+
+			// Act
+			await tester.pumpWidget(
+				_makeTestableWidget(
+					const TVDetailPage(id: 1)
+				),
+			);
+
+			// Expect
+			expect(find.byIcon(Icons.add), findsOneWidget);
+		});
+
+		testWidgets('Watchlist button should display snackbar added to watchlist', (WidgetTester tester) async {
+
+			// Arrange
+			const tvId = 1;
+			when(() => tvDetailCubit.fetchTVDetail(tvId))
+				.thenAnswer((_) async => const Right(true));
+			when(() => tvDetailCubit.loadWatchlistStatus(tvId))
+				.thenAnswer((_) async => const Right(true));
+			when(() => tvDetailCubit.addWatchlist(mockedTVDetail))
+				.thenAnswer((_) async => const Right(TVDetailCubit.watchlistAddSuccessMessage));
+			final mockedState = TVDetailState(
+        message: '',
+        tvDetailState: RequestState.Loaded,
+        tvDetail: mockedTVDetail,
+        tvRecommendationsState: RequestState.Loaded,
+        tvRecommendations: const <TV>[],
+        isAddedtoWatchlist: false,
+        watchlistMessage: ''
+			);
+
+			whenListen(
+				tvDetailCubit,
+				Stream.fromIterable([
+					mockedState.copyWith(
+						isAddedtoWatchlist: false,
+						watchlistMessage: '',
+					),
+					mockedState.copyWith(
+						isAddedtoWatchlist: true,
+						watchlistMessage: TVDetailCubit.watchlistAddSuccessMessage,
+					),
+				]),
+				initialState: mockedState,
+			);
+
+			// Act
+			await tester.pumpWidget(
+				_makeTestableWidget(
+					const TVDetailPage(id: 1)
+				),
+			);
+			await tester.tap(find.byType(ElevatedButton));
+    	await tester.pump();
+
+			// Expect
+			verify(() => tvDetailCubit.addWatchlist(mockedTVDetail)).called(1);
+			expect(find.byType(SnackBar), findsOneWidget);
+			expect(find.text(TVDetailCubit.watchlistAddSuccessMessage), findsOneWidget);
+		});
+
+		testWidgets('Watchlist button should display check icon when tv is added on watchlist', (WidgetTester tester) async {
+
+			// Arrange
+			const tvId = 1;
+			when(() => tvDetailCubit.fetchTVDetail(tvId))
+				.thenAnswer((_) async => const Right(true));
+			when(() => tvDetailCubit.loadWatchlistStatus(tvId))
+				.thenAnswer((_) async => const Right(true));
+			final mockedState = TVDetailState(
+        message: '',
+        tvDetailState: RequestState.Loaded,
+        tvDetail: mockedTVDetail,
+        tvRecommendationsState: RequestState.Loaded,
+        tvRecommendations: const <TV>[],
+        isAddedtoWatchlist: true,
+        watchlistMessage: ''
+			);
+			when(() => tvDetailCubit.state).thenReturn(mockedState);
+
+			// Act
+			await tester.pumpWidget(
+				_makeTestableWidget(
+					const TVDetailPage(id: 1)
+				),
+			);
+
+			// Expect
+			expect(find.byIcon(Icons.check), findsOneWidget);
+		});
+
+		testWidgets('Watchlist button should display snackbar remove from watchlist', (WidgetTester tester) async {
+
+			// Arrange
+			const tvId = 1;
+			when(() => tvDetailCubit.fetchTVDetail(tvId))
+				.thenAnswer((_) async => const Right(true));
+			when(() => tvDetailCubit.loadWatchlistStatus(tvId))
+				.thenAnswer((_) async => const Right(true));
+			when(() => tvDetailCubit.removeFromWatchlist(tvId))
+				.thenAnswer((_) async => const Right(TVDetailCubit.watchlistRemoveSuccessMessage));
+
+			final mockedState = TVDetailState(
+        message: '',
+        tvDetailState: RequestState.Loaded,
+        tvDetail: mockedTVDetail,
+        tvRecommendationsState: RequestState.Loaded,
+        tvRecommendations: const <TV>[],
+        isAddedtoWatchlist: true,
+        watchlistMessage: ''
+			);
+
+			whenListen(
+				tvDetailCubit,
+				Stream.fromIterable([
+					mockedState.copyWith(
+						isAddedtoWatchlist: true,
+						watchlistMessage: '',
+					),
+					mockedState.copyWith(
+						isAddedtoWatchlist: false,
+						watchlistMessage: TVDetailCubit.watchlistRemoveSuccessMessage,
+					),
+				]),
+				initialState: mockedState,
+			);
+
+			// Act
+			await tester.pumpWidget(
+				_makeTestableWidget(
+					const TVDetailPage(id: 1)
+				),
+			);
+			await tester.tap(find.byType(ElevatedButton));
+    	await tester.pump();
+
+			// Expect
+			verify(() => tvDetailCubit.removeFromWatchlist(tvId)).called(1);
+			expect(find.byType(SnackBar), findsOneWidget);
+			expect(find.text(TVDetailCubit.watchlistRemoveSuccessMessage), findsOneWidget);
+		});
+
+		testWidgets('Watchlist button should display AlertDialog if add from watchlist is failed', (WidgetTester tester) async {
+
+			// Arrange
+			const tvId = 1;
+			const message = 'Failed';
+			when(() => tvDetailCubit.fetchTVDetail(tvId))
+				.thenAnswer((_) async => const Right(true));
+			when(() => tvDetailCubit.loadWatchlistStatus(tvId))
+				.thenAnswer((_) async => const Right(true));
+			final mockedState = TVDetailState(
+        message: '',
+        tvDetailState: RequestState.Loaded,
+        tvDetail: mockedTVDetail,
+        tvRecommendationsState: RequestState.Loaded,
+        tvRecommendations: const <TV>[],
+        isAddedtoWatchlist: false,
+        watchlistMessage: ''
+			);
+
+			whenListen(
+				tvDetailCubit,
+				Stream.fromIterable([
+					mockedState.copyWith(
+						isAddedtoWatchlist: false,
+					),
+					mockedState.copyWith(
+						isAddedtoWatchlist: false,
+						watchlistMessage: message,
+					),
+				]),
+				initialState: mockedState,
+			);
+
+			// Act
+			await tester.pumpWidget(
+				_makeTestableWidget(
+					const TVDetailPage(id: 1)
+				),
+			);
+			expect(find.byType(AlertDialog), findsNothing);
+			expect(find.text(message), findsNothing);
+
+			await tester.tap(find.byType(ElevatedButton));
+    	await tester.pump();
+
+			// Expect
+			expect(find.byType(AlertDialog), findsOneWidget);
+			expect(find.text(message), findsOneWidget);
+		});
+
+		testWidgets('Watchlist button should display AlertDialog if remove from watchlist is failed', (WidgetTester tester) async {
+
+			// Arrange
+			const tvId = 1;
+			const message = 'Failed';
+			when(() => tvDetailCubit.fetchTVDetail(tvId))
+				.thenAnswer((_) async => const Right(true));
+			when(() => tvDetailCubit.loadWatchlistStatus(tvId))
+				.thenAnswer((_) async => const Right(true));
+			final mockedState = TVDetailState(
+        message: '',
+        tvDetailState: RequestState.Loaded,
+        tvDetail: mockedTVDetail,
+        tvRecommendationsState: RequestState.Loaded,
+        tvRecommendations: const <TV>[],
+        isAddedtoWatchlist: true,
+        watchlistMessage: ''
+			);
+
+			whenListen(
+				tvDetailCubit,
+				Stream.fromIterable([
+					mockedState.copyWith(
+						isAddedtoWatchlist: true,
+					),
+					mockedState.copyWith(
+						isAddedtoWatchlist: true,
+						watchlistMessage: message,
+					),
+				]),
+				initialState: mockedState,
+			);
+
+			// Act
+			await tester.pumpWidget(
+				_makeTestableWidget(
+					const TVDetailPage(id: 1)
+				),
+			);
+			expect(find.byType(AlertDialog), findsNothing);
+			expect(find.text(message), findsNothing);
+
+			await tester.tap(find.byType(ElevatedButton));
+    	await tester.pump();
+
+			// Expect
+			expect(find.byType(AlertDialog), findsOneWidget);
+			expect(find.text(message), findsOneWidget);
+		});
+
+		// Recommendation
+		
+		testWidgets(
+      'show CircularProgressIndicator when tv recommendations still loading from server',
           (WidgetTester tester) async {
-        when(mockNotifier.tvState).thenReturn(RequestState.Loading);
-        when(mockNotifier.tv).thenReturn(mockedTVDetail);
-        when(mockNotifier.recommendationState).thenReturn(RequestState.Loading);
-        when(mockNotifier.tvRecommendations).thenReturn(<TV>[]);
-        when(mockNotifier.isAddedToWatchlist).thenReturn(false);
+				// Arrange
+				const tvId = 1;
+				when(() => tvDetailCubit.fetchTVDetail(tvId))
+					.thenAnswer((_) async => const Right(true));
+				when(() => tvDetailCubit.loadWatchlistStatus(tvId))
+					.thenAnswer((_) async => const Right(true));
+			final mockedState = TVDetailState(
+        message: '',
+        tvDetailState: RequestState.Loaded,
+        tvDetail: mockedTVDetail,
+        tvRecommendationsState: RequestState.Loaded,
+        tvRecommendations: const <TV>[],
+        isAddedtoWatchlist: false,
+        watchlistMessage: ''
+			);
+				when(() => tvDetailCubit.state).thenReturn(mockedState);
 
+				// Act
         await tester.pumpWidget(
-            _makeTestableWidget(TVDetailPage(id: 1)),
-            Duration(seconds: 3)
+            _makeTestableWidget(const TVDetailPage(id: 1)),
         );
 
+				// Expect
         expect(find.byType(CircularProgressIndicator), findsOneWidget);
       });
 
-  testWidgets(
-      'should display error text when failed to retrieve tv data',
-          (WidgetTester tester) async {
-        when(mockNotifier.tvState).thenReturn(RequestState.Error);
-        when(mockNotifier.tv).thenReturn(mockedTVDetail);
-        when(mockNotifier.recommendationState).thenReturn(RequestState.Error);
-        when(mockNotifier.tvRecommendations).thenReturn(<TV>[]);
-        when(mockNotifier.isAddedToWatchlist).thenReturn(false);
-        when(mockNotifier.message).thenReturn('Failed');
+  	testWidgets('should display empty container when empty to retrieve tv recommendations data', (WidgetTester tester) async {
+			// Rearrange
+			const tvId = 1;
+			when(() => tvDetailCubit.fetchTVDetail(tvId))
+				.thenAnswer((_) async => const Right(true));
+			when(() => tvDetailCubit.loadWatchlistStatus(tvId))
+				.thenAnswer((_) async => const Right(true));
+			final mockedState = TVDetailState(
+        message: 'Failed',
+        tvDetailState: RequestState.Loaded,
+        tvDetail: mockedTVDetail,
+        tvRecommendationsState: RequestState.Error,
+        tvRecommendations: const <TV>[],
+        isAddedtoWatchlist: false,
+        watchlistMessage: ''
+			);
+			when(() => tvDetailCubit.state).thenReturn(mockedState);
 
-        await tester.pumpWidget(
-            _makeTestableWidget(TVDetailPage(id: 1)),
-            Duration(seconds: 3)
-        );
+			// Act
+			await tester.pumpWidget(
+					_makeTestableWidget(const TVDetailPage(id: 1)),
+					const Duration(seconds: 3)
+			);
 
-        expect(find.text('Failed'), findsOneWidget);
-      });
+			// Expect
+			final recommendationsContainer = find.byKey(const Key('tv_recommendations_empty'));
+			expect(recommendationsContainer, findsOneWidget);
+		});
 
-  testWidgets(
-      'Watchlist button should display add icon when tv not added to watchlist',
-          (WidgetTester tester) async {
-        when(mockNotifier.tvState).thenReturn(RequestState.Loaded);
-        when(mockNotifier.tv).thenReturn(mockedTVDetail);
-        when(mockNotifier.recommendationState).thenReturn(RequestState.Loaded);
-        when(mockNotifier.tvRecommendations).thenReturn(<TV>[]);
-        when(mockNotifier.isAddedToWatchlist).thenReturn(false);
+  	testWidgets('should display loaded container when success to retrieve tv recommendations data', (WidgetTester tester) async {
+			// Rearrange
+			const tvId = 1;
+			when(() => tvDetailCubit.fetchTVDetail(tvId))
+				.thenAnswer((_) async => const Right(true));
+			when(() => tvDetailCubit.loadWatchlistStatus(tvId))
+				.thenAnswer((_) async => const Right(true));
+			final mockedState = TVDetailState(
+        message: 'Success',
+        tvDetailState: RequestState.Loaded,
+        tvDetail: mockedTVDetail,
+        tvRecommendationsState: RequestState.Loaded,
+        tvRecommendations: <TV>[mockedTV],
+        isAddedtoWatchlist: false,
+        watchlistMessage: ''
+			);
+			when(() => tvDetailCubit.state).thenReturn(mockedState);
 
-        final watchlistButtonIcon = find.byIcon(Icons.add);
+			// Act
+			await tester.pumpWidget(
+					_makeTestableWidget(const TVDetailPage(id: 1)),
+					const Duration(seconds: 3)
+			);
 
-        await tester.pumpWidget(_makeTestableWidget(TVDetailPage(id: 1)));
+			// Expect
+			final recommendationsContainer = find.byKey(const Key('tv_recommendations_loaded'));
+			expect(recommendationsContainer, findsOneWidget);
+		});
 
-        expect(watchlistButtonIcon, findsOneWidget);
-      });
+	});
 
-  testWidgets(
-      'Watchlist button should display check icon when tv is added to wathclist',
-          (WidgetTester tester) async {
-        when(mockNotifier.tvState).thenReturn(RequestState.Loaded);
-        when(mockNotifier.tv).thenReturn(mockedTVDetail);
-        when(mockNotifier.recommendationState).thenReturn(RequestState.Loaded);
-        when(mockNotifier.tvRecommendations).thenReturn(<TV>[]);
-        when(mockNotifier.isAddedToWatchlist).thenReturn(true);
-
-        final watchlistButtonIcon = find.byIcon(Icons.check);
-
-        await tester.pumpWidget(_makeTestableWidget(TVDetailPage(id: 1)));
-
-        expect(watchlistButtonIcon, findsOneWidget);
-      });
-
-  testWidgets(
-      'Watchlist button should display Snackbar when added to watchlist',
-          (WidgetTester tester) async {
-        when(mockNotifier.tvState).thenReturn(RequestState.Loaded);
-        when(mockNotifier.tv).thenReturn(mockedTVDetail);
-        when(mockNotifier.recommendationState).thenReturn(RequestState.Loaded);
-        when(mockNotifier.tvRecommendations).thenReturn(<TV>[]);
-        when(mockNotifier.isAddedToWatchlist).thenReturn(false);
-        when(mockNotifier.watchlistMessage).thenReturn('Added to Watchlist');
-
-        final watchlistButton = find.byType(ElevatedButton);
-
-        await tester.pumpWidget(_makeTestableWidget(TVDetailPage(id: 1)));
-
-        expect(find.byIcon(Icons.add), findsOneWidget);
-
-        await tester.tap(watchlistButton);
-        await tester.pump();
-
-        expect(find.byType(SnackBar), findsOneWidget);
-        expect(find.text('Added to Watchlist'), findsOneWidget);
-      });
-
-  testWidgets(
-      'Watchlist button should display AlertDialog when add to watchlist failed',
-          (WidgetTester tester) async {
-        when(mockNotifier.tvState).thenReturn(RequestState.Loaded);
-        when(mockNotifier.tv).thenReturn(mockedTVDetail);
-        when(mockNotifier.recommendationState).thenReturn(RequestState.Loaded);
-        when(mockNotifier.tvRecommendations).thenReturn(<TV>[]);
-        when(mockNotifier.isAddedToWatchlist).thenReturn(false);
-        when(mockNotifier.watchlistMessage).thenReturn('Failed');
-
-        final watchlistButton = find.byType(ElevatedButton);
-
-        await tester.pumpWidget(_makeTestableWidget(TVDetailPage(id: 1)));
-
-        expect(find.byIcon(Icons.add), findsOneWidget);
-
-        await tester.tap(watchlistButton);
-        await tester.pump();
-
-        expect(find.byType(AlertDialog), findsOneWidget);
-        expect(find.text('Failed'), findsOneWidget);
-      });
-
-  testWidgets(
-      'Watchlist button should display Snackbar when removed from watchlist',
-          (WidgetTester tester) async {
-        when(mockNotifier.tvState).thenReturn(RequestState.Loaded);
-        when(mockNotifier.tv).thenReturn(mockedTVDetail);
-        when(mockNotifier.recommendationState).thenReturn(RequestState.Loaded);
-        when(mockNotifier.tvRecommendations).thenReturn(<TV>[]);
-        when(mockNotifier.isAddedToWatchlist).thenReturn(true);
-        when(mockNotifier.watchlistMessage).thenReturn('Removed from Watchlist');
-
-        final watchlistButton = find.byType(ElevatedButton);
-
-        await tester.pumpWidget(_makeTestableWidget(TVDetailPage(id: 1)));
-
-        expect(find.byIcon(Icons.check), findsOneWidget);
-
-        await tester.tap(watchlistButton);
-        await tester.pump();
-
-        expect(find.byType(SnackBar), findsOneWidget);
-        expect(find.text('Removed from Watchlist'), findsOneWidget);
-      });
-
-  testWidgets(
-      'Watchlist button should display AlertDialog when add to watchlist failed',
-          (WidgetTester tester) async {
-        when(mockNotifier.tvState).thenReturn(RequestState.Loaded);
-        when(mockNotifier.tv).thenReturn(mockedTVDetail);
-        when(mockNotifier.recommendationState).thenReturn(RequestState.Loaded);
-        when(mockNotifier.tvRecommendations).thenReturn(<TV>[]);
-        when(mockNotifier.isAddedToWatchlist).thenReturn(true);
-        when(mockNotifier.watchlistMessage).thenReturn('Failed');
-
-        final watchlistButton = find.byType(ElevatedButton);
-
-        await tester.pumpWidget(_makeTestableWidget(TVDetailPage(id: 1)));
-
-        expect(find.byIcon(Icons.check), findsOneWidget);
-
-        await tester.tap(watchlistButton);
-        await tester.pump();
-
-        expect(find.byType(AlertDialog), findsOneWidget);
-        expect(find.text('Failed'), findsOneWidget);
-      });
-
-  // Recommendations
-
-  testWidgets(
-      'show CircularProgressIndicator when tvs still loading from server',
-          (WidgetTester tester) async {
-        when(mockNotifier.tvState).thenReturn(RequestState.Loaded);
-        when(mockNotifier.tv).thenReturn(mockedTVDetail);
-        when(mockNotifier.recommendationState).thenReturn(RequestState.Loading);
-        when(mockNotifier.tvRecommendations).thenReturn(<TV>[]);
-        when(mockNotifier.isAddedToWatchlist).thenReturn(false);
-        const testKey = Key('tv_recommendations_loading');
-
-        await tester.pumpWidget(
-            _makeTestableWidget(TVDetailPage(id: 1)),
-            Duration(seconds: 3)
-        );
-
-        expect(find.byKey(testKey), findsOneWidget);
-      });
-
-  testWidgets(
-      'should display error text when failed to retrieve tv recommendations data',
-          (WidgetTester tester) async {
-        when(mockNotifier.tvState).thenReturn(RequestState.Loaded);
-        when(mockNotifier.tv).thenReturn(mockedTVDetail);
-        when(mockNotifier.recommendationState).thenReturn(RequestState.Error);
-        when(mockNotifier.tvRecommendations).thenReturn(<TV>[]);
-        when(mockNotifier.isAddedToWatchlist).thenReturn(false);
-        when(mockNotifier.message).thenReturn('Failed retrieve tv recommendations');
-
-        await tester.pumpWidget(
-            _makeTestableWidget(TVDetailPage(id: 1)),
-            Duration(seconds: 3)
-        );
-
-        expect(find.text('Failed retrieve tv recommendations'), findsOneWidget);
-      });
-
-  testWidgets(
-      'should display error text when empty to retrieve tv recommendations data',
-          (WidgetTester tester) async {
-        when(mockNotifier.tvState).thenReturn(RequestState.Loaded);
-        when(mockNotifier.tv).thenReturn(mockedTVDetail);
-        when(mockNotifier.recommendationState).thenReturn(RequestState.Empty);
-        when(mockNotifier.tvRecommendations).thenReturn(<TV>[]);
-        when(mockNotifier.isAddedToWatchlist).thenReturn(false);
-        when(mockNotifier.message).thenReturn('Failed');
-        const testKey = Key('tv_recommendations_empty');
-        await tester.pumpWidget(
-            _makeTestableWidget(TVDetailPage(id: 1)),
-            Duration(seconds: 3)
-        );
-
-        expect(find.byKey(testKey), findsOneWidget);
-      });
-
-  testWidgets(
-      'show tvs recommendation when tvs loaded from server',
-          (WidgetTester tester) async {
-        when(mockNotifier.tvState).thenReturn(RequestState.Loaded);
-        when(mockNotifier.tv).thenReturn(mockedTVDetail);
-        when(mockNotifier.recommendationState).thenReturn(RequestState.Loaded);
-        when(mockNotifier.tvRecommendations).thenReturn([mockedTV]);
-        when(mockNotifier.isAddedToWatchlist).thenReturn(false);
-        const testKey = Key('tv_recommendations_loaded_image');
-
-        await tester.pumpWidget(
-            _makeTestableWidget(TVDetailPage(id: 1)),
-            Duration(seconds: 3)
-        );
-
-        expect(find.byKey(testKey), findsOneWidget);
-      });
 }
- */

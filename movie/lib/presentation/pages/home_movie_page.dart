@@ -184,8 +184,8 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
                       );
                     } else if (topRatedMoviesState == RequestState.Loaded) {
                       return MovieList(
-													key: const Key('top_rated_movies'),
-                          movies: state.topRatedMovies
+												key: const Key('top_rated_movies'),
+												movies: state.topRatedMovies
                       );
                     } else {
                       return const Text('Failed');

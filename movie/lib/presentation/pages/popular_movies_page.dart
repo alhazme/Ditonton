@@ -2,10 +2,8 @@ import 'package:core/utils/state_enum.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie/presentation/bloc/movie_popular_cubit.dart';
 import 'package:movie/presentation/bloc/movie_popular_state.dart';
-import 'package:movie/presentation/provider/popular_movies_notifier.dart';
 import 'package:movie/presentation/widget/movie_card.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class PopularMoviesPage extends StatefulWidget {
   static const ROUTE_NAME = '/popular-movie';

@@ -3,19 +3,19 @@ import 'package:core/styles/text_styles.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tv/presentation/bloc/tv_search_cubit.dart';
 import 'package:tv/presentation/bloc/tv_search_state.dart';
-import 'package:tv/presentation/provider/tv_search_notifier.dart';
 import 'package:tv/presentation/widgets/tv_card.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class SearchTVPage extends StatelessWidget {
   static const ROUTE_NAME = '/search-tv';
+
+  const SearchTVPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Search'),
+        title: const Text('Search'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -23,19 +23,20 @@ class SearchTVPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextField(
+              key: const Key('search_textfield'),
               onSubmitted: (query) {
                 context.read<TVSearchCubit>().fetchTVSearch(query);
                 // Provider.of<TVSearchNotifier>(context, listen: false)
                 //     .fetchTVSearch(query);
               },
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Search title',
                 prefixIcon: Icon(Icons.search),
                 border: OutlineInputBorder(),
               ),
               textInputAction: TextInputAction.search,
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Text(
               'Search Result',
               style: kHeading6,
@@ -43,12 +44,13 @@ class SearchTVPage extends StatelessWidget {
             BlocBuilder<TVSearchCubit, TVSearchState>(
               builder: (context, state) {
                 if (state.state == RequestState.Loading) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
                 } else if (state.state == RequestState.Loaded) {
                   final result = state.searchResult;
                   return Expanded(
+                    key: const Key('loaded_container'),
                     child: ListView.builder(
                       padding: const EdgeInsets.all(8),
                       itemBuilder: (context, index) {
@@ -60,6 +62,7 @@ class SearchTVPage extends StatelessWidget {
                   );
                 } else {
                   return Expanded(
+                    key: const Key('error_container'),
                     child: Container(),
                   );
                 }

@@ -40,7 +40,6 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
     return Scaffold(
       body: BlocConsumer<MovieDetailCubit, MovieDetailState>(
 				listener: (context, state) {
-					print("state.watchlistMessage ${state.watchlistMessage}");
 				  if (state.watchlistMessage.isNotEmpty) {
 						if (state.watchlistMessage == MovieDetailCubit.watchlistAddSuccessMessage
 							|| state.watchlistMessage == MovieDetailCubit.watchlistRemoveSuccessMessage
@@ -127,7 +126,7 @@ class DetailContent extends StatelessWidget {
 		{
 			super.key
 		}
-		);
+	);
 
   @override
   Widget build(BuildContext context) {
@@ -173,14 +172,12 @@ class DetailContent extends StatelessWidget {
                               key: const Key('watchlist_button'),
                               onPressed: () async {
                                 if (!isAddedWatchlist) {
-																	print("addWatchlist is called");
                                   await context.read<MovieDetailCubit>().addWatchlist(movie);
                                   // await Provider.of<MovieDetailNotifier>(
                                   //         context,
                                   //         listen: false)
                                   //     .addWatchlist(movie);
                                 } else {
-																	print("removeFromWatchlist is called");
                                   await context.read<MovieDetailCubit>().removeFromWatchlist(movie.id);
                                   // await Provider.of<MovieDetailNotifier>(
                                   //         context,
