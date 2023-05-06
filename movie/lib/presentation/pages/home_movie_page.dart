@@ -1,10 +1,10 @@
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:core/utils/constants.dart';
 import 'package:core/styles/text_styles.dart';
 import 'package:core/utils/routes.dart';
 import 'package:core/domain/entities/movie.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 import 'package:movie/presentation/bloc/movie_home_cubit.dart';
 import 'package:movie/presentation/bloc/movie_home_state.dart';
 import 'package:core/utils/state_enum.dart';
@@ -24,34 +24,27 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
   @override
   void initState() {
     super.initState();
-		context.read<MovieHomeCubit>().fetchData();
-    // Future.microtask(() {
-    //   context.read<MovieHomeCubit>()
-    //     ..fetchNowPlayingMovies()
-    //     ..fetchPopularMovies()
-    //     ..fetchTopRatedMovies();
-    // });
-    // Future.microtask(
-    //     () => Provider.of<MovieListNotifier>(context, listen: false)
-          // ..fetchNowPlayingMovies()
-          // ..fetchPopularMovies()
-          // ..fetchTopRatedMovies());
+    Future.microtask(() {
+      context.read<MovieHomeCubit>()
+        ..fetchNowPlayingMovies()
+        ..fetchPopularMovies()
+        ..fetchTopRatedMovies();
+    });
 
   }
 
   @override
   Widget build(BuildContext context) {
-
-    final locator = GetIt.instance;
     return Scaffold(
+			key: const Key('home_scaffold'),
       drawer: Drawer(
         key: const Key('home_drawer'),
         child: Column(
           children: [
             const UserAccountsDrawerHeader(
-              // currentAccountPicture: CircleAvatar(
-              //   backgroundImage: AssetImage('assets/circle-g.png'),
-              // ),
+              currentAccountPicture: CircleAvatar(
+                backgroundImage: AssetImage('assets/circle-g.png', package: 'ditonton'),
+              ),
               accountName: Text('Ditonton'),
               accountEmail: Text('ditonton@dicoding.com'),
             ),

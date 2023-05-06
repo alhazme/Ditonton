@@ -1,93 +1,101 @@
+
+import 'package:bloc_test/bloc_test.dart';
+import 'package:core/core.dart';
 import 'package:core/domain/entities/movie.dart';
-import 'package:core/utils/state_enum.dart';
+import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:movie/presentation/bloc/movie_popular_cubit.dart';
 import 'package:movie/presentation/bloc/movie_popular_state.dart';
 import 'package:movie/presentation/pages/popular_movies_page.dart';
-import 'package:movie/presentation/provider/popular_movies_notifier.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
-import 'package:provider/provider.dart';
-
+import 'package:movie/presentation/widget/movie_card.dart';
 import '../../../../core/test/dummy_data/dummy_objects.dart';
-import '../../../../movie/test/presentation/pages/popular_movies_page_test.mocks.dart';
 
-@GenerateMocks([MoviePopularCubit])
+class MockedMoviePopularCubit extends MockCubit<MoviePopularState> implements MoviePopularCubit {}
 void main() {
 
-  late MockMoviePopularCubit mockMoviePopularCubit;
+  late MoviePopularCubit moviePopularCubit;
 
   setUp(() {
-    mockMoviePopularCubit = MockMoviePopularCubit();
+    moviePopularCubit = MockedMoviePopularCubit();
   });
 
   Widget _makeTestableWidget(Widget body) {
     return BlocProvider<MoviePopularCubit>(
-      create: (_) => mockMoviePopularCubit,
+      create: (_) => moviePopularCubit,
       child: MaterialApp(
         home: body,
       ),
     );
   }
 
-  testWidgets('Page should display center progress bar when loading',
-      (WidgetTester tester) async {
-      final mockedState = MoviePopularState(
-        message: "",
-        popularMoviesState: RequestState.Loading,
-        popularMovies: <Movie>[],
-      );
-      when(mockMoviePopularCubit.stream)
-          .thenAnswer((_) => Stream.value(mockedState));
-      when(mockMoviePopularCubit.state)
-          .thenReturn(mockedState);
+	group('MoviePopularPageTest', () {
 
-    final progressBarFinder = find.byType(CircularProgressIndicator);
-    final centerFinder = find.byType(Center);
+		testWidgets('Page should display center progress bar when loading', (WidgetTester tester) async {
 
-    await tester.pumpWidget(_makeTestableWidget(PopularMoviesPage()));
+			// Rearrange
+			const mockedState = MoviePopularState(
+				message: "",
+				popularMoviesState: RequestState.Loading,
+				popularMovies: <Movie>[],
+			);
+			when(() => moviePopularCubit.state).thenReturn(mockedState);
+			when(() => moviePopularCubit.fetchPopularMovies())
+				.thenAnswer((_) async => const Right(true));
 
-    expect(centerFinder, findsOneWidget);
-    expect(progressBarFinder, findsOneWidget);
-  });
+			// Act
+			await tester.pumpWidget(_makeTestableWidget(const PopularMoviesPage()));
 
-  testWidgets('Page should display ListView when data is loaded',
-      (WidgetTester tester) async {
-    final mockedState = MoviePopularState(
-      message: "",
-      popularMoviesState: RequestState.Loaded,
-      popularMovies: [mockedMovie],
-    );
-    when(mockMoviePopularCubit.stream)
-        .thenAnswer((_) => Stream.value(mockedState));
-    when(mockMoviePopularCubit.state)
-        .thenReturn(mockedState);
+			// Expect
+			final progressBarFinder = find.byType(CircularProgressIndicator);
+			final centerFinder = find.byType(Center);
+			expect(centerFinder, findsOneWidget);
+			expect(progressBarFinder, findsOneWidget);
+		});
 
-    final listViewFinder = find.byType(ListView);
+		testWidgets('Page should display ListView when data is loaded', (WidgetTester tester) async {
 
-    await tester.pumpWidget(_makeTestableWidget(PopularMoviesPage()));
+			// Rearrange
+			MoviePopularState mockedState = MoviePopularState(
+				message: "",
+				popularMoviesState: RequestState.Loaded,
+				popularMovies: mockedMovieList,
+			);
+			mockedState.copyWith(popularMovies: mockedMovieList);
+			when(() => moviePopularCubit.state).thenReturn(mockedState);
+			when(() => moviePopularCubit.fetchPopularMovies())
+				.thenAnswer((_) async => const Right(true));
 
-    expect(listViewFinder, findsOneWidget);
-  });
+			// Act
+			await tester.pumpWidget(_makeTestableWidget(const PopularMoviesPage()));
 
-  testWidgets('Page should display text with message when Error',
-      (WidgetTester tester) async {
-        final mockedState = MoviePopularState(
-          message: 'Error message',
-          popularMoviesState: RequestState.Error,
-          popularMovies: [mockedMovie],
-        );
-        when(mockMoviePopularCubit.stream)
-            .thenAnswer((_) => Stream.value(mockedState));
-        when(mockMoviePopularCubit.state)
-            .thenReturn(mockedState);
+			// Expect
+			final listViewFinder = find.byType(ListView);
+			expect(listViewFinder, findsOneWidget);
+			expect(find.byType(MovieCard), findsNWidgets(mockedMovieList.length));
+		});
 
-    final textFinder = find.byKey(Key('error_message'));
+		testWidgets('Page should display text with message when Error', (WidgetTester tester) async {
+			// Rearrange
+			final mockedState = MoviePopularState(
+				message: 'Error message',
+				popularMoviesState: RequestState.Error,
+				popularMovies: [mockedMovie],
+			);
+			when(() => moviePopularCubit.state).thenReturn(mockedState);
+			when(() => moviePopularCubit.fetchPopularMovies())
+				.thenAnswer((_) async => Left(ServerFailure('Error message')));
 
-    await tester.pumpWidget(_makeTestableWidget(PopularMoviesPage()));
+			// Act
+			await tester.pumpWidget(_makeTestableWidget(const PopularMoviesPage()));
 
-    expect(textFinder, findsOneWidget);
-  });
+			// Expect
+			final textFinder = find.byKey(const Key('error_message'));
+			expect(textFinder, findsOneWidget);
+		});
+
+	});
+
 }

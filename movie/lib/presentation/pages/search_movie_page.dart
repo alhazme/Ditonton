@@ -11,11 +11,13 @@ import 'package:provider/provider.dart';
 class SearchMoviePage extends StatelessWidget {
   static const ROUTE_NAME = '/search-movie';
 
+  const SearchMoviePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Search'),
+        title: const Text('Search'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -23,18 +25,18 @@ class SearchMoviePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextField(
-              key: Key('search_textfield'),
+              key: const Key('search_textfield'),
               onSubmitted: (query) {
                 context.read<MovieSearchCubit>().fetchMovieSearch(query);
               },
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Search title',
                 prefixIcon: Icon(Icons.search),
                 border: OutlineInputBorder(),
               ),
               textInputAction: TextInputAction.search,
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Text(
               'Search Result',
               style: kHeading6,
@@ -42,13 +44,13 @@ class SearchMoviePage extends StatelessWidget {
             BlocBuilder<MovieSearchCubit, MovieSearchState>(
               builder: (context, state) {
                 if (state.state == RequestState.Loading) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
                 } else if (state.state == RequestState.Loaded) {
                   final result = state.searchResult;
                   return Expanded(
-                    key: Key('loaded_container'),
+                    key: const Key('loaded_container'),
                     child: ListView.builder(
                       padding: const EdgeInsets.all(8),
                       itemBuilder: (context, index) {
@@ -60,7 +62,7 @@ class SearchMoviePage extends StatelessWidget {
                   );
                 } else {
                   return Expanded(
-                    key: Key('error_container'),
+                    key: const Key('error_container'),
                     child: Container(),
                   );
                 }

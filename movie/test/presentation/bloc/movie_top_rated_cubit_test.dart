@@ -5,16 +5,9 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:movie/domain/usecases/get_now_playing_movies.dart';
-import 'package:movie/domain/usecases/get_popular_movies.dart';
 import 'package:movie/domain/usecases/get_top_rated_movies.dart';
-import 'package:movie/presentation/bloc/movie_home_cubit.dart';
-import 'package:movie/presentation/bloc/movie_home_state.dart';
-import 'package:movie/presentation/bloc/movie_popular_cubit.dart';
-import 'package:movie/presentation/bloc/movie_popular_state.dart';
 import '../../../../core/test/dummy_data/dummy_objects.dart';
 import 'movie_top_rated_cubit_test.mocks.dart';
-import 'package:movie/domain/usecases/get_top_rated_movies.dart';
 import 'package:movie/presentation/bloc/movie_top_rated_cubit.dart';
 import 'package:movie/presentation/bloc/movie_top_rated_state.dart';
 
@@ -26,14 +19,14 @@ void main() {
   late MovieTopRatedState movieTopRatedState;
   late MockGetTopRatedMovies mockGetTopRatedMovies;
 
-  final tId = 1;
+  const tId = 1;
 
   setUp(() {
     mockGetTopRatedMovies = MockGetTopRatedMovies();
     movieTopRatedCubit = MovieTopRatedCubit(
         getTopRatedMovies: mockGetTopRatedMovies
     );
-    movieTopRatedState = MovieTopRatedState(
+    movieTopRatedState = const MovieTopRatedState(
       message: "",
       topRatedMoviesState: RequestState.Empty,
       topRatedMovies: <Movie>[],
@@ -54,12 +47,12 @@ void main() {
     act: (cubit) => cubit.fetchTopRatedMovies(),
     wait: const Duration(milliseconds: 300),
     expect: () => [
-      MovieTopRatedState(
+      const MovieTopRatedState(
         message: '',
         topRatedMoviesState: RequestState.Loading,
         topRatedMovies: <Movie>[],
       ),
-      MovieTopRatedState(
+      const MovieTopRatedState(
         message: 'failed fetchTopRatedMovies',
         topRatedMoviesState: RequestState.Error,
         topRatedMovies: <Movie>[],
@@ -77,7 +70,7 @@ void main() {
     act: (cubit) => cubit.fetchTopRatedMovies(),
     wait: const Duration(milliseconds: 300),
     expect: () => [
-      MovieTopRatedState(
+      const MovieTopRatedState(
         message: '',
         topRatedMoviesState: RequestState.Loading,
         topRatedMovies: <Movie>[],

@@ -25,7 +25,7 @@ void main() {
   late MockGetPopularMovies mockGetPopularMovies;
   late MockGetTopRatedMovies mockGetTopRatedMovies;
 
-  final tId = 1;
+  const tId = 1;
 
   setUp(() {
     mockGetNowPlayingMovies = MockGetNowPlayingMovies();
@@ -36,7 +36,7 @@ void main() {
       getPopularMovies: mockGetPopularMovies,
       getTopRatedMovies: mockGetTopRatedMovies
     );
-    movieHomeState = MovieHomeState(
+    movieHomeState = const MovieHomeState(
       message: "",
       nowPlayingState: RequestState.Empty,
       nowPlayingMovies: <Movie>[],
@@ -61,7 +61,7 @@ void main() {
     act: (cubit) => cubit.fetchNowPlayingMovies(),
     wait: const Duration(milliseconds: 300),
     expect: () => [
-      MovieHomeState(
+      const MovieHomeState(
         message: '',
         nowPlayingState: RequestState.Loading,
         nowPlayingMovies: <Movie>[],
@@ -70,7 +70,7 @@ void main() {
         topRatedMoviesState: RequestState.Empty,
         topRatedMovies: <Movie>[],
       ),
-      MovieHomeState(
+      const MovieHomeState(
         message: 'failed fetchNowPlayingMovies',
         nowPlayingState: RequestState.Error,
         nowPlayingMovies: <Movie>[],
@@ -92,7 +92,7 @@ void main() {
     act: (cubit) => cubit.fetchNowPlayingMovies(),
     wait: const Duration(milliseconds: 300),
     expect: () => [
-      MovieHomeState(
+      const MovieHomeState(
         message: '',
         nowPlayingState: RequestState.Loading,
         nowPlayingMovies: <Movie>[],
@@ -106,9 +106,9 @@ void main() {
         nowPlayingState: RequestState.Loaded,
         nowPlayingMovies: mockedMovieList,
         popularMoviesState: RequestState.Empty,
-        popularMovies: <Movie>[],
+        popularMovies: const <Movie>[],
         topRatedMoviesState: RequestState.Empty,
-        topRatedMovies: <Movie>[],
+        topRatedMovies: const <Movie>[],
       ),
     ],
   );
@@ -123,7 +123,7 @@ void main() {
     act: (cubit) => cubit.fetchPopularMovies(),
     wait: const Duration(milliseconds: 300),
     expect: () => [
-      MovieHomeState(
+      const MovieHomeState(
         message: '',
         nowPlayingState: RequestState.Empty,
         nowPlayingMovies: <Movie>[],
@@ -132,7 +132,7 @@ void main() {
         topRatedMoviesState: RequestState.Empty,
         topRatedMovies: <Movie>[],
       ),
-      MovieHomeState(
+      const MovieHomeState(
         message: 'failed fetchPopularMovies',
         nowPlayingState: RequestState.Empty,
         nowPlayingMovies: <Movie>[],
@@ -154,7 +154,7 @@ void main() {
     act: (cubit) => cubit.fetchPopularMovies(),
     wait: const Duration(milliseconds: 300),
     expect: () => [
-      MovieHomeState(
+      const MovieHomeState(
         message: '',
         nowPlayingState: RequestState.Empty,
         nowPlayingMovies: <Movie>[],
@@ -166,11 +166,11 @@ void main() {
       MovieHomeState(
         message: '',
         nowPlayingState: RequestState.Empty,
-        nowPlayingMovies: <Movie>[],
+        nowPlayingMovies: const <Movie>[],
         popularMoviesState: RequestState.Loaded,
         popularMovies: mockedMovieList,
         topRatedMoviesState: RequestState.Empty,
-        topRatedMovies: <Movie>[],
+        topRatedMovies: const <Movie>[],
       ),
     ],
   );
@@ -185,7 +185,7 @@ void main() {
     act: (cubit) => cubit.fetchTopRatedMovies(),
     wait: const Duration(milliseconds: 300),
     expect: () => [
-      MovieHomeState(
+      const MovieHomeState(
         message: '',
         nowPlayingState: RequestState.Empty,
         nowPlayingMovies: <Movie>[],
@@ -194,7 +194,7 @@ void main() {
         topRatedMoviesState: RequestState.Loading,
         topRatedMovies: <Movie>[],
       ),
-      MovieHomeState(
+      const MovieHomeState(
         message: 'failed fetchTopRatedMovies',
         nowPlayingState: RequestState.Empty,
         nowPlayingMovies: <Movie>[],
@@ -216,7 +216,7 @@ void main() {
     act: (cubit) => cubit.fetchTopRatedMovies(),
     wait: const Duration(milliseconds: 300),
     expect: () => [
-      MovieHomeState(
+      const MovieHomeState(
         message: '',
         nowPlayingState: RequestState.Empty,
         nowPlayingMovies: <Movie>[],
@@ -228,9 +228,9 @@ void main() {
       MovieHomeState(
         message: '',
         nowPlayingState: RequestState.Empty,
-        nowPlayingMovies: <Movie>[],
+        nowPlayingMovies: const <Movie>[],
         popularMoviesState: RequestState.Empty,
-        popularMovies: <Movie>[],
+        popularMovies: const <Movie>[],
         topRatedMoviesState: RequestState.Loaded,
         topRatedMovies: mockedMovieList,
       ),

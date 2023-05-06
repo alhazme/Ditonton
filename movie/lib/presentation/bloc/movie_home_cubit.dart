@@ -28,12 +28,6 @@ class MovieHomeCubit extends Cubit<MovieHomeState> {
       )
   );
 
-	Future<void> fetchData() async {
-		await fetchNowPlayingMovies();
-		await fetchPopularMovies();
-		await fetchTopRatedMovies();
-	}
-
   Future<void> fetchNowPlayingMovies() async {
     emit(
       state.copyWith(

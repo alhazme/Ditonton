@@ -19,14 +19,14 @@ void main() {
   late MovieSearchState movieSearchState;
   late MockSearchMovies mockSearchMovies;
 
-  final tId = 1;
+  const tId = 1;
 
   setUp(() {
     mockSearchMovies = MockSearchMovies();
     movieSearchCubit = MovieSearchCubit(
         searchMovies: mockSearchMovies
     );
-    movieSearchState = MovieSearchState(
+    movieSearchState = const MovieSearchState(
       message: "",
       state: RequestState.Empty,
       searchResult: <Movie>[],
@@ -47,12 +47,12 @@ void main() {
     act: (cubit) => cubit.fetchMovieSearch('dragonball'),
     wait: const Duration(milliseconds: 300),
     expect: () => [
-      MovieSearchState(
+      const MovieSearchState(
         message: '',
         state: RequestState.Loading,
         searchResult: <Movie>[],
       ),
-      MovieSearchState(
+      const MovieSearchState(
         message: 'failed fetchMovieSearch',
         state: RequestState.Error,
         searchResult: <Movie>[],
@@ -70,7 +70,7 @@ void main() {
     act: (cubit) => cubit.fetchMovieSearch('dragonball'),
     wait: const Duration(milliseconds: 300),
     expect: () => [
-      MovieSearchState(
+      const MovieSearchState(
         message: '',
         state: RequestState.Loading,
         searchResult: <Movie>[],

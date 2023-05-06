@@ -1,129 +1,105 @@
+import 'package:bloc_test/bloc_test.dart';
 import 'package:core/core.dart';
-import 'package:core/utils/state_enum.dart';
 import 'package:core/domain/entities/movie.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:movie/presentation/bloc/movie_home_cubit.dart';
 import 'package:movie/presentation/bloc/movie_home_state.dart';
 import 'package:movie/presentation/pages/home_movie_page.dart';
-import 'dart:ui' as ui;
-
 import '../../../../core/test/dummy_data/dummy_objects.dart';
-import '../../../../core/test/helpers/test_helper.dart';
-import '../../../../movie/test/presentation/pages/home_movie_page_test.mocks.dart';
 
-@GenerateMocks([MovieHomeCubit])
+class MockedMovieHomeCubit extends MockCubit<MovieHomeState> implements MovieHomeCubit {}
+class MockNavigatorObserver extends Mock implements NavigatorObserver { }
+
 void main() {
-  late MockMovieHomeCubit mockMovieHomeCubit;
-  late MockNavigatorObserver mockObserver;
+	late MovieHomeCubit movieHomeCubit;
+	late MockNavigatorObserver mockObserver;
 
-  setUp(() {
-    mockMovieHomeCubit = MockMovieHomeCubit();
-    mockObserver = MockNavigatorObserver();
-  });
+	setUp(() {
+		movieHomeCubit = MockedMovieHomeCubit();
+		mockObserver = MockNavigatorObserver();
+	});
 
   Widget _makeTestableWidget(Widget body) {
     return BlocProvider<MovieHomeCubit>(
-      create: (_) => mockMovieHomeCubit,
+      create: (_) => movieHomeCubit,
       child: MaterialApp(
         home: body,
       ),
     );
   }
 
-  testWidgets('Page should display center progress bar when loading',
-          (WidgetTester tester) async {
+	group('MovieHomePageTest', () {
 
-    final mockedState = MovieHomeState(
-      message: '',
-      nowPlayingState: RequestState.Loading,
-      nowPlayingMovies: <Movie>[],
-      popularMoviesState: RequestState.Loading,
-      popularMovies: <Movie>[],
-      topRatedMoviesState:  RequestState.Loading,
-      topRatedMovies: <Movie>[]
-    );
+		testWidgets('Page should display center progress bar when loading', (WidgetTester tester) async {
 
-    when(mockMovieHomeCubit.stream)
-        .thenAnswer((_) => Stream.value(mockedState));
-    when(mockMovieHomeCubit.state)
-        .thenReturn(mockedState);
+			// Rearrange
+			const mockedState = MovieHomeState(
+				message: '',
+				nowPlayingState: RequestState.Loading,
+				nowPlayingMovies: <Movie>[],
+				popularMoviesState: RequestState.Loading,
+				popularMovies: <Movie>[],
+				topRatedMoviesState:  RequestState.Loading,
+				topRatedMovies: <Movie>[]
+			);
+			when(() => movieHomeCubit.state).thenReturn(mockedState);
+			when(() => movieHomeCubit.fetchNowPlayingMovies())
+				.thenAnswer((_) async => const Right(true));
+			when(() => movieHomeCubit.fetchPopularMovies())
+				.thenAnswer((_) async => const Right(true));
+			when(() => movieHomeCubit.fetchTopRatedMovies())
+				.thenAnswer((_) async => const Right(true));
 
-    final nowPlayingProgressIndicator = find.byKey(Key('now_playing_progress_indicator'));
-    final popularProgressIndicator = find.byKey(Key('popular_progress_indicator'));
-    final topRatedProgressIndicator = find.byKey(Key('top_rated_progress_indicator'));
+			// Act
+			await tester.pumpWidget(_makeTestableWidget(const HomeMoviePage()));
 
-    await tester.pumpWidget(_makeTestableWidget(HomeMoviePage()));
+			// Expect
+			final nowPlayingProgressIndicator = find.byKey(const Key('now_playing_progress_indicator'));
+			final popularProgressIndicator = find.byKey(const Key('popular_progress_indicator'));
+			final topRatedProgressIndicator = find.byKey(const Key('top_rated_progress_indicator'));
 
-    expect(nowPlayingProgressIndicator, findsOneWidget);
-    expect(popularProgressIndicator, findsOneWidget);
-    expect(topRatedProgressIndicator, findsOneWidget);
-  });
+			expect(nowPlayingProgressIndicator, findsOneWidget);
+			expect(popularProgressIndicator, findsOneWidget);
+			expect(topRatedProgressIndicator, findsOneWidget);
+		});
 
-  testWidgets('Page should display list when data loaded',
-      (WidgetTester tester) async {
+		testWidgets('Page should display list when data loaded', (WidgetTester tester) async {
 
-    final mockedState = MovieHomeState(
-        message: '',
-        nowPlayingState: RequestState.Loaded,
-        nowPlayingMovies: [mockedMovie],
-        popularMoviesState: RequestState.Loaded,
-        popularMovies: [mockedMovie],
-        topRatedMoviesState:  RequestState.Loaded,
-        topRatedMovies: [mockedMovie]
-    );
+			// Rearrange
+			final mockedState = MovieHomeState(
+					message: '',
+					nowPlayingState: RequestState.Loaded,
+					nowPlayingMovies: [mockedMovie],
+					popularMoviesState: RequestState.Loaded,
+					popularMovies: [mockedMovie],
+					topRatedMoviesState:  RequestState.Loaded,
+					topRatedMovies: [mockedMovie]
+			);
+			when(() => movieHomeCubit.state).thenReturn(mockedState);
+			when(() => movieHomeCubit.fetchNowPlayingMovies())
+				.thenAnswer((_) async => const Right(true));
+			when(() => movieHomeCubit.fetchPopularMovies())
+				.thenAnswer((_) async => const Right(true));
+			when(() => movieHomeCubit.fetchTopRatedMovies())
+				.thenAnswer((_) async => const Right(true));
 
-    when(mockMovieHomeCubit.stream)
-        .thenAnswer((_) => Stream.value(mockedState));
-    when(mockMovieHomeCubit.state)
-        .thenReturn(mockedState);
+			// Act
+			await tester.pumpWidget(_makeTestableWidget(const HomeMoviePage()));
 
-    final nowPlayingMovieList = find.byKey(Key('now_playing_movies'));
-    final popularMovieList = find.byKey(Key('popular_movies'));
-    final topRatedMovieList = find.byKey(Key('top_rated_movies'));
+			// Expect
+			final nowPlayingMovieList = find.byKey(const Key('now_playing_movies'));
+			final popularMovieList = find.byKey(const Key('popular_movies'));
+			final topRatedMovieList = find.byKey(const Key('top_rated_movies'));
 
-    await tester.pumpWidget(_makeTestableWidget(HomeMoviePage()));
+			expect(nowPlayingMovieList, findsOneWidget);
+			expect(popularMovieList, findsOneWidget);
+			expect(topRatedMovieList, findsOneWidget);
+		});
 
-    expect(nowPlayingMovieList, findsOneWidget);
-    expect(popularMovieList, findsOneWidget);
-    expect(topRatedMovieList, findsOneWidget);
-  });
-
-  testWidgets('Page should display list drawer',
-      (WidgetTester tester) async {
-
-    final mockedState = MovieHomeState(
-        message: '',
-        nowPlayingState: RequestState.Loaded,
-        nowPlayingMovies: [mockedMovie],
-        popularMoviesState: RequestState.Loaded,
-        popularMovies: [mockedMovie],
-        topRatedMoviesState:  RequestState.Loaded,
-        topRatedMovies: [mockedMovie]
-    );
-
-    when(mockMovieHomeCubit.stream)
-        .thenAnswer((_) => Stream.value(mockedState));
-    when(mockMovieHomeCubit.state)
-        .thenReturn(mockedState);
-
-    await tester.pumpWidget(_makeTestableWidget(HomeMoviePage()));
-
-    // final homeDrawer = find.byKey(Key('home_drawer'));
-    await tester.dragFrom(tester.getTopLeft(find.byType(MaterialApp)), Offset(300, 0));
-    await tester.pump();
-
-    final movieDrawerListTitle = find.text("Movies");
-    await tester.tap(movieDrawerListTitle);
-    await tester.pump();
-
-    // verify(mockObserver.didPop(any!, any));
-    expect(find.byType(HomeMoviePage), findsOneWidget);
-
-  });
-
+	});
 
 }

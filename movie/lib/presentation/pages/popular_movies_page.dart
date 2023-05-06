@@ -10,6 +10,8 @@ import 'package:provider/provider.dart';
 class PopularMoviesPage extends StatefulWidget {
   static const ROUTE_NAME = '/popular-movie';
 
+  const PopularMoviesPage({super.key});
+
   @override
   _PopularMoviesPageState createState() => _PopularMoviesPageState();
 }
@@ -29,7 +31,7 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Popular Movies'),
+        title: const Text('Popular Movies'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -38,7 +40,7 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
         // child: Consumer<PopularMoviesNotifier>(
         //   builder: (context, data, child) {
             if (state.popularMoviesState == RequestState.Loading) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             } else if (state.popularMoviesState == RequestState.Loaded) {
@@ -51,7 +53,7 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
               );
             } else {
               return Center(
-                key: Key('error_message'),
+                key: const Key('error_message'),
                 child: Text(state.message),
               );
             }

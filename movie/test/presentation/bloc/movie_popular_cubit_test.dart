@@ -19,14 +19,14 @@ void main() {
   late MoviePopularState moviePopularState;
   late MockGetPopularMovies mockGetPopularMovies;
 
-  final tId = 1;
+  const tId = 1;
 
   setUp(() {
     mockGetPopularMovies = MockGetPopularMovies();
     moviePopularCubit = MoviePopularCubit(
         getPopularMovies: mockGetPopularMovies
     );
-    moviePopularState = MoviePopularState(
+    moviePopularState = const MoviePopularState(
       message: "",
       popularMoviesState: RequestState.Empty,
       popularMovies: <Movie>[],
@@ -47,12 +47,12 @@ void main() {
     act: (cubit) => cubit.fetchPopularMovies(),
     wait: const Duration(milliseconds: 300),
     expect: () => [
-      MoviePopularState(
+      const MoviePopularState(
         message: '',
         popularMoviesState: RequestState.Loading,
         popularMovies: <Movie>[],
       ),
-      MoviePopularState(
+      const MoviePopularState(
         message: 'failed fetchPopularMovies',
         popularMoviesState: RequestState.Error,
         popularMovies: <Movie>[],
@@ -70,7 +70,7 @@ void main() {
     act: (cubit) => cubit.fetchPopularMovies(),
     wait: const Duration(milliseconds: 300),
     expect: () => [
-      MoviePopularState(
+      const MoviePopularState(
         message: '',
         popularMoviesState: RequestState.Loading,
         popularMovies: <Movie>[],
