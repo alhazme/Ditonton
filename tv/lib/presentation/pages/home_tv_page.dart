@@ -44,7 +44,7 @@ class _HomeTVPageState extends State<HomeTVPage> {
           children: [
             const UserAccountsDrawerHeader(
               currentAccountPicture: CircleAvatar(
-                backgroundImage: AssetImage('assets/circle-g.png', package: 'ditonton'),
+                backgroundImage: AssetImage('assets/circle-g.png', package: 'core'),
               ),
               accountName: Text('Ditonton'),
               accountEmail: Text('ditonton@dicoding.com'),

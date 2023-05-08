@@ -39,16 +39,6 @@ import 'package:movie/domain/usecases/save_movie_watchlist.dart';
 import 'package:tv/domain/usecases/save_tv_watchlist.dart';
 import 'package:movie/domain/usecases/search_movies.dart';
 import 'package:tv/domain/usecases/search_tvs.dart';
-import 'package:movie/presentation/provider/movie_detail_notifier.dart';
-import 'package:movie/presentation/provider/movie_list_notifier.dart';
-import 'package:movie/presentation/provider/movie_search_notifier.dart';
-import 'package:movie/presentation/provider/popular_movies_notifier.dart';
-import 'package:tv/presentation/provider/popular_tvs_notifier.dart';
-import 'package:movie/presentation/provider/top_rated_movies_notifier.dart';
-import 'package:tv/presentation/provider/top_rated_tvs_notifier.dart';
-import 'package:tv/presentation/provider/tv_detail_notifier.dart';
-import 'package:tv/presentation/provider/tv_list_notifier.dart';
-import 'package:tv/presentation/provider/tv_search_notifier.dart';
 import 'package:watchlist/presentation/bloc/watchlist_cubit.dart';
 import 'package:watchlist/presentation/provider/watchlist_notifier.dart';
 import 'package:get_it/get_it.dart';
@@ -123,70 +113,6 @@ Future<void> init() async {
     () => WatchlistCubit(
       getWatchlists: locator(),
     )
-  );
-
-  // provider
-  locator.registerFactory(
-    () => MovieListNotifier(
-      getNowPlayingMovies: locator(),
-      getPopularMovies: locator(),
-      getTopRatedMovies: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => MovieDetailNotifier(
-      getMovieDetail: locator(),
-      getMovieRecommendations: locator(),
-      getWatchListStatus: locator(),
-      saveWatchlist: locator(),
-      removeWatchlist: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => MovieSearchNotifier(
-      searchMovies: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => PopularMoviesNotifier(
-      locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => TopRatedMoviesNotifier(
-      getTopRatedMovies: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => TVListNotifier(
-      getNowPlayingTVs: locator(),
-      getPopularTVs: locator(),
-      getTopRatedTVs: locator()
-    ),
-  );
-  locator.registerFactory(
-    () => TVDetailNotifier(
-      getTVDetail: locator(),
-      getTVRecommendations: locator(),
-      getWatchListStatus: locator(),
-      saveTVWatchlist: locator(),
-      removeWatchlist: locator()
-    ),
-  );
-  locator.registerFactory(
-    () => TVSearchNotifier(
-      searchTVs: locator()
-    ),
-  );
-  locator.registerFactory(
-    () => PopularTVsNotifier(
-      getPopularTVs: locator()
-    ),
-  );
-  locator.registerFactory(
-    () => TopRatedTVsNotifier(
-      getTopRatedTVs: locator()
-    ),
   );
   locator.registerFactory(
     () => WatchlistNotifier(

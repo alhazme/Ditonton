@@ -11,14 +11,21 @@ import 'package:movie/presentation/bloc/movie_detail_state.dart';
 import 'package:movie/presentation/pages/movie_detail_page.dart';
 import 'dart:ui' as ui;
 import '../../../../core/test/dummy_data/dummy_objects.dart';
+import '../../mocked/mock_navigator_observer.dart';
 
 class MockedMovieDetailCubit extends MockCubit<MovieDetailState> implements MovieDetailCubit {}
 
 void main() {
 	late MovieDetailCubit movieDetailCubit;
+	late MockNavigatorObserver mockObserver;
+	
+	setUpAll(() {
+		registerFallbackValue(FakeRoute());
+	});
 
 	setUp(() {
 		movieDetailCubit = MockedMovieDetailCubit();
+		mockObserver = MockNavigatorObserver();
 	});
 
   Widget _makeTestableWidget(Widget body) {
@@ -30,6 +37,7 @@ void main() {
           textDirection: TextDirection.ltr,
           child: MaterialApp(
 						home: body,
+						navigatorObservers: [mockObserver],
 					),
         ),
       ),
@@ -481,5 +489,68 @@ void main() {
 			final recommendationsContainer = find.byKey(const Key('movie_recommendations_loaded'));
 			expect(recommendationsContainer, findsOneWidget);
 		});
+
+		testWidgets('should call Navigator.pop', (WidgetTester tester) async {
+			// Rearrange
+			const movieId = 1;
+			when(() => movieDetailCubit.fetchMovieDetail(movieId))
+				.thenAnswer((_) async => const Right(true));
+			when(() => movieDetailCubit.loadWatchlistStatus(movieId))
+				.thenAnswer((_) async => const Right(true));
+			final mockedState = MovieDetailState(
+					message: 'Success',
+					movieDetailState: RequestState.Loaded,
+					movieDetail: mockedMovieDetail,
+					movieRecommendationsState: RequestState.Loaded,
+					movieRecommendations: <Movie>[mockedMovie],
+					isAddedtoWatchlist: false,
+					watchlistMessage: ''
+			);
+			when(() => movieDetailCubit.state).thenReturn(mockedState);
+
+			// Act
+			await tester.pumpWidget(
+					_makeTestableWidget(const MovieDetailPage(id: 1)),
+					const Duration(seconds: 3)
+			);
+			final backButton = find.byIcon(Icons.arrow_back);
+			await tester.tap(backButton);
+			await tester.pumpAndSettle();
+
+			// Expect
+			verify(() => mockObserver.didPop(any(), any())).called(1);
+		});
+
+		// testWidgets('should call Navigator.pushReplacementNamed', (WidgetTester tester) async {
+		// 	// Rearrange
+		// 	const movieId = 1;
+		// 	when(() => movieDetailCubit.fetchMovieDetail(movieId))
+		// 		.thenAnswer((_) async => const Right(true));
+		// 	when(() => movieDetailCubit.loadWatchlistStatus(movieId))
+		// 		.thenAnswer((_) async => const Right(true));
+		// 	final mockedState = MovieDetailState(
+		// 			message: 'Success',
+		// 			movieDetailState: RequestState.Loaded,
+		// 			movieDetail: mockedMovieDetail,
+		// 			movieRecommendationsState: RequestState.Loaded,
+		// 			movieRecommendations: <Movie>[mockedMovie],
+		// 			isAddedtoWatchlist: false,
+		// 			watchlistMessage: ''
+		// 	);
+		// 	when(() => movieDetailCubit.state).thenReturn(mockedState);
+
+		// 	// Act
+		// 	await tester.pumpWidget(
+		// 			_makeTestableWidget(const MovieDetailPage(id: 1)),
+		// 			const Duration(seconds: 3)
+		// 	);
+		// 	final item = find.byKey(const Key('movie_recommendation_item')).first;
+		// 	await tester.tap(item);
+		// 	await tester.pumpAndSettle();
+
+		// 	// Expect
+		// 	verify(() => mockObserver.didPush(any(), any()));
+		// 	expect(find.byType(MovieDetailPage), findsOneWidget);
+		// });
 	});
 }

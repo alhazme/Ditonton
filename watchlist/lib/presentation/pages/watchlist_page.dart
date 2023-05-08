@@ -11,6 +11,8 @@ import 'package:provider/provider.dart';
 class WatchlistPage extends StatefulWidget {
   static const ROUTE_NAME = '/watchlist';
 
+  const WatchlistPage({super.key});
+
   @override
   _WatchlistPageState createState() => _WatchlistPageState();
 }
@@ -32,6 +34,7 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
     routeObserver.subscribe(this, ModalRoute.of(context)!);
   }
 
+  @override
   void didPopNext() {
     Future.microtask(() =>
         context.read<WatchlistCubit>().fetchWatchlists()
@@ -42,14 +45,14 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Watchlist'),
+        title: const Text('Watchlist'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: BlocBuilder<WatchlistCubit, WatchlistState>(
           builder: (context, state) {
             if (state.watchlistState == RequestState.Loading) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             } else if (state.watchlistState == RequestState.Loaded) {
@@ -62,7 +65,7 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
               );
             } else {
               return Center(
-                key: Key('error_message'),
+                key: const Key('error_message'),
                 child: Text(state.message),
               );
             }

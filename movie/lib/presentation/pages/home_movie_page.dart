@@ -43,7 +43,7 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
           children: [
             const UserAccountsDrawerHeader(
               currentAccountPicture: CircleAvatar(
-                backgroundImage: AssetImage('assets/circle-g.png', package: 'ditonton'),
+                backgroundImage: AssetImage('assets/circle-g.png', package: 'core'),
               ),
               accountName: Text('Ditonton'),
               accountEmail: Text('ditonton@dicoding.com'),
@@ -122,18 +122,6 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
                     }
                   }
               ),
-              // Consumer<MovieListNotifier>(builder: (context, data, child) {
-              //   final state = data.nowPlayingState;
-              //   if (state == RequestState.Loading) {
-              //     return Center(
-              //       child: CircularProgressIndicator(),
-              //     );
-              //   } else if (state == RequestState.Loaded) {
-              //     return MovieList(data.nowPlayingMovies);
-              //   } else {
-              //     return Text('Failed');
-              //   }
-              // }),
               _buildSubHeading(
                 title: 'Popular',
                 onTap: () =>
@@ -157,18 +145,6 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
                     }
                   }
               ),
-              // Consumer<MovieListNotifier>(builder: (context, data, child) {
-              //   final state = data.popularMoviesState;
-              //   if (state == RequestState.Loading) {
-              //     return Center(
-              //       child: CircularProgressIndicator(),
-              //     );
-              //   } else if (state == RequestState.Loaded) {
-              //     return MovieList(data.popularMovies);
-              //   } else {
-              //     return Text('Failed');
-              //   }
-              // }),
               _buildSubHeading(
                 title: 'Top Rated',
                 onTap: () =>
@@ -192,18 +168,6 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
                     }
                   }
               ),
-              // Consumer<MovieListNotifier>(builder: (context, data, child) {
-              //   final state = data.topRatedMoviesState;
-              //   if (state == RequestState.Loading) {
-              //     return Center(
-              //       child: CircularProgressIndicator(),
-              //     );
-              //   } else if (state == RequestState.Loaded) {
-              //     return MovieList(data.topRatedMovies);
-              //   } else {
-              //     return Text('Failed');
-              //   }
-              // }),
             ],
           ),
         ),

@@ -57,7 +57,7 @@ void main() {
           when(mockDatabaseHelper.insertTVWatchlist(mockedTVWatchlistTable))
               .thenThrow(Exception());
           // act
-          final call = dataSource.insertMovieWatchlist(mockedTVWatchlistTable);
+          final call = dataSource.insertTVWatchlist(mockedTVWatchlistTable);
           // assert
           expect(() => call, throwsA(isA<DatabaseException>()));
         });
@@ -88,7 +88,7 @@ void main() {
   });
 
   group('Get watchlist Movie / TV Detail By Id', () {
-    final tId = 1;
+    const tId = 1;
 
     test('should return Movie Detail Table when data is found', () async {
       // arrange

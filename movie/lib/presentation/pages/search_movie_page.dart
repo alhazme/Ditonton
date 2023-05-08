@@ -3,10 +3,8 @@ import 'package:core/styles/text_styles.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie/presentation/bloc/movie_search_cubit.dart';
 import 'package:movie/presentation/bloc/movie_search_state.dart';
-import 'package:movie/presentation/provider/movie_search_notifier.dart';
 import 'package:movie/presentation/widget/movie_card.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class SearchMoviePage extends StatelessWidget {
   static const ROUTE_NAME = '/search-movie';

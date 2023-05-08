@@ -25,16 +25,6 @@ import 'package:tv/presentation/pages/top_rated_tvs_page.dart';
 import 'package:tv/presentation/pages/tv_detail_page.dart';
 import 'package:watchlist/presentation/bloc/watchlist_cubit.dart';
 import 'package:watchlist/presentation/pages/watchlist_page.dart';
-import 'package:movie/presentation/provider/movie_detail_notifier.dart';
-import 'package:movie/presentation/provider/movie_list_notifier.dart';
-import 'package:movie/presentation/provider/movie_search_notifier.dart';
-import 'package:movie/presentation/provider/popular_movies_notifier.dart';
-import 'package:tv/presentation/provider/popular_tvs_notifier.dart';
-import 'package:movie/presentation/provider/top_rated_movies_notifier.dart';
-import 'package:tv/presentation/provider/top_rated_tvs_notifier.dart';
-import 'package:tv/presentation/provider/tv_detail_notifier.dart';
-import 'package:tv/presentation/provider/tv_list_notifier.dart';
-import 'package:tv/presentation/provider/tv_search_notifier.dart';
 import 'package:watchlist/presentation/provider/watchlist_notifier.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -52,36 +42,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (_) => di.locator<MovieListNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<MovieDetailNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<MovieSearchNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<TopRatedMoviesNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<PopularMoviesNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<TVListNotifier>()
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<TVDetailNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<TVSearchNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<TopRatedTVsNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<PopularTVsNotifier>(),
-        ),
         ChangeNotifierProvider(
           create: (_) => di.locator<WatchlistNotifier>(),
         ),

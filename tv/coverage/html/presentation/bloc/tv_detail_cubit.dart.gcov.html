@@ -31,13 +31,13 @@
             <td class="headerValue">lcov.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">45</td>
             <td class="headerCovTableEntry">51</td>
-            <td class="headerCovTableEntryMed">88.2 %</td>
+            <td class="headerCovTableEntry">51</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2023-05-07 01:56:55</td>
+            <td class="headerValue">2023-05-08 17:22:51</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">0</td>
@@ -139,9 +139,9 @@
 <a name="77"><span class="lineNum">      77 </span>            :                   )</a>
 <a name="78"><span class="lineNum">      78 </span>            :               );</a>
 <a name="79"><span class="lineNum">      79 </span>            :             },</a>
-<a name="80"><span class="lineNum">      80 </span><span class="lineNoCov">          0 :                 (tvRecommendationsData) {</span></a>
-<a name="81"><span class="lineNum">      81 </span><span class="lineNoCov">          0 :               emit(</span></a>
-<a name="82"><span class="lineNum">      82 </span><span class="lineNoCov">          0 :                   state.copyWith(</span></a>
+<a name="80"><span class="lineNum">      80 </span><span class="lineCov">          1 :                 (tvRecommendationsData) {</span></a>
+<a name="81"><span class="lineNum">      81 </span><span class="lineCov">          1 :               emit(</span></a>
+<a name="82"><span class="lineNum">      82 </span><span class="lineCov">          2 :                   state.copyWith(</span></a>
 <a name="83"><span class="lineNum">      83 </span>            :                       tvRecommendationsState: RequestState.Loaded,</a>
 <a name="84"><span class="lineNum">      84 </span>            :                       tvRecommendations: tvRecommendationsData,</a>
 <a name="85"><span class="lineNum">      85 </span>            :                       isAddedtoWatchlist: watchListStatusResult</a>
@@ -197,9 +197,9 @@
 <a name="135"><span class="lineNum">     135 </span>            :     );</a>
 <a name="136"><span class="lineNum">     136 </span>            :   }</a>
 <a name="137"><span class="lineNum">     137 </span>            : </a>
-<a name="138"><span class="lineNum">     138 </span><span class="lineNoCov">          0 :   Future&lt;void&gt; loadWatchlistStatus(int id) async {</span></a>
-<a name="139"><span class="lineNum">     139 </span><span class="lineNoCov">          0 :     final result = await getWatchListStatus.execute(id);</span></a>
-<a name="140"><span class="lineNum">     140 </span><span class="lineNoCov">          0 :     emit(state.copyWith(isAddedtoWatchlist: result));</span></a>
+<a name="138"><span class="lineNum">     138 </span><span class="lineCov">          1 :   Future&lt;void&gt; loadWatchlistStatus(int id) async {</span></a>
+<a name="139"><span class="lineNum">     139 </span><span class="lineCov">          2 :     final result = await getWatchListStatus.execute(id);</span></a>
+<a name="140"><span class="lineNum">     140 </span><span class="lineCov">          3 :     emit(state.copyWith(isAddedtoWatchlist: result));</span></a>
 <a name="141"><span class="lineNum">     141 </span>            :   }</a>
 <a name="142"><span class="lineNum">     142 </span>            : }</a>
 </pre>
