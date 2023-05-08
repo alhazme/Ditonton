@@ -86,7 +86,7 @@ void main() {
 			);
 			when(() => moviePopularCubit.state).thenReturn(mockedState);
 			when(() => moviePopularCubit.fetchPopularMovies())
-				.thenAnswer((_) async => Left(ServerFailure('Error message')));
+				.thenAnswer((_) async => const Left(ServerFailure('Error message')));
 
 			// Act
 			await tester.pumpWidget(_makeTestableWidget(const PopularMoviesPage()));

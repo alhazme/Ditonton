@@ -11,7 +11,7 @@ class TVSearchCubit extends Cubit<TVSearchState> {
   TVSearchCubit({
     required this.searchTVs,
   }) : super(
-      TVSearchState(
+      const TVSearchState(
         message: "",
         state: RequestState.Empty,
         searchResult: <TV>[],

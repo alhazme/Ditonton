@@ -19,8 +19,6 @@ void main() {
   late MovieTopRatedState movieTopRatedState;
   late MockGetTopRatedMovies mockGetTopRatedMovies;
 
-  const tId = 1;
-
   setUp(() {
     mockGetTopRatedMovies = MockGetTopRatedMovies();
     movieTopRatedCubit = MovieTopRatedCubit(
@@ -41,7 +39,7 @@ void main() {
     'Should emit error when fetchTopRatedMovies is error',
     build: () {
       when(mockGetTopRatedMovies.execute())
-          .thenAnswer((_) async => Left(ServerFailure('failed fetchTopRatedMovies')));
+          .thenAnswer((_) async => const Left(ServerFailure('failed fetchTopRatedMovies')));
       return movieTopRatedCubit;
     },
     act: (cubit) => cubit.fetchTopRatedMovies(),

@@ -25,8 +25,6 @@ void main() {
   late MockGetPopularTVs mockGetPopularTVs;
   late MockGetTopRatedTVs mockGetTopRatedTVs;
 
-  final tId = 1;
-
   setUp(() {
     mockGetNowPlayingTVs = MockGetNowPlayingTVs();
     mockGetPopularTVs = MockGetPopularTVs();
@@ -36,7 +34,7 @@ void main() {
         getPopularTVs: mockGetPopularTVs,
         getTopRatedTVs: mockGetTopRatedTVs
     );
-    movieHomeState = TVListState(
+    movieHomeState = const TVListState(
       message: "",
       nowPlayingTVState: RequestState.Empty,
       nowPlayingTVs: <TV>[],
@@ -55,13 +53,13 @@ void main() {
     'Should emit error when fetchNowPlayingTVs is error',
     build: () {
       when(mockGetNowPlayingTVs.execute())
-          .thenAnswer((_) async => Left(ServerFailure('failed fetchNowPlayingTVs')));
+          .thenAnswer((_) async => const Left(ServerFailure('failed fetchNowPlayingTVs')));
       return movieHomeCubit;
     },
     act: (cubit) => cubit.fetchNowPlayingTVs(),
     wait: const Duration(milliseconds: 300),
     expect: () => [
-      TVListState(
+      const TVListState(
         message: '',
         nowPlayingTVState: RequestState.Loading,
         nowPlayingTVs: <TV>[],
@@ -70,7 +68,7 @@ void main() {
         topRatedTVsState: RequestState.Empty,
         topRatedTVs: <TV>[],
       ),
-      TVListState(
+      const TVListState(
         message: 'failed fetchNowPlayingTVs',
         nowPlayingTVState: RequestState.Error,
         nowPlayingTVs: <TV>[],
@@ -92,7 +90,7 @@ void main() {
     act: (cubit) => cubit.fetchNowPlayingTVs(),
     wait: const Duration(milliseconds: 300),
     expect: () => [
-      TVListState(
+      const TVListState(
         message: '',
         nowPlayingTVState: RequestState.Loading,
         nowPlayingTVs: <TV>[],
@@ -106,9 +104,9 @@ void main() {
         nowPlayingTVState: RequestState.Loaded,
         nowPlayingTVs: mockedTVList,
         popularTVsState: RequestState.Empty,
-        popularTVs: <TV>[],
+        popularTVs: const <TV>[],
         topRatedTVsState: RequestState.Empty,
-        topRatedTVs: <TV>[],
+        topRatedTVs: const <TV>[],
       ),
     ],
   );
@@ -117,13 +115,13 @@ void main() {
     'Should emit error when fetchPopularTVs is error',
     build: () {
       when(mockGetPopularTVs.execute())
-          .thenAnswer((_) async => Left(ServerFailure('failed fetchPopularTVs')));
+          .thenAnswer((_) async => const Left(ServerFailure('failed fetchPopularTVs')));
       return movieHomeCubit;
     },
     act: (cubit) => cubit.fetchPopularTVs(),
     wait: const Duration(milliseconds: 300),
     expect: () => [
-      TVListState(
+      const TVListState(
         message: '',
         nowPlayingTVState: RequestState.Empty,
         nowPlayingTVs: <TV>[],
@@ -132,7 +130,7 @@ void main() {
         topRatedTVsState: RequestState.Empty,
         topRatedTVs: <TV>[],
       ),
-      TVListState(
+      const TVListState(
         message: 'failed fetchPopularTVs',
         nowPlayingTVState: RequestState.Empty,
         nowPlayingTVs: <TV>[],
@@ -154,7 +152,7 @@ void main() {
     act: (cubit) => cubit.fetchPopularTVs(),
     wait: const Duration(milliseconds: 300),
     expect: () => [
-      TVListState(
+      const TVListState(
         message: '',
         nowPlayingTVState: RequestState.Empty,
         nowPlayingTVs: <TV>[],
@@ -166,11 +164,11 @@ void main() {
       TVListState(
         message: '',
         nowPlayingTVState: RequestState.Empty,
-        nowPlayingTVs: <TV>[],
+        nowPlayingTVs: const <TV>[],
         popularTVsState: RequestState.Loaded,
         popularTVs: mockedTVList,
         topRatedTVsState: RequestState.Empty,
-        topRatedTVs: <TV>[],
+        topRatedTVs: const <TV>[],
       ),
     ],
   );
@@ -179,13 +177,13 @@ void main() {
     'Should emit error when fetchTopRatedTVs is error',
     build: () {
       when(mockGetTopRatedTVs.execute())
-          .thenAnswer((_) async => Left(ServerFailure('failed fetchTopRatedTVs')));
+          .thenAnswer((_) async => const Left(ServerFailure('failed fetchTopRatedTVs')));
       return movieHomeCubit;
     },
     act: (cubit) => cubit.fetchTopRatedTVs(),
     wait: const Duration(milliseconds: 300),
     expect: () => [
-      TVListState(
+      const TVListState(
         message: '',
         nowPlayingTVState: RequestState.Empty,
         nowPlayingTVs: <TV>[],
@@ -194,7 +192,7 @@ void main() {
         topRatedTVsState: RequestState.Loading,
         topRatedTVs: <TV>[],
       ),
-      TVListState(
+      const TVListState(
         message: 'failed fetchTopRatedTVs',
         nowPlayingTVState: RequestState.Empty,
         nowPlayingTVs: <TV>[],
@@ -216,7 +214,7 @@ void main() {
     act: (cubit) => cubit.fetchTopRatedTVs(),
     wait: const Duration(milliseconds: 300),
     expect: () => [
-      TVListState(
+      const TVListState(
         message: '',
         nowPlayingTVState: RequestState.Empty,
         nowPlayingTVs: <TV>[],
@@ -228,9 +226,9 @@ void main() {
       TVListState(
         message: '',
         nowPlayingTVState: RequestState.Empty,
-        nowPlayingTVs: <TV>[],
+        nowPlayingTVs: const <TV>[],
         popularTVsState: RequestState.Empty,
-        popularTVs: <TV>[],
+        popularTVs: const <TV>[],
         topRatedTVsState: RequestState.Loaded,
         topRatedTVs: mockedTVList,
       ),

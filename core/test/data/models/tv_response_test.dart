@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
 
   // Arrange
-  final tvModel = TVModel(
+  const tvModel = TVModel(
       posterPath: '/path.jpg',
       popularity: 1000.0,
       id: 1,

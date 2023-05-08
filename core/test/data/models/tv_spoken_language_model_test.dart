@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   // Arrange
-  final tvSpokenLanguageModel = TVSpokenLanguageModel(
+  const tvSpokenLanguageModel = TVSpokenLanguageModel(
       englishName: 'english_name',
       iso6391: 'iso6391',
       name: 'name',
@@ -14,7 +14,7 @@ void main() {
     "iso_639_1": 'iso6391',
     "name": 'name'
   };
-  final tvSpokenLanguage = TVSpokenLanguage(
+  const tvSpokenLanguage = TVSpokenLanguage(
       englishName: 'english_name',
       iso6391: 'iso6391',
       name: 'name'

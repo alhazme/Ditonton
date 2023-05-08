@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class TVCreatedBy extends Equatable {
-  TVCreatedBy({
+  const TVCreatedBy({
     required this.id,
     required this.creditId,
     required this.name,
@@ -16,7 +16,6 @@ class TVCreatedBy extends Equatable {
   final String profilePath;
 
   @override
-  // TODO: implement props
   List<Object?> get props => [
     id,
     creditId,

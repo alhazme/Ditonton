@@ -11,7 +11,7 @@ class MovieTopRatedCubit extends Cubit<MovieTopRatedState> {
   MovieTopRatedCubit({
     required this.getTopRatedMovies,
   }) : super(
-      MovieTopRatedState(
+      const MovieTopRatedState(
         message: "",
         topRatedMoviesState: RequestState.Empty,
         topRatedMovies: <Movie>[],

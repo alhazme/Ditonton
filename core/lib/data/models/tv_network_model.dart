@@ -2,7 +2,7 @@ import 'package:core/domain/entities/tv_network.dart';
 import 'package:equatable/equatable.dart';
 
 class TVNetworkModel extends Equatable {
-  TVNetworkModel({
+  const TVNetworkModel({
     required this.name,
     required this.id,
     required this.logoPath,
@@ -24,16 +24,16 @@ class TVNetworkModel extends Equatable {
   Map<String, dynamic> toJson() => {
     "name": name,
     "id": id,
-    "logo_path": logoPath == null ? null : logoPath,
+    "logo_path": logoPath,
     "origin_country": originCountry,
   };
 
   TVNetwork toEntity() {
     return TVNetwork(
-        name: this.name,
-        id: this.id,
-        logoPath: this.logoPath,
-        originCountry: this.originCountry
+        name: name,
+        id: id,
+        logoPath: logoPath,
+        originCountry: originCountry
     );
   }
 

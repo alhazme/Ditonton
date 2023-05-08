@@ -14,7 +14,7 @@ import 'package:core/domain/entities/genre.dart';
 void main() {
 
   // Arrange
-  final movieDetail = MovieDetail(
+  const movieDetail = MovieDetail(
       adult: false,
       backdropPath: '/path.jpg',
       genres: [
@@ -33,20 +33,20 @@ void main() {
 
   final tvDetail = TVDetail(
       backdropPath: '/path.jpg',
-      createdBy: [TVCreatedBy(
+      createdBy: const [TVCreatedBy(
           id: 1,
           creditId: '1',
           name: 'name',
           gender: 1,
           profilePath: '/path.jpg'
       )],
-      episodeRunTime: [1],
+      episodeRunTime: const [1],
       firstAirDate: "2020-05-05",
-      genres: [Genre(id: 1, name: 'name')],
+      genres: const [Genre(id: 1, name: 'name')],
       homepage: 'homepage',
       id: 1,
       inProduction: false,
-      languages: ['en'],
+      languages: const ['en'],
       lastAirDate: "2020-05-05",
       lastEpisodeToAir: TVLastEpisodeToAir(
           airDate: DateTime.parse('2020-05-05'),
@@ -62,7 +62,7 @@ void main() {
       ),
       name: 'name',
       nextEpisodeToAir: "2020-05-05",
-      networks: [
+      networks: const [
         TVNetwork(
             name: 'name',
             id: 1,
@@ -72,13 +72,13 @@ void main() {
       ],
       numberOfEpisodes: 12,
       numberOfSeasons: 1,
-      originCountry: ['US'],
+      originCountry: const ['US'],
       originalLanguage: 'en',
       originalName: 'originalName',
       overview: 'overview',
       popularity: 1000.0,
       posterPath: '/path.jpg',
-      productionCompanies: [
+      productionCompanies: const [
         TVNetwork(
             name: 'name',
             id: 1,
@@ -86,7 +86,7 @@ void main() {
             originCountry: 'US'
         )
       ],
-      productionCountries: [
+      productionCountries: const [
         TVProductionCountry(
             iso31661: 'iso31661',
             name: 'name'
@@ -103,7 +103,7 @@ void main() {
             seasonNumber: 1
         )
       ],
-      spokenLanguages: [
+      spokenLanguages: const [
         TVSpokenLanguage(
             englishName: 'englishName',
             iso6391: 'iso6391',
@@ -117,14 +117,14 @@ void main() {
       voteCount: 1
   );
 
-  final movieWatchlistTable = WatchlistTable(
+  const movieWatchlistTable = WatchlistTable(
       id: 1,
       title: 'title',
       posterPath: '/path.jpg',
       overview: 'overview',
       category: 'movie'
   );
-  final tvWatchlistTable = WatchlistTable(
+  const tvWatchlistTable = WatchlistTable(
       id: 1,
       title: 'name',
       posterPath: '/path.jpg',
@@ -148,7 +148,7 @@ void main() {
     'category': 'tv'
   };
 
-  final movieWatchlist = Watchlist(
+  const movieWatchlist = Watchlist(
       id: 1,
       title: 'title',
       posterPath: '/path.jpg',
@@ -156,7 +156,7 @@ void main() {
       category: 'movie'
   );
 
-  final tvWatchlist = Watchlist(
+  const tvWatchlist = Watchlist(
       id: 1,
       title: 'name',
       posterPath: '/path.jpg',

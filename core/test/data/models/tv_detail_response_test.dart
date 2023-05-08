@@ -20,7 +20,7 @@ void main() {
   // Arrange
   final tvDetailResponse = TvDetailResponse(
       backdropPath: '/path.jpg',
-      createdBy: [
+      createdBy: const [
         TVCreatedByModel(
           id: 1,
           creditId: '1',
@@ -29,13 +29,13 @@ void main() {
           profilePath: '/path.jpg'
         )
       ],
-      episodeRunTime: [1],
+      episodeRunTime: const [1],
       firstAirDate: "2020-05-05",
-      genres: [GenreModel(id: 1, name: 'name')],
+      genres: const [GenreModel(id: 1, name: 'name')],
       homepage: 'homepage',
       id: 1,
       inProduction: false,
-      languages: ['en'],
+      languages: const ['en'],
       lastAirDate: "2020-05-05",
       lastEpisodeToAir: TVLastEpisodeToAirModel(
           airDate: DateTime.parse('2020-05-05'),
@@ -51,7 +51,7 @@ void main() {
       ),
       name: 'name',
       nextEpisodeToAir: "2020-05-05",
-      networks: [
+      networks: const [
         TVNetworkModel(
             name: 'name',
             id: 1,
@@ -61,13 +61,13 @@ void main() {
       ],
       numberOfEpisodes: 12,
       numberOfSeasons: 1,
-      originCountry: ['US'],
+      originCountry: const ['US'],
       originalLanguage: 'en',
       originalName: 'originalName',
       overview: 'overview',
       popularity: 1000.0,
       posterPath: '/path.jpg',
-      productionCompanies: [
+      productionCompanies: const [
         TVNetworkModel(
             name: 'name',
             id: 1,
@@ -75,7 +75,7 @@ void main() {
             originCountry: 'US'
         )
       ],
-      productionCountries: [
+      productionCountries: const [
         TVProductionCountryModel(
             iso31661: 'iso31661',
             name: 'name'
@@ -92,7 +92,7 @@ void main() {
             seasonNumber: 1
         )
       ],
-      spokenLanguages: [
+      spokenLanguages: const [
         TVSpokenLanguageModel(
             englishName: 'englishName',
             iso6391: 'iso6391',
@@ -200,20 +200,20 @@ void main() {
   };
   final tvDetail = TVDetail(
       backdropPath: '/path.jpg',
-      createdBy: [TVCreatedBy(
+      createdBy: const [TVCreatedBy(
           id: 1,
           creditId: '1',
           name: 'name',
           gender: 1,
           profilePath: '/path.jpg'
       )],
-      episodeRunTime: [1],
+      episodeRunTime: const [1],
       firstAirDate: "2020-05-05",
-      genres: [Genre(id: 1, name: 'name')],
+      genres: const [Genre(id: 1, name: 'name')],
       homepage: 'homepage',
       id: 1,
       inProduction: false,
-      languages: ['en'],
+      languages: const ['en'],
       lastAirDate: "2020-05-05",
       lastEpisodeToAir: TVLastEpisodeToAir(
           airDate: DateTime.parse('2020-05-05'),
@@ -229,7 +229,7 @@ void main() {
       ),
       name: 'name',
       nextEpisodeToAir: "2020-05-05",
-      networks: [
+      networks: const [
         TVNetwork(
             name: 'name',
             id: 1,
@@ -239,13 +239,13 @@ void main() {
       ],
       numberOfEpisodes: 12,
       numberOfSeasons: 1,
-      originCountry: ['US'],
+      originCountry: const ['US'],
       originalLanguage: 'en',
       originalName: 'originalName',
       overview: 'overview',
       popularity: 1000.0,
       posterPath: '/path.jpg',
-      productionCompanies: [
+      productionCompanies: const [
         TVNetwork(
             name: 'name',
             id: 1,
@@ -253,7 +253,7 @@ void main() {
             originCountry: 'US'
         )
       ],
-      productionCountries: [
+      productionCountries: const [
         TVProductionCountry(
             iso31661: 'iso31661',
             name: 'name'
@@ -270,7 +270,7 @@ void main() {
             seasonNumber: 1
         )
       ],
-      spokenLanguages: [
+      spokenLanguages: const [
         TVSpokenLanguage(
             englishName: 'englishName',
             iso6391: 'iso6391',

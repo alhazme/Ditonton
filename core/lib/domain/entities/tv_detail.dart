@@ -8,7 +8,7 @@ import 'package:core/domain/entities/tv_spoken_language.dart';
 import 'package:equatable/equatable.dart';
 
 class TVDetail extends Equatable {
-  TVDetail({
+  const TVDetail({
     required this.backdropPath,
     required this.createdBy,
     required this.episodeRunTime,
@@ -75,7 +75,6 @@ class TVDetail extends Equatable {
   final int voteCount;
 
   @override
-  // TODO: implement props
   List<Object?> get props => [
     backdropPath,
     createdBy,

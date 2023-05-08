@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   // Arrange
-  final tvNetworkModel = TVNetworkModel(
+  const tvNetworkModel = TVNetworkModel(
       name: 'name',
       id: 1,
       logoPath: '/path.jpg',
@@ -16,7 +16,7 @@ void main() {
     'logo_path': '/path.jpg',
     'origin_country': 'en'
   };
-  final tvNetwork = TVNetwork(
+  const tvNetwork = TVNetwork(
       name: 'name',
       id: 1,
       logoPath: '/path.jpg',

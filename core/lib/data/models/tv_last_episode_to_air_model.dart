@@ -2,7 +2,7 @@ import 'package:core/domain/entities/tv_last_episode_to_air.dart';
 import 'package:equatable/equatable.dart';
 
 class TVLastEpisodeToAirModel extends Equatable {
-  TVLastEpisodeToAirModel({
+  const TVLastEpisodeToAirModel({
     required this.airDate,
     required this.episodeNumber,
     required this.id,
@@ -54,21 +54,20 @@ class TVLastEpisodeToAirModel extends Equatable {
 
   TVLastEpisodeToAir toEntity() {
     return TVLastEpisodeToAir(
-        airDate: this.airDate,
-        episodeNumber: this.episodeNumber,
-        id: this.id,
-        name: this.name,
-        overview: this.overview,
-        productionCode: this.productionCode,
-        seasonNumber: this.seasonNumber,
-        stillPath: this.stillPath,
-        voteAverage: this.voteAverage,
-        voteCount: this.voteCount
+        airDate: airDate,
+        episodeNumber: episodeNumber,
+        id: id,
+        name: name,
+        overview: overview,
+        productionCode: productionCode,
+        seasonNumber: seasonNumber,
+        stillPath: stillPath,
+        voteAverage: voteAverage,
+        voteCount: voteCount
     );
   }
 
   @override
-  // TODO: implement props
   List<Object?> get props => [
     airDate,
     episodeNumber,

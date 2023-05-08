@@ -19,14 +19,12 @@ void main() {
   late TVPopularState tvPopularState;
   late MockGetPopularTVs mockGetPopularTVs;
 
-  final tId = 1;
-
   setUp(() {
     mockGetPopularTVs = MockGetPopularTVs();
     tvPopularCubit = TVPopularCubit(
         getPopularTVs: mockGetPopularTVs
     );
-    tvPopularState = TVPopularState(
+    tvPopularState = const TVPopularState(
       message: "",
       popularTVsState: RequestState.Empty,
       popularTVs: <TV>[],
@@ -41,18 +39,18 @@ void main() {
     'Should emit error when fetchPopularTVs is error',
     build: () {
       when(mockGetPopularTVs.execute())
-          .thenAnswer((_) async => Left(ServerFailure('failed fetchPopularTVs')));
+          .thenAnswer((_) async => const Left(ServerFailure('failed fetchPopularTVs')));
       return tvPopularCubit;
     },
     act: (cubit) => cubit.fetchPopularTVs(),
     wait: const Duration(milliseconds: 300),
     expect: () => [
-      TVPopularState(
+      const TVPopularState(
         message: '',
         popularTVsState: RequestState.Loading,
         popularTVs: <TV>[],
       ),
-      TVPopularState(
+      const TVPopularState(
         message: 'failed fetchPopularTVs',
         popularTVsState: RequestState.Error,
         popularTVs: <TV>[],
@@ -70,7 +68,7 @@ void main() {
     act: (cubit) => cubit.fetchPopularTVs(),
     wait: const Duration(milliseconds: 300),
     expect: () => [
-      TVPopularState(
+      const TVPopularState(
         message: '',
         popularTVsState: RequestState.Loading,
         popularTVs: <TV>[],

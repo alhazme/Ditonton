@@ -30,7 +30,7 @@ final mockedMovie = Movie(
 
 final mockedMovieList = [mockedMovie];
 
-final mockedMovieDetail = MovieDetail(
+const mockedMovieDetail = MovieDetail(
   adult: false,
   backdropPath: '/path.jpg',
   genres: [Genre(id: 1, name: 'Action')],
@@ -65,7 +65,7 @@ final mockedTVList = [mockedTV];
 
 final mockedTVDetail = TVDetail(
     backdropPath: '/path.jpg',
-    createdBy: [TVCreatedBy(
+    createdBy: const [TVCreatedBy(
         id: 1,
         creditId: '1',
         name: 'name',
@@ -74,7 +74,7 @@ final mockedTVDetail = TVDetail(
     )],
     episodeRunTime: const [1],
     firstAirDate: "2020-05-05",
-    genres: [Genre(id: 1, name: 'name')],
+    genres: const [Genre(id: 1, name: 'name')],
     homepage: 'homepage',
     id: 1,
     inProduction: false,
@@ -94,7 +94,7 @@ final mockedTVDetail = TVDetail(
     ),
     name: 'name',
     nextEpisodeToAir: "2020-05-05",
-    networks: [
+    networks: const [
       TVNetwork(
           name: 'name',
           id: 1,
@@ -110,7 +110,7 @@ final mockedTVDetail = TVDetail(
     overview: 'overview',
     popularity: 1000.0,
     posterPath: '/path.jpg',
-    productionCompanies: [
+    productionCompanies: const [
       TVNetwork(
           name: 'name',
           id: 1,
@@ -118,7 +118,7 @@ final mockedTVDetail = TVDetail(
           originCountry: 'US'
       )
     ],
-    productionCountries: [
+    productionCountries: const [
       TVProductionCountry(
           iso31661: 'iso31661',
           name: 'name'
@@ -135,7 +135,7 @@ final mockedTVDetail = TVDetail(
           seasonNumber: 1
       )
     ],
-    spokenLanguages: [
+    spokenLanguages: const [
       TVSpokenLanguage(
           englishName: 'englishName',
           iso6391: 'iso6391',
@@ -149,7 +149,7 @@ final mockedTVDetail = TVDetail(
     voteCount: 1
 );
 
-final mockedWatchlistMovie = Watchlist(
+const mockedWatchlistMovie = Watchlist(
     id: 1,
     title: 'title',
     posterPath: '/path.jpg',
@@ -157,7 +157,7 @@ final mockedWatchlistMovie = Watchlist(
     category: 'movie'
 );
 
-final mockedWatchlistTV = Watchlist(
+const mockedWatchlistTV = Watchlist(
   id: 1,
   title: 'name',
   posterPath: '/path.jpg',
@@ -169,7 +169,7 @@ final mockedWatchlists = [
   mockedWatchlistMovie, mockedWatchlistTV
 ];
 
-final mockedMovieWatchlistTable = WatchlistTable(
+const mockedMovieWatchlistTable = WatchlistTable(
   id: 1,
   title: 'title',
   posterPath: '/path.jpg',
@@ -177,7 +177,7 @@ final mockedMovieWatchlistTable = WatchlistTable(
   category: 'movie'
 );
 
-final mockedTVWatchlistTable = WatchlistTable(
+const mockedTVWatchlistTable = WatchlistTable(
   id: 1,
   title: 'name',
   posterPath: '/path.jpg',

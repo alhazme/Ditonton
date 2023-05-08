@@ -1,6 +1,5 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:core/core.dart';
-import 'package:core/domain/entities/tv.dart';
 import 'package:core/domain/entities/watchlist.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -20,14 +19,12 @@ void main() {
   late WatchlistState watchlistState;
   late MockGetWatchlists mockGetWatchlists;
 
-  final tId = 1;
-
   setUp(() {
     mockGetWatchlists = MockGetWatchlists();
     watchlistCubit = WatchlistCubit(
         getWatchlists: mockGetWatchlists
     );
-    watchlistState = WatchlistState(
+    watchlistState = const WatchlistState(
       message: "",
       watchlistState: RequestState.Empty,
       watchlists: <Watchlist>[],
@@ -42,18 +39,18 @@ void main() {
     'Should emit error when fetchWatchlists is error',
     build: () {
       when(mockGetWatchlists.execute())
-          .thenAnswer((_) async => Left(ServerFailure('failed fetchWatchlists')));
+          .thenAnswer((_) async => const Left(ServerFailure('failed fetchWatchlists')));
       return watchlistCubit;
     },
     act: (cubit) => cubit.fetchWatchlists(),
     wait: const Duration(milliseconds: 300),
     expect: () => [
-      WatchlistState(
+      const WatchlistState(
         message: '',
         watchlistState: RequestState.Loading,
         watchlists: <Watchlist>[],
       ),
-      WatchlistState(
+      const WatchlistState(
         message: 'failed fetchWatchlists',
         watchlistState: RequestState.Error,
         watchlists: <Watchlist>[],
@@ -71,7 +68,7 @@ void main() {
     act: (cubit) => cubit.fetchWatchlists(),
     wait: const Duration(milliseconds: 300),
     expect: () => [
-      WatchlistState(
+      const WatchlistState(
         message: '',
         watchlistState: RequestState.Loading,
         watchlists: <Watchlist>[],

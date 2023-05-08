@@ -40,7 +40,6 @@ import 'package:tv/domain/usecases/save_tv_watchlist.dart';
 import 'package:movie/domain/usecases/search_movies.dart';
 import 'package:tv/domain/usecases/search_tvs.dart';
 import 'package:watchlist/presentation/bloc/watchlist_cubit.dart';
-import 'package:watchlist/presentation/provider/watchlist_notifier.dart';
 import 'package:get_it/get_it.dart';
 
 final locator = GetIt.instance;
@@ -113,11 +112,6 @@ Future<void> init() async {
     () => WatchlistCubit(
       getWatchlists: locator(),
     )
-  );
-  locator.registerFactory(
-    () => WatchlistNotifier(
-      getWatchlists: locator(),
-    ),
   );
 
   // use case

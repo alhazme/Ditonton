@@ -2,7 +2,7 @@ import 'package:core/domain/entities/tv_created_by.dart';
 import 'package:equatable/equatable.dart';
 
 class TVCreatedByModel extends Equatable {
-  TVCreatedByModel({
+  const TVCreatedByModel({
     required this.id,
     required this.creditId,
     required this.name,
@@ -34,16 +34,15 @@ class TVCreatedByModel extends Equatable {
 
   TVCreatedBy toEntity() {
     return TVCreatedBy(
-        id: this.id,
-        creditId: this.creditId,
-        name: this.name,
-        gender: this.gender,
-        profilePath: this.profilePath
+        id: id,
+        creditId: creditId,
+        name: name,
+        gender: gender,
+        profilePath: profilePath
     );
   }
 
   @override
-  // TODO: implement props
   List<Object?> get props => [
     id,
     creditId,

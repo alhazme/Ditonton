@@ -2,7 +2,7 @@ import 'package:core/domain/entities/tv_production_country.dart';
 import 'package:equatable/equatable.dart';
 
 class TVProductionCountryModel extends Equatable {
-  TVProductionCountryModel({
+  const TVProductionCountryModel({
     required this.iso31661,
     required this.name,
   });
@@ -22,13 +22,12 @@ class TVProductionCountryModel extends Equatable {
 
   TVProductionCountry toEntity() {
     return TVProductionCountry(
-        iso31661: this.iso31661,
-        name: this.name
+        iso31661: iso31661,
+        name: name
     );
   }
 
   @override
-  // TODO: implement props
   List<Object?> get props => [
     iso31661,
     name,

@@ -11,7 +11,7 @@ class TVTopRatedCubit extends Cubit<TVTopRatedState> {
   TVTopRatedCubit({
     required this.getTopRatedTVs,
   }) : super(
-      TVTopRatedState(
+      const TVTopRatedState(
         message: "",
         topRatedTVsState: RequestState.Empty,
         topRatedTVs: <TV>[],

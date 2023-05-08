@@ -16,7 +16,7 @@ void main() {
   });
 
   final tTVs = <TV>[];
-  final tQuery = 'dragonball';
+  const tQuery = 'dragonball';
 
   test('should get list of tvs from the repository', () async {
     // arrange

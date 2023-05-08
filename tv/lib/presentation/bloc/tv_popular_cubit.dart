@@ -11,7 +11,7 @@ class TVPopularCubit extends Cubit<TVPopularState> {
   TVPopularCubit({
     required this.getPopularTVs,
   }) : super(
-      TVPopularState(
+      const TVPopularState(
         message: "",
         popularTVsState: RequestState.Empty,
         popularTVs: <TV>[],

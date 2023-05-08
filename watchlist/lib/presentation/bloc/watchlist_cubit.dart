@@ -11,7 +11,7 @@ class WatchlistCubit extends Cubit<WatchlistState> {
   WatchlistCubit({
     required this.getWatchlists,
   }) : super(
-      WatchlistState(
+      const WatchlistState(
         message: "",
         watchlistState: RequestState.Empty,
         watchlists: <Watchlist>[],

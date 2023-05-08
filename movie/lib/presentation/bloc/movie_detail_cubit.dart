@@ -29,7 +29,7 @@ class MovieDetailCubit extends Cubit<MovieDetailState> {
         movieDetailState: RequestState.Empty,
         movieDetail: null,
         movieRecommendationsState: RequestState.Empty,
-        movieRecommendations: <Movie>[],
+        movieRecommendations: const <Movie>[],
         isAddedtoWatchlist: false,
         watchlistMessage: ""
       )

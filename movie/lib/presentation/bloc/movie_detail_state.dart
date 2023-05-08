@@ -2,7 +2,6 @@ import 'package:core/domain/entities/movie.dart';
 import 'package:core/domain/entities/movie_detail.dart';
 import 'package:core/utils/state_enum.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 
 class MovieDetailState extends Equatable {
 

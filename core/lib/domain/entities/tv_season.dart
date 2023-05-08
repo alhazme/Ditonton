@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class TVSeason extends Equatable{
-  TVSeason({
+  const TVSeason({
     required this.airDate,
     required this.episodeCount,
     required this.id,
@@ -20,7 +20,6 @@ class TVSeason extends Equatable{
   final int seasonNumber;
 
   @override
-  // TODO: implement props
   List<Object?> get props => [
     airDate,
     episodeCount,

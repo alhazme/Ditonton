@@ -86,7 +86,7 @@ void main() {
 			);
 			when(() => tvPopularCubit.state).thenReturn(mockedState);
 			when(() => tvPopularCubit.fetchPopularTVs())
-				.thenAnswer((_) async => Left(ServerFailure('Error message')));
+				.thenAnswer((_) async => const Left(ServerFailure('Error message')));
 
 			// Act
 			await tester.pumpWidget(_makeTestableWidget(const PopularTvsPage()));

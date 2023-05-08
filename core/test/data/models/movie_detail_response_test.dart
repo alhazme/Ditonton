@@ -7,7 +7,7 @@ import 'package:core/domain/entities/movie_detail.dart';
 void main() {
 
   // Arrange
-  final movieDetailResponse = MovieDetailResponse(
+  const movieDetailResponse = MovieDetailResponse(
     adult: false,
     backdropPath: '/path.jpg',
     budget: 1000,
@@ -65,7 +65,7 @@ void main() {
     'vote_count': 1,
   };
 
-  final movieDetail = MovieDetail(
+  const movieDetail = MovieDetail(
       adult: false,
       backdropPath: '/path.jpg',
       genres: [

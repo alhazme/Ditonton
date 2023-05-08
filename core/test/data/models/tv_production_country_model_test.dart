@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   // Arrange
-  final tvProductionCountryModel = TVProductionCountryModel(
+  const tvProductionCountryModel = TVProductionCountryModel(
       iso31661: 'iso31661',
       name: 'name'
   );
@@ -12,7 +12,7 @@ void main() {
     "iso_3166_1": 'iso31661',
     'name': 'name'
   };
-  final tvProductionCountry = TVProductionCountry(
+  const tvProductionCountry = TVProductionCountry(
       iso31661: 'iso31661',
       name: 'name'
   );

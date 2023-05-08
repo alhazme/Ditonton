@@ -69,10 +69,10 @@ class WatchlistCard extends StatelessWidget {
                 child: CachedNetworkImage(
                   imageUrl: '$BASE_IMAGE_URL${watchlist.posterPath}',
                   width: 80,
-                  placeholder: (context, url) => Center(
+                  placeholder: (context, url) => const Center(
                     child: CircularProgressIndicator(),
                   ),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
             ),

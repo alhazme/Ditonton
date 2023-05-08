@@ -55,7 +55,7 @@ void main() {
     'Should emit error when fetchNowPlayingMovies is error',
     build: () {
       when(mockGetNowPlayingMovies.execute())
-          .thenAnswer((_) async => Left(ServerFailure('failed fetchNowPlayingMovies')));
+          .thenAnswer((_) async => const Left(ServerFailure('failed fetchNowPlayingMovies')));
       return movieHomeCubit;
     },
     act: (cubit) => cubit.fetchNowPlayingMovies(),
@@ -117,7 +117,7 @@ void main() {
     'Should emit error when fetchPopularMovies is error',
     build: () {
       when(mockGetPopularMovies.execute())
-          .thenAnswer((_) async => Left(ServerFailure('failed fetchPopularMovies')));
+          .thenAnswer((_) async => const Left(ServerFailure('failed fetchPopularMovies')));
       return movieHomeCubit;
     },
     act: (cubit) => cubit.fetchPopularMovies(),
@@ -179,7 +179,7 @@ void main() {
     'Should emit error when fetchTopRatedMovies is error',
     build: () {
       when(mockGetTopRatedMovies.execute())
-          .thenAnswer((_) async => Left(ServerFailure('failed fetchTopRatedMovies')));
+          .thenAnswer((_) async => const Left(ServerFailure('failed fetchTopRatedMovies')));
       return movieHomeCubit;
     },
     act: (cubit) => cubit.fetchTopRatedMovies(),

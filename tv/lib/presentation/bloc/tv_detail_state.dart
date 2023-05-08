@@ -15,7 +15,7 @@ class TVDetailState extends Equatable {
   final String watchlistMessage;
 
   @immutable
-  TVDetailState({
+  const TVDetailState({
     this.message = '',
     this.tvDetailState = RequestState.Empty,
     this.tvDetail,

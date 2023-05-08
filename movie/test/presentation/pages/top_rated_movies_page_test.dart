@@ -46,7 +46,7 @@ void main() {
 				.thenAnswer((_) async => const Right(true));
 
 			// Act
-			await tester.pumpWidget(_makeTestableWidget(TopRatedMoviesPage()));
+			await tester.pumpWidget(_makeTestableWidget(const TopRatedMoviesPage()));
 
 			// Expect
 			final progressFinder = find.byType(CircularProgressIndicator);
@@ -69,7 +69,7 @@ void main() {
 				.thenAnswer((_) async => const Right(true));
 
 			// Act
-			await tester.pumpWidget(_makeTestableWidget(TopRatedMoviesPage()));
+			await tester.pumpWidget(_makeTestableWidget(const TopRatedMoviesPage()));
 
 			// Expect
 			final listViewFinder = find.byType(ListView);
@@ -90,7 +90,7 @@ void main() {
 				.thenAnswer((_) async => const Right(true));
 
 			// Act
-			await tester.pumpWidget(_makeTestableWidget(TopRatedMoviesPage()));
+			await tester.pumpWidget(_makeTestableWidget(const TopRatedMoviesPage()));
 
 			// Expect
 			final textFinder = find.byKey(const Key('error_message'));

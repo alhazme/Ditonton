@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class TVNetwork extends Equatable {
-  TVNetwork({
+  const TVNetwork({
     required this.name,
     required this.id,
     required this.logoPath,

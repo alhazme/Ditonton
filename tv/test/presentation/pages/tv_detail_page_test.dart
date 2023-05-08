@@ -43,9 +43,9 @@ void main() {
 			// Arrange
 			const tvId = 1;
 			when(() => tvDetailCubit.fetchTVDetail(tvId))
-				.thenAnswer((_) async => Left(ServerFailure('failed fetchTVDetail')));
+				.thenAnswer((_) async => const Left(ServerFailure('failed fetchTVDetail')));
 			when(() => tvDetailCubit.loadWatchlistStatus(tvId))
-				.thenAnswer((_) async => Left(ServerFailure('failed loadWatchlistStatus')));
+				.thenAnswer((_) async => const Left(ServerFailure('failed loadWatchlistStatus')));
 			final mockedState = TVDetailState(
         message: '',
         tvDetailState: RequestState.Loading,
@@ -74,9 +74,9 @@ void main() {
 			const tvId = 1;
 			const message = 'failed fetchTVDetail';
 			when(() => tvDetailCubit.fetchTVDetail(tvId))
-				.thenAnswer((_) async => Left(ServerFailure(message)));
+				.thenAnswer((_) async => const Left(ServerFailure(message)));
 			when(() => tvDetailCubit.loadWatchlistStatus(tvId))
-				.thenAnswer((_) async => Left(ServerFailure('failed loadWatchlistStatus')));
+				.thenAnswer((_) async => const Left(ServerFailure('failed loadWatchlistStatus')));
 			final mockedState = TVDetailState(
         message: message,
         tvDetailState: RequestState.Error,
@@ -105,15 +105,15 @@ void main() {
 			const tvId = 1;
 			const message = 'failed';
 			when(() => tvDetailCubit.fetchTVDetail(tvId))
-				.thenAnswer((_) async => Left(ServerFailure(message)));
+				.thenAnswer((_) async => const Left(ServerFailure(message)));
 			when(() => tvDetailCubit.loadWatchlistStatus(tvId))
-				.thenAnswer((_) async => Left(ServerFailure('failed loadWatchlistStatus')));
-			final mockedState = TVDetailState(
+				.thenAnswer((_) async => const Left(ServerFailure('failed loadWatchlistStatus')));
+			const mockedState = TVDetailState(
         message: message,
         tvDetailState: RequestState.Empty,
         tvDetail: null,
         tvRecommendationsState: RequestState.Error,
-        tvRecommendations: const <TV>[],
+        tvRecommendations: <TV>[],
         isAddedtoWatchlist: false,
         watchlistMessage: ''
 			);

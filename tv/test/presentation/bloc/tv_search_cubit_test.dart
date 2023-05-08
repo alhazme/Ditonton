@@ -19,14 +19,12 @@ void main() {
   late TVSearchState tvSearchState;
   late MockSearchTVs mockSearchTVs;
 
-  final tId = 1;
-
   setUp(() {
     mockSearchTVs = MockSearchTVs();
     tvSearchCubit = TVSearchCubit(
         searchTVs: mockSearchTVs
     );
-    tvSearchState = TVSearchState(
+    tvSearchState = const TVSearchState(
       message: "",
       state: RequestState.Empty,
       searchResult: <TV>[],
@@ -41,18 +39,18 @@ void main() {
     'Should emit error when fetchTVSearch is error',
     build: () {
       when(mockSearchTVs.execute('dragonball'))
-          .thenAnswer((_) async => Left(ServerFailure('failed fetchTVSearch')));
+          .thenAnswer((_) async => const Left(ServerFailure('failed fetchTVSearch')));
       return tvSearchCubit;
     },
     act: (cubit) => cubit.fetchTVSearch('dragonball'),
     wait: const Duration(milliseconds: 300),
     expect: () => [
-      TVSearchState(
+      const TVSearchState(
         message: '',
         state: RequestState.Loading,
         searchResult: <TV>[],
       ),
-      TVSearchState(
+      const TVSearchState(
         message: 'failed fetchTVSearch',
         state: RequestState.Error,
         searchResult: <TV>[],
@@ -70,7 +68,7 @@ void main() {
     act: (cubit) => cubit.fetchTVSearch('dragonball'),
     wait: const Duration(milliseconds: 300),
     expect: () => [
-      TVSearchState(
+      const TVSearchState(
         message: '',
         state: RequestState.Loading,
         searchResult: <TV>[],

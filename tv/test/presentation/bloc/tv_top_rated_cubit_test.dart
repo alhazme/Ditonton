@@ -19,14 +19,12 @@ void main() {
   late TVTopRatedState tvTopRatedState;
   late MockGetTopRatedTVs mockGetTopRatedTVs;
 
-  final tId = 1;
-
   setUp(() {
     mockGetTopRatedTVs = MockGetTopRatedTVs();
     tvTopRatedCubit = TVTopRatedCubit(
         getTopRatedTVs: mockGetTopRatedTVs
     );
-    tvTopRatedState = TVTopRatedState(
+    tvTopRatedState = const TVTopRatedState(
       message: "",
       topRatedTVsState: RequestState.Empty,
       topRatedTVs: <TV>[],
@@ -41,18 +39,18 @@ void main() {
     'Should emit error when fetchTopRatedTVs is error',
     build: () {
       when(mockGetTopRatedTVs.execute())
-          .thenAnswer((_) async => Left(ServerFailure('failed fetchTopRatedTVs')));
+          .thenAnswer((_) async => const Left(ServerFailure('failed fetchTopRatedTVs')));
       return tvTopRatedCubit;
     },
     act: (cubit) => cubit.fetchTopRatedTVs(),
     wait: const Duration(milliseconds: 300),
     expect: () => [
-      TVTopRatedState(
+      const TVTopRatedState(
         message: '',
         topRatedTVsState: RequestState.Loading,
         topRatedTVs: <TV>[],
       ),
-      TVTopRatedState(
+      const TVTopRatedState(
         message: 'failed fetchTopRatedTVs',
         topRatedTVsState: RequestState.Error,
         topRatedTVs: <TV>[],
@@ -70,7 +68,7 @@ void main() {
     act: (cubit) => cubit.fetchTopRatedTVs(),
     wait: const Duration(milliseconds: 300),
     expect: () => [
-      TVTopRatedState(
+      const TVTopRatedState(
         message: '',
         topRatedTVsState: RequestState.Loading,
         topRatedTVs: <TV>[],

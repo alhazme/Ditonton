@@ -5,12 +5,12 @@ import 'package:core/domain/entities/genre.dart';
 void main() {
 
   // Arrange
-  final genreModel = GenreModel(id: 1, name: 'Action');
+  const genreModel = GenreModel(id: 1, name: 'Action');
   final genreJson = {
     "id": 1,
     "name": 'Action',
   };
-  final genre = Genre(id: 1, name: 'Action');
+  const genre = Genre(id: 1, name: 'Action');
 
   test('should be a equal to Genre model', () async {
     // Act

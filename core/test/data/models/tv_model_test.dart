@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   // Arrange
-  final tvModel = TVModel(
+  const tvModel = TVModel(
       posterPath: '/path.jpg',
       popularity: 1000.0,
       id: 1,
@@ -42,8 +42,8 @@ void main() {
       voteAverage: 1.0,
       overview: 'overview',
       firstAirDate: '2020-05-05',
-      originCountry: ['US'],
-      genreIds: [1],
+      originCountry: const ['US'],
+      genreIds: const [1],
       originalLanguage: 'en',
       voteCount: 1,
       name: 'name',

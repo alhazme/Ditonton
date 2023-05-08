@@ -2,7 +2,7 @@ import 'package:core/domain/entities/tv_spoken_language.dart';
 import 'package:equatable/equatable.dart';
 
 class TVSpokenLanguageModel extends Equatable {
-  TVSpokenLanguageModel({
+  const TVSpokenLanguageModel({
     required this.englishName,
     required this.iso6391,
     required this.name,
@@ -26,14 +26,13 @@ class TVSpokenLanguageModel extends Equatable {
 
   TVSpokenLanguage toEntity() {
     return TVSpokenLanguage(
-        englishName: this.englishName,
-        iso6391: this.iso6391,
-        name: this.name
+        englishName: englishName,
+        iso6391: iso6391,
+        name: name
     );
   }
 
   @override
-  // TODO: implement props
   List<Object?> get props => [
     englishName,
     iso6391,

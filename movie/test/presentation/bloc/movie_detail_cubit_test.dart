@@ -67,9 +67,9 @@ void main() {
 			'Should emit error when getMovieDetail is error',
 			build: () {
 				when(mockGetMovieDetail.execute(tId))
-						.thenAnswer((_) async => Left(ServerFailure('failed fetchMovieDetail')));
+						.thenAnswer((_) async => const Left(ServerFailure('failed fetchMovieDetail')));
 				when(mockGetMovieRecommendations.execute(tId))
-						.thenAnswer((_) async => Left(ServerFailure('failed fetchMovieRecommendations')));
+						.thenAnswer((_) async => const Left(ServerFailure('failed fetchMovieRecommendations')));
 				when(mockGetWatchlistStatus.execute(tId))
 						.thenAnswer((_) async => false);
 				return movieDetailCubit;
@@ -102,9 +102,9 @@ void main() {
 			'Should emit error when getMovieDetail is success but getMovieRecommendations is error',
 			build: () {
 				when(mockGetMovieDetail.execute(tId))
-						.thenAnswer((_) async => Right(mockedMovieDetail));
+						.thenAnswer((_) async => const Right(mockedMovieDetail));
 				when(mockGetMovieRecommendations.execute(tId))
-						.thenAnswer((_) async => Left(ServerFailure('failed fetchMovieRecommendations')));
+						.thenAnswer((_) async => const Left(ServerFailure('failed fetchMovieRecommendations')));
 				when(mockGetWatchlistStatus.execute(tId))
 						.thenAnswer((_) async => false);
 				return movieDetailCubit;
@@ -146,7 +146,7 @@ void main() {
 			'Should emit error when getMovieDetail is success but getMovieRecommendations is success too',
 			build: () {
 				when(mockGetMovieDetail.execute(tId))
-						.thenAnswer((_) async => Right(mockedMovieDetail));
+						.thenAnswer((_) async => const Right(mockedMovieDetail));
 				when(mockGetMovieRecommendations.execute(tId))
 						.thenAnswer((_) async => Right(mockedMovieList));
 				when(mockGetWatchlistStatus.execute(tId))
@@ -190,7 +190,7 @@ void main() {
 			'Should emit error when addWatchlist is error',
 			build: () {
 				when(mockSaveWatchlist.execute(mockedMovieDetail))
-						.thenAnswer((_) async => Left(DatabaseFailure('failed saveMovieWatchlist')));
+						.thenAnswer((_) async => const Left(DatabaseFailure('failed saveMovieWatchlist')));
 				return movieDetailCubit;
 			},
 			act: (cubit) => cubit.addWatchlist(mockedMovieDetail),
@@ -229,7 +229,7 @@ void main() {
 			'Should emit error when removeFromWatchlist is error',
 			build: () {
 				when(mockRemoveWatchlist.execute(tId))
-						.thenAnswer((_) async => Left(DatabaseFailure('failed removeFromWatchlist')));
+						.thenAnswer((_) async => const Left(DatabaseFailure('failed removeFromWatchlist')));
 				return movieDetailCubit;
 			},
 			act: (cubit) => cubit.removeFromWatchlist(tId),

@@ -2,7 +2,7 @@ import 'package:core/domain/entities/tv_season.dart';
 import 'package:equatable/equatable.dart';
 
 class TVSeasonModel extends Equatable{
-  TVSeasonModel({
+  const TVSeasonModel({
     required this.airDate,
     required this.episodeCount,
     required this.id,
@@ -42,18 +42,17 @@ class TVSeasonModel extends Equatable{
 
   TVSeason toEntity() {
     return TVSeason(
-        airDate: this.airDate,
-        episodeCount: this.episodeCount,
-        id: this.id,
-        name: this.name,
-        overview: this.overview,
-        posterPath: this.posterPath,
-        seasonNumber: this.seasonNumber
+        airDate: airDate,
+        episodeCount: episodeCount,
+        id: id,
+        name: name,
+        overview: overview,
+        posterPath: posterPath,
+        seasonNumber: seasonNumber
     );
   }
 
   @override
-  // TODO: implement props
   List<Object?> get props => [
     airDate,
     episodeCount,

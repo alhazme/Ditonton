@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   // Arrange
-  final tvCreatedByModel = TVCreatedByModel(
+  const tvCreatedByModel = TVCreatedByModel(
     id: 1,
     creditId: '1',
     name: 'name',
@@ -18,7 +18,7 @@ void main() {
     "gender": 1,
     "profile_path": '/test.jpg'
   };
-  final tvCreatedBy = TVCreatedBy(
+  const tvCreatedBy = TVCreatedBy(
     id: 1,
     creditId: '1',
     name: 'name',

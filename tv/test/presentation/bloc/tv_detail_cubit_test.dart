@@ -46,12 +46,12 @@ void main() {
         saveTVWatchlist: mockSaveWatchlist,
         removeWatchlist: mockRemoveWatchlist
     );
-    tvDetailState = TVDetailState(
+    tvDetailState = const TVDetailState(
         message: "",
         tvDetailState: RequestState.Empty,
         tvDetail: null,
         tvRecommendationsState: RequestState.Empty,
-        tvRecommendations: const <TV>[],
+        tvRecommendations: <TV>[],
         isAddedtoWatchlist: false,
         watchlistMessage: ""
     );
@@ -67,9 +67,9 @@ void main() {
 			'Should emit error when getTVDetail is error',
 			build: () {
 				when(mockGetTVDetail.execute(tId))
-						.thenAnswer((_) async => Left(ServerFailure('failed fetchTVDetail')));
+						.thenAnswer((_) async => const Left(ServerFailure('failed fetchTVDetail')));
 				when(mockGetTVRecommendations.execute(tId))
-						.thenAnswer((_) async => Left(ServerFailure('failed fetchTVRecommendations')));
+						.thenAnswer((_) async => const Left(ServerFailure('failed fetchTVRecommendations')));
 				when(mockGetWatchlistStatus.execute(tId))
 						.thenAnswer((_) async => false);
 				return tvDetailCubit;
@@ -77,21 +77,21 @@ void main() {
 			act: (cubit) => cubit.fetchTVDetail(tId),
 			wait: const Duration(milliseconds: 300),
 			expect: () => [
-				TVDetailState(
+				const TVDetailState(
 						message: '',
 						tvDetailState: RequestState.Loading,
 						tvDetail: null,
 						tvRecommendationsState: RequestState.Empty,
-						tvRecommendations: const <TV>[],
+						tvRecommendations: <TV>[],
 						isAddedtoWatchlist: false,
 						watchlistMessage: ''
 				),
-				TVDetailState(
+				const TVDetailState(
 						message: 'failed fetchTVDetail',
 						tvDetailState: RequestState.Error,
 						tvDetail: null,
 						tvRecommendationsState: RequestState.Empty,
-						tvRecommendations: const <TV>[],
+						tvRecommendations: <TV>[],
 						isAddedtoWatchlist: false,
 						watchlistMessage: ''
 				),
@@ -104,7 +104,7 @@ void main() {
 				when(mockGetTVDetail.execute(tId))
 						.thenAnswer((_) async => Right(mockedTVDetail));
 				when(mockGetTVRecommendations.execute(tId))
-						.thenAnswer((_) async => Left(ServerFailure('failed fetchTVRecommendations')));
+						.thenAnswer((_) async => const Left(ServerFailure('failed fetchTVRecommendations')));
 				when(mockGetWatchlistStatus.execute(tId))
 						.thenAnswer((_) async => false);
 				return tvDetailCubit;
@@ -112,12 +112,12 @@ void main() {
 			act: (cubit) => cubit.fetchTVDetail(tId),
 			wait: const Duration(milliseconds: 300),
 			expect: () => [
-				TVDetailState(
+				const TVDetailState(
 						message: '',
 						tvDetailState: RequestState.Loading,
 						tvDetail: null,
 						tvRecommendationsState: RequestState.Empty,
-						tvRecommendations: const <TV>[],
+						tvRecommendations: <TV>[],
 						isAddedtoWatchlist: false,
 						watchlistMessage: ''
 				),
@@ -156,12 +156,12 @@ void main() {
 			act: (cubit) => cubit.fetchTVDetail(tId),
 			wait: const Duration(milliseconds: 300),
 			expect: () => [
-				TVDetailState(
+				const TVDetailState(
 					message: '',
 					tvDetailState: RequestState.Loading,
 					tvDetail: null,
 					tvRecommendationsState: RequestState.Empty,
-					tvRecommendations: const <TV>[],
+					tvRecommendations: <TV>[],
 					isAddedtoWatchlist: false,
 					watchlistMessage: ''
 				),
@@ -190,18 +190,18 @@ void main() {
 			'Should emit error when addWatchlist is error',
 			build: () {
 				when(mockSaveWatchlist.execute(mockedTVDetail))
-						.thenAnswer((_) async => Left(DatabaseFailure('failed saveTVWatchlist')));
+						.thenAnswer((_) async => const Left(DatabaseFailure('failed saveTVWatchlist')));
 				return tvDetailCubit;
 			},
 			act: (cubit) => cubit.addWatchlist(mockedTVDetail),
 			wait: const Duration(milliseconds: 300),
 			expect: () => [
-				TVDetailState(
+				const TVDetailState(
 						message: '',
 						tvDetailState: RequestState.Empty,
 						tvDetail: null,
 						tvRecommendationsState: RequestState.Empty,
-						tvRecommendations: const <TV>[],
+						tvRecommendations: <TV>[],
 						isAddedtoWatchlist: false,
 						watchlistMessage: 'failed saveTVWatchlist'
 				),
@@ -218,7 +218,7 @@ void main() {
 			act: (cubit) => cubit.addWatchlist(mockedTVDetail),
 			wait: const Duration(milliseconds: 300),
 			expect: () => [
-				TVDetailState(
+				const TVDetailState(
 						isAddedtoWatchlist: true,
 						watchlistMessage: TVDetailCubit.watchlistAddSuccessMessage
 				),
@@ -229,13 +229,13 @@ void main() {
 			'Should emit error when removeFromWatchlist is error',
 			build: () {
 				when(mockRemoveWatchlist.execute(tId))
-						.thenAnswer((_) async => Left(DatabaseFailure('failed removeFromWatchlist')));
+						.thenAnswer((_) async => const Left(DatabaseFailure('failed removeFromWatchlist')));
 				return tvDetailCubit;
 			},
 			act: (cubit) => cubit.removeFromWatchlist(tId),
 			wait: const Duration(milliseconds: 300),
 			expect: () => [
-				TVDetailState(
+				const TVDetailState(
 						isAddedtoWatchlist: true,
 						watchlistMessage: 'failed removeFromWatchlist'
 				),
@@ -252,7 +252,7 @@ void main() {
 			act: (cubit) => cubit.removeFromWatchlist(tId),
 			wait: const Duration(milliseconds: 300),
 			expect: () => [
-				TVDetailState(
+				const TVDetailState(
 						isAddedtoWatchlist: false,
 						watchlistMessage: TVDetailCubit.watchlistRemoveSuccessMessage
 				),
@@ -269,7 +269,7 @@ void main() {
 			act: (cubit) => cubit.loadWatchlistStatus(tId),
 			wait: const Duration(milliseconds: 300),
 			expect: () => [
-				TVDetailState(
+				const TVDetailState(
 					isAddedtoWatchlist: true,
 					watchlistMessage: '',
 				)

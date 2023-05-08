@@ -9,7 +9,7 @@ import 'package:core/domain/entities/tv_detail.dart';
 import 'package:equatable/equatable.dart';
 
 class TvDetailResponse extends Equatable {
-  TvDetailResponse({
+  const TvDetailResponse({
     required this.backdropPath,
     required this.createdBy,
     required this.episodeRunTime,
@@ -145,42 +145,41 @@ class TvDetailResponse extends Equatable {
 
   TVDetail toEntity() {
     return TVDetail(
-        backdropPath: this.backdropPath,
-        createdBy: this.createdBy.map((createdBy) => createdBy.toEntity()).toList(),
-        episodeRunTime: this.episodeRunTime,
-        firstAirDate: this.firstAirDate,
-        genres: this.genres.map((genre) => genre.toEntity()).toList(),
-        homepage: this.homepage,
-        id: this.id,
-        inProduction: this.inProduction,
-        languages: this.languages,
-        lastAirDate: this.lastAirDate,
-        lastEpisodeToAir: this.lastEpisodeToAir.toEntity(),
-        name: this.name,
-        nextEpisodeToAir: this.nextEpisodeToAir,
-        networks: this.networks.map((network) => network.toEntity()).toList(),
-        numberOfEpisodes: this.numberOfEpisodes,
-        numberOfSeasons: this.numberOfSeasons,
-        originCountry: this.originCountry,
-        originalLanguage: this.originalLanguage,
-        originalName: this.originalName,
-        overview: this.overview,
-        popularity: this.popularity,
-        posterPath: this.posterPath,
-        productionCompanies: this.productionCompanies.map((productionCompany) => productionCompany.toEntity()).toList(),
-        productionCountries: this.productionCountries.map((productionCountry) => productionCountry.toEntity()).toList(),
-        seasons: this.seasons.map((season) => season.toEntity()).toList(),
-        spokenLanguages: this.spokenLanguages.map((spokenLanguage) => spokenLanguage.toEntity()).toList(),
-        status: this.status,
-        tagline: this.tagline,
-        type: this.type,
-        voteAverage: this.voteAverage,
-        voteCount: this.voteCount
+        backdropPath: backdropPath,
+        createdBy: createdBy.map((createdBy) => createdBy.toEntity()).toList(),
+        episodeRunTime: episodeRunTime,
+        firstAirDate: firstAirDate,
+        genres: genres.map((genre) => genre.toEntity()).toList(),
+        homepage: homepage,
+        id: id,
+        inProduction: inProduction,
+        languages: languages,
+        lastAirDate: lastAirDate,
+        lastEpisodeToAir: lastEpisodeToAir.toEntity(),
+        name: name,
+        nextEpisodeToAir: nextEpisodeToAir,
+        networks: networks.map((network) => network.toEntity()).toList(),
+        numberOfEpisodes: numberOfEpisodes,
+        numberOfSeasons: numberOfSeasons,
+        originCountry: originCountry,
+        originalLanguage: originalLanguage,
+        originalName: originalName,
+        overview: overview,
+        popularity: popularity,
+        posterPath: posterPath,
+        productionCompanies: productionCompanies.map((productionCompany) => productionCompany.toEntity()).toList(),
+        productionCountries: productionCountries.map((productionCountry) => productionCountry.toEntity()).toList(),
+        seasons: seasons.map((season) => season.toEntity()).toList(),
+        spokenLanguages: spokenLanguages.map((spokenLanguage) => spokenLanguage.toEntity()).toList(),
+        status: status,
+        tagline: tagline,
+        type: type,
+        voteAverage: voteAverage,
+        voteCount: voteCount
     );
   }
 
   @override
-  // TODO: implement props
   List<Object?> get props => [
     backdropPath,
     createdBy,

@@ -11,7 +11,7 @@ class MovieSearchCubit extends Cubit<MovieSearchState> {
   MovieSearchCubit({
     required this.searchMovies,
   }) : super(
-      MovieSearchState(
+      const MovieSearchState(
         message: "",
         state: RequestState.Empty,
         searchResult: <Movie>[],

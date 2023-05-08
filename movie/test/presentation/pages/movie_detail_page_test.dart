@@ -50,9 +50,9 @@ void main() {
 			// Arrange
 			const movieId = 1;
 			when(() => movieDetailCubit.fetchMovieDetail(movieId))
-				.thenAnswer((_) async => Left(ServerFailure('failed fetchMovieDetail')));
+				.thenAnswer((_) async => const Left(ServerFailure('failed fetchMovieDetail')));
 			when(() => movieDetailCubit.loadWatchlistStatus(movieId))
-				.thenAnswer((_) async => Left(ServerFailure('failed loadWatchlistStatus')));
+				.thenAnswer((_) async => const Left(ServerFailure('failed loadWatchlistStatus')));
 			final mockedState = MovieDetailState(
 					message: '',
 					movieDetailState: RequestState.Loading,
@@ -81,9 +81,9 @@ void main() {
 			const movieId = 1;
 			const message = 'failed fetchMovieDetail';
 			when(() => movieDetailCubit.fetchMovieDetail(movieId))
-				.thenAnswer((_) async => Left(ServerFailure(message)));
+				.thenAnswer((_) async => const Left(ServerFailure(message)));
 			when(() => movieDetailCubit.loadWatchlistStatus(movieId))
-				.thenAnswer((_) async => Left(ServerFailure('failed loadWatchlistStatus')));
+				.thenAnswer((_) async => const Left(ServerFailure('failed loadWatchlistStatus')));
 			final mockedState = MovieDetailState(
 					message: message,
 					movieDetailState: RequestState.Error,
@@ -112,9 +112,9 @@ void main() {
 			const movieId = 1;
 			const message = 'failed';
 			when(() => movieDetailCubit.fetchMovieDetail(movieId))
-				.thenAnswer((_) async => Left(ServerFailure(message)));
+				.thenAnswer((_) async => const Left(ServerFailure(message)));
 			when(() => movieDetailCubit.loadWatchlistStatus(movieId))
-				.thenAnswer((_) async => Left(ServerFailure(message)));
+				.thenAnswer((_) async => const Left(ServerFailure(message)));
 			final mockedState = MovieDetailState(
 					message: message,
 					movieDetailState: RequestState.Empty,

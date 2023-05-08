@@ -24,7 +24,7 @@ class TVDetailCubit extends Cubit<TVDetailState> {
     required this.saveTVWatchlist,
     required this.removeWatchlist,
   }) : super(
-      TVDetailState(
+      const TVDetailState(
           message: "",
           tvDetailState: RequestState.Empty,
           tvDetail: null,

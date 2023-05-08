@@ -11,7 +11,7 @@ class MoviePopularCubit extends Cubit<MoviePopularState> {
   MoviePopularCubit({
     required this.getPopularMovies,
   }) : super(
-      MoviePopularState(
+      const MoviePopularState(
           message: "",
           popularMoviesState: RequestState.Empty,
           popularMovies: <Movie>[],

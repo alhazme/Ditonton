@@ -41,7 +41,7 @@ void main() {
     'Should emit error when fetchMovieSearch is error',
     build: () {
       when(mockSearchMovies.execute('dragonball'))
-          .thenAnswer((_) async => Left(ServerFailure('failed fetchMovieSearch')));
+          .thenAnswer((_) async => const Left(ServerFailure('failed fetchMovieSearch')));
       return movieSearchCubit;
     },
     act: (cubit) => cubit.fetchMovieSearch('dragonball'),

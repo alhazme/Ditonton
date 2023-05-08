@@ -17,7 +17,7 @@ class TVListCubit extends Cubit<TVListState> {
     required this.getPopularTVs,
     required this.getTopRatedTVs,
   }) : super(
-      TVListState(
+      const TVListState(
           message: "",
           nowPlayingTVState: RequestState.Empty,
           nowPlayingTVs: <TV>[],

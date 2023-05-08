@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class TVSpokenLanguage extends Equatable {
-  TVSpokenLanguage({
+  const TVSpokenLanguage({
     required this.englishName,
     required this.iso6391,
     required this.name,
@@ -12,7 +12,6 @@ class TVSpokenLanguage extends Equatable {
   final String name;
 
   @override
-  // TODO: implement props
   List<Object?> get props => [
     englishName,
     iso6391,

@@ -41,7 +41,7 @@ void main() {
     'Should emit error when fetchPopularMovies is error',
     build: () {
       when(mockGetPopularMovies.execute())
-          .thenAnswer((_) async => Left(ServerFailure('failed fetchPopularMovies')));
+          .thenAnswer((_) async => const Left(ServerFailure('failed fetchPopularMovies')));
       return moviePopularCubit;
     },
     act: (cubit) => cubit.fetchPopularMovies(),
