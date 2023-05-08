@@ -3,10 +3,8 @@ import 'package:core/utils/state_enum.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:watchlist/presentation/bloc/watchlist_cubit.dart';
 import 'package:watchlist/presentation/bloc/watchlist_state.dart';
-import 'package:watchlist/presentation/provider/watchlist_notifier.dart';
 import 'package:watchlist/presentation/widgets/watchlist_card.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class WatchlistPage extends StatefulWidget {
   static const ROUTE_NAME = '/watchlist';

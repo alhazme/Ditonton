@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 class WatchlistCard extends StatelessWidget {
   final Watchlist watchlist;
 
-  WatchlistCard(this.watchlist);
+  const WatchlistCard(this.watchlist, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,7 @@ class WatchlistCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       style: kHeading6,
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     Text(
                       watchlist.overview,
                       maxLines: 2,
@@ -65,6 +65,7 @@ class WatchlistCard extends StatelessWidget {
                 bottom: 16,
               ),
               child: ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
                 child: CachedNetworkImage(
                   imageUrl: '$BASE_IMAGE_URL${watchlist.posterPath}',
                   width: 80,
@@ -73,7 +74,6 @@ class WatchlistCard extends StatelessWidget {
                   ),
                   errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
-                borderRadius: BorderRadius.all(Radius.circular(8)),
               ),
             ),
           ],
