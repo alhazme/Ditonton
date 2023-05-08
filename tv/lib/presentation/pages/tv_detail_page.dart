@@ -146,6 +146,7 @@ class TVDetailContent extends StatelessWidget {
                               style: kHeading5,
                             ),
                             ElevatedButton(
+															key: const Key('watchlist_button'),
                               onPressed: () async {
                                 if (!isAddedWatchlist) {
                                   await context.read<TVDetailCubit>().addWatchlist(tv);

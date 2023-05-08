@@ -24,6 +24,9 @@ dependencies:
   flutter:
     sdk: flutter
 
+  integration_test:
+    sdk: flutter
+
   core:
     path: core
 
