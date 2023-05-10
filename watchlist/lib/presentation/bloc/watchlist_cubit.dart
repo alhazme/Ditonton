@@ -1,6 +1,6 @@
-import 'package:bloc/bloc.dart';
 import 'package:core/domain/entities/watchlist.dart';
 import 'package:core/utils/state_enum.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:watchlist/domain/usecases/get_watchlists.dart';
 import 'package:watchlist/presentation/bloc/watchlist_state.dart';
 

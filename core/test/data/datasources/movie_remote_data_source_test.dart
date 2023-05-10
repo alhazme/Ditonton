@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:core/data/datasources/movie_remote_data_source.dart';
 import 'package:core/data/models/movie_detail_response.dart';
 import 'package:core/data/models/movie_response.dart';
+import 'package:core/utils/constants.dart';
 import 'package:core/utils/exception.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
@@ -12,8 +13,6 @@ import '../../json_reader.dart';
 import '../../helpers/test_helper.mocks.dart';
 
 void main() {
-  const API_KEY = 'api_key=2174d146bb9c0eab47529b2e77d6b526';
-  const BASE_URL = 'https://api.themoviedb.org/3';
 
   late MovieRemoteDataSourceImpl dataSource;
 	late MockIOClient mockIOClient;
@@ -33,7 +32,7 @@ void main() {
     test('should return list of Movie Model when the response code is 200',
         () async {
       // arrange
-      String url = '$BASE_URL/movie/now_playing?$API_KEY';
+      String url = '$baseURL/movie/now_playing?$apiKey';
       // when(mockSslPinningHelper.isSecure(url, HttpMethod.Get)).thenAnswer((_) async => true);
       when(mockIOClient
               .get(Uri.parse(url)))
@@ -49,7 +48,7 @@ void main() {
         'should throw a ServerException when the response code is 404 or other',
         () async {
       // arrange
-      String url = '$BASE_URL/movie/now_playing?$API_KEY';
+      String url = '$baseURL/movie/now_playing?$apiKey';
       // when(mockSslPinningHelper.isSecure(url, HttpMethod.Get)).thenAnswer((_) async => true);
       when(mockIOClient
               .get(Uri.parse(url)))
@@ -69,7 +68,7 @@ void main() {
     test('should return list of movies when response is success (200)',
         () async {
       // arrange
-      when(mockIOClient.get(Uri.parse('$BASE_URL/movie/popular?$API_KEY')))
+      when(mockIOClient.get(Uri.parse('$baseURL/movie/popular?$apiKey')))
           .thenAnswer((_) async =>
               http.Response(readJson('dummy_data/movie_popular.json'), 200));
       // act
@@ -82,7 +81,7 @@ void main() {
         'should throw a ServerException when the response code is 404 or other',
         () async {
       // arrange
-      when(mockIOClient.get(Uri.parse('$BASE_URL/movie/popular?$API_KEY')))
+      when(mockIOClient.get(Uri.parse('$baseURL/movie/popular?$apiKey')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
       // act
       final call = dataSource.getPopularMovies();
@@ -98,7 +97,7 @@ void main() {
 
     test('should return list of movies when response code is 200 ', () async {
       // arrange
-      when(mockIOClient.get(Uri.parse('$BASE_URL/movie/top_rated?$API_KEY')))
+      when(mockIOClient.get(Uri.parse('$baseURL/movie/top_rated?$apiKey')))
           .thenAnswer((_) async =>
               http.Response(readJson('dummy_data/movie_top_rated.json'), 200));
       // act
@@ -110,7 +109,7 @@ void main() {
     test('should throw ServerException when response code is other than 200',
         () async {
       // arrange
-      when(mockIOClient.get(Uri.parse('$BASE_URL/movie/top_rated?$API_KEY')))
+      when(mockIOClient.get(Uri.parse('$baseURL/movie/top_rated?$apiKey')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
       // act
       final call = dataSource.getTopRatedMovies();
@@ -126,7 +125,7 @@ void main() {
 
     test('should return movie detail when the response code is 200', () async {
       // arrange
-      when(mockIOClient.get(Uri.parse('$BASE_URL/movie/$tId?$API_KEY')))
+      when(mockIOClient.get(Uri.parse('$baseURL/movie/$tId?$apiKey')))
           .thenAnswer((_) async =>
               http.Response(readJson('dummy_data/movie_detail.json'), 200));
       // act
@@ -138,7 +137,7 @@ void main() {
     test('should throw Server Exception when the response code is 404 or other',
         () async {
       // arrange
-      when(mockIOClient.get(Uri.parse('$BASE_URL/movie/$tId?$API_KEY')))
+      when(mockIOClient.get(Uri.parse('$baseURL/movie/$tId?$apiKey')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
       // act
       final call = dataSource.getMovieDetail(tId);
@@ -157,7 +156,7 @@ void main() {
         () async {
       // arrange
       when(mockIOClient
-              .get(Uri.parse('$BASE_URL/movie/$tId/recommendations?$API_KEY')))
+              .get(Uri.parse('$baseURL/movie/$tId/recommendations?$apiKey')))
           .thenAnswer((_) async => http.Response(
               readJson('dummy_data/movie_recommendations.json'), 200));
       // act
@@ -170,7 +169,7 @@ void main() {
         () async {
       // arrange
       when(mockIOClient
-              .get(Uri.parse('$BASE_URL/movie/$tId/recommendations?$API_KEY')))
+              .get(Uri.parse('$baseURL/movie/$tId/recommendations?$apiKey')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
       // act
       final call = dataSource.getMovieRecommendations(tId);
@@ -188,7 +187,7 @@ void main() {
     test('should return list of movies when response code is 200', () async {
       // arrange
       when(mockIOClient
-              .get(Uri.parse('$BASE_URL/search/movie?$API_KEY&query=$tQuery')))
+              .get(Uri.parse('$baseURL/search/movie?$apiKey&query=$tQuery')))
           .thenAnswer((_) async => http.Response(
               readJson('dummy_data/search_spiderman_movie.json'), 200));
       // act
@@ -201,7 +200,7 @@ void main() {
         () async {
       // arrange
       when(mockIOClient
-              .get(Uri.parse('$BASE_URL/search/movie?$API_KEY&query=$tQuery')))
+              .get(Uri.parse('$baseURL/search/movie?$apiKey&query=$tQuery')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
       // act
       final call = dataSource.searchMovies(tQuery);

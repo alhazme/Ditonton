@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2023-05-08 05:59:23</td>
+            <td class="headerValue">2023-05-10 08:27:13</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">0</td>
@@ -64,7 +64,7 @@
 <a name="2"><span class="lineNum">       2 </span>            : import 'package:equatable/equatable.dart';</a>
 <a name="3"><span class="lineNum">       3 </span>            : </a>
 <a name="4"><span class="lineNum">       4 </span>            : class TVSeasonModel extends Equatable{</a>
-<a name="5"><span class="lineNum">       5 </span><span class="lineCov">          4 :   TVSeasonModel({</span></a>
+<a name="5"><span class="lineNum">       5 </span><span class="lineCov">          4 :   const TVSeasonModel({</span></a>
 <a name="6"><span class="lineNum">       6 </span>            :     required this.airDate,</a>
 <a name="7"><span class="lineNum">       7 </span>            :     required this.episodeCount,</a>
 <a name="8"><span class="lineNum">       8 </span>            :     required this.id,</a>
@@ -104,28 +104,27 @@
 <a name="42"><span class="lineNum">      42 </span>            : </a>
 <a name="43"><span class="lineNum">      43 </span><span class="lineCov">          3 :   TVSeason toEntity() {</span></a>
 <a name="44"><span class="lineNum">      44 </span><span class="lineCov">          3 :     return TVSeason(</span></a>
-<a name="45"><span class="lineNum">      45 </span><span class="lineCov">          3 :         airDate: this.airDate,</span></a>
-<a name="46"><span class="lineNum">      46 </span><span class="lineCov">          3 :         episodeCount: this.episodeCount,</span></a>
-<a name="47"><span class="lineNum">      47 </span><span class="lineCov">          3 :         id: this.id,</span></a>
-<a name="48"><span class="lineNum">      48 </span><span class="lineCov">          3 :         name: this.name,</span></a>
-<a name="49"><span class="lineNum">      49 </span><span class="lineCov">          3 :         overview: this.overview,</span></a>
-<a name="50"><span class="lineNum">      50 </span><span class="lineCov">          3 :         posterPath: this.posterPath,</span></a>
-<a name="51"><span class="lineNum">      51 </span><span class="lineCov">          3 :         seasonNumber: this.seasonNumber</span></a>
+<a name="45"><span class="lineNum">      45 </span><span class="lineCov">          3 :         airDate: airDate,</span></a>
+<a name="46"><span class="lineNum">      46 </span><span class="lineCov">          3 :         episodeCount: episodeCount,</span></a>
+<a name="47"><span class="lineNum">      47 </span><span class="lineCov">          3 :         id: id,</span></a>
+<a name="48"><span class="lineNum">      48 </span><span class="lineCov">          3 :         name: name,</span></a>
+<a name="49"><span class="lineNum">      49 </span><span class="lineCov">          3 :         overview: overview,</span></a>
+<a name="50"><span class="lineNum">      50 </span><span class="lineCov">          3 :         posterPath: posterPath,</span></a>
+<a name="51"><span class="lineNum">      51 </span><span class="lineCov">          3 :         seasonNumber: seasonNumber</span></a>
 <a name="52"><span class="lineNum">      52 </span>            :     );</a>
 <a name="53"><span class="lineNum">      53 </span>            :   }</a>
 <a name="54"><span class="lineNum">      54 </span>            : </a>
 <a name="55"><span class="lineNum">      55 </span><span class="lineCov">          3 :   @override</span></a>
-<a name="56"><span class="lineNum">      56 </span>            :   // TODO: implement props</a>
-<a name="57"><span class="lineNum">      57 </span><span class="lineCov">          3 :   List&lt;Object?&gt; get props =&gt; [</span></a>
-<a name="58"><span class="lineNum">      58 </span><span class="lineCov">          3 :     airDate,</span></a>
-<a name="59"><span class="lineNum">      59 </span><span class="lineCov">          3 :     episodeCount,</span></a>
-<a name="60"><span class="lineNum">      60 </span><span class="lineCov">          3 :     id,</span></a>
-<a name="61"><span class="lineNum">      61 </span><span class="lineCov">          3 :     name,</span></a>
-<a name="62"><span class="lineNum">      62 </span><span class="lineCov">          3 :     overview,</span></a>
-<a name="63"><span class="lineNum">      63 </span><span class="lineCov">          3 :     posterPath,</span></a>
-<a name="64"><span class="lineNum">      64 </span><span class="lineCov">          3 :     seasonNumber,</span></a>
-<a name="65"><span class="lineNum">      65 </span>            :   ];</a>
-<a name="66"><span class="lineNum">      66 </span>            : }</a>
+<a name="56"><span class="lineNum">      56 </span><span class="lineCov">          3 :   List&lt;Object?&gt; get props =&gt; [</span></a>
+<a name="57"><span class="lineNum">      57 </span><span class="lineCov">          3 :     airDate,</span></a>
+<a name="58"><span class="lineNum">      58 </span><span class="lineCov">          3 :     episodeCount,</span></a>
+<a name="59"><span class="lineNum">      59 </span><span class="lineCov">          3 :     id,</span></a>
+<a name="60"><span class="lineNum">      60 </span><span class="lineCov">          3 :     name,</span></a>
+<a name="61"><span class="lineNum">      61 </span><span class="lineCov">          3 :     overview,</span></a>
+<a name="62"><span class="lineNum">      62 </span><span class="lineCov">          3 :     posterPath,</span></a>
+<a name="63"><span class="lineNum">      63 </span><span class="lineCov">          3 :     seasonNumber,</span></a>
+<a name="64"><span class="lineNum">      64 </span>            :   ];</a>
+<a name="65"><span class="lineNum">      65 </span>            : }</a>
 </pre>
       </td>
     </tr>

@@ -25,8 +25,6 @@ void main() {
   late MockGetPopularMovies mockGetPopularMovies;
   late MockGetTopRatedMovies mockGetTopRatedMovies;
 
-  const tId = 1;
-
   setUp(() {
     mockGetNowPlayingMovies = MockGetNowPlayingMovies();
     mockGetPopularMovies = MockGetPopularMovies();

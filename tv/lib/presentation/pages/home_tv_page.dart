@@ -10,7 +10,7 @@ import 'package:tv/presentation/bloc/tv_list_state.dart';
 import 'package:flutter/material.dart';
 
 class HomeTVPage extends StatefulWidget {
-  static const ROUTE_NAME = '/tvshow';
+  static const routeName = '/tvshow';
 
   const HomeTVPage({super.key});
 
@@ -54,7 +54,7 @@ class _HomeTVPageState extends State<HomeTVPage> {
               leading: const Icon(Icons.movie),
               title: const Text('Movies'),
               onTap: () {
-                Navigator.pushNamed(context, HOME_ROUTE);
+                Navigator.pushNamed(context, homeRoute);
               },
             ),
             ListTile(
@@ -70,13 +70,13 @@ class _HomeTVPageState extends State<HomeTVPage> {
               leading: const Icon(Icons.save_alt),
               title: const Text('Watchlist'),
               onTap: () {
-                Navigator.pushNamed(context, WATCHLIST_ROUTE);
+                Navigator.pushNamed(context, watchlistRoute);
               },
             ),
             ListTile(
               key: const Key('about_drawer_list_title'),
               onTap: () {
-                Navigator.pushNamed(context, ABOUT_ROUTE);
+                Navigator.pushNamed(context, aboutRoute);
               },
               leading: const Icon(Icons.info_outline),
               title: const Text('About'),
@@ -89,7 +89,7 @@ class _HomeTVPageState extends State<HomeTVPage> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.pushNamed(context, TV_SEARCH_ROUTE);
+              Navigator.pushNamed(context, tvSearchRoute);
             },
             icon: const Icon(Icons.search),
           )
@@ -122,21 +122,9 @@ class _HomeTVPageState extends State<HomeTVPage> {
                     }
                   }
               ),
-              // Consumer<TVListNotifier>(builder: (context, data, child) {
-              //   final state = data.nowPlayingTVsState;
-              //   if (state == RequestState.Loading) {
-              //     return Center(
-              //       child: CircularProgressIndicator(),
-              //     );
-              //   } else if (state == RequestState.Loaded) {
-              //     return TVList(data.nowPlayingTVs);
-              //   } else {
-              //     return Text('Failed');
-              //   }
-              // }),
               _buildSubHeading(
                 title: 'Popular',
-                onTap: () => Navigator.pushNamed(context, TVS_POPULAR_ROUTE),
+                onTap: () => Navigator.pushNamed(context, tvsPopularRoute),
               ),
               BlocBuilder<TVListCubit, TVListState>(
                   builder: (context, state) {
@@ -155,21 +143,9 @@ class _HomeTVPageState extends State<HomeTVPage> {
                     }
                   }
               ),
-              // Consumer<TVListNotifier>(builder: (context, data, child) {
-              //   final state = data.popularTVsState;
-              //   if (state == RequestState.Loading) {
-              //     return Center(
-              //       child: CircularProgressIndicator(),
-              //     );
-              //   } else if (state == RequestState.Loaded) {
-              //     return TVList(data.popularTVs);
-              //   } else {
-              //     return Text('Failed');
-              //   }
-              // }),
               _buildSubHeading(
                 title: 'Top Rated',
-                onTap: () => Navigator.pushNamed(context, TVS_TOP_RATED_ROUTE),
+                onTap: () => Navigator.pushNamed(context, tvsTopRatedRoute),
               ),
               BlocBuilder<TVListCubit, TVListState>(
                 builder: (context, state) {
@@ -189,18 +165,6 @@ class _HomeTVPageState extends State<HomeTVPage> {
                   }
                 }
             ),
-              // Consumer<TVListNotifier>(builder: (context, data, child) {
-              //   final state = data.topRatedTVsState;
-              //   if (state == RequestState.Loading) {
-              //     return Center(
-              //       child: CircularProgressIndicator(),
-              //     );
-              //   } else if (state == RequestState.Loaded) {
-              //     return TVList(data.topRatedTVs);
-              //   } else {
-              //     return Text('Failed');
-              //   }
-              // }),
             ],
           ),
         ),
@@ -253,14 +217,14 @@ class TVList extends StatelessWidget {
               onTap: () {
                 Navigator.pushNamed(
                   context,
-                  TV_DETAIL_ROUTE,
+                  tvDetailRoute,
                   arguments: tv.id,
                 );
               },
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(16)),
                 child: CachedNetworkImage(
-                  imageUrl: '$BASE_IMAGE_URL${tv.posterPath}',
+                  imageUrl: '$baseImageURL${tv.posterPath}',
                   placeholder: (context, url) => const Center(
                     child: CircularProgressIndicator(),
                   ),

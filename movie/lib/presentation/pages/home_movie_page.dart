@@ -11,7 +11,7 @@ import 'package:core/utils/state_enum.dart';
 import 'package:flutter/material.dart';
 
 class HomeMoviePage extends StatefulWidget {
-  static const ROUTE_NAME = '/home';
+  static const routeName = '/home';
 
   const HomeMoviePage({super.key});
 
@@ -61,7 +61,7 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
               leading: const Icon(Icons.tv),
               title: const Text('TV Shows'),
               onTap: () {
-                Navigator.pushNamed(context, TV_SHOW_ROUTE);
+                Navigator.pushNamed(context, tvShowRoute);
               },
             ),
             ListTile(
@@ -69,13 +69,13 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
               leading: const Icon(Icons.save_alt),
               title: const Text('Watchlist'),
               onTap: () {
-                Navigator.pushNamed(context, WATCHLIST_ROUTE);
+                Navigator.pushNamed(context, watchlistRoute);
               },
             ),
             ListTile(
               key: const Key('about_drawer_list_title'),
               onTap: () {
-                Navigator.pushNamed(context, ABOUT_ROUTE);
+                Navigator.pushNamed(context, aboutRoute);
               },
               leading: const Icon(Icons.info_outline),
               title: const Text('About'),
@@ -88,7 +88,7 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.pushNamed(context, MOVIE_SEARCH_ROUTE);
+              Navigator.pushNamed(context, movieSearchRoute);
             },
             icon: const Icon(Icons.search),
           )
@@ -125,7 +125,7 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
               _buildSubHeading(
                 title: 'Popular',
                 onTap: () =>
-                    Navigator.pushNamed(context, MOVIES_POPULAR_ROUTE),
+                    Navigator.pushNamed(context, moviesPopularRoute),
               ),
               BlocBuilder<MovieHomeCubit, MovieHomeState>(
                   builder: (context, state) {
@@ -148,7 +148,7 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
               _buildSubHeading(
                 title: 'Top Rated',
                 onTap: () =>
-                    Navigator.pushNamed(context, MOVIES_TOP_RATED_ROUTE),
+                    Navigator.pushNamed(context, moviesTopRatedRoute),
               ),
               BlocBuilder<MovieHomeCubit, MovieHomeState>(
                   builder: (context, state) {
@@ -220,14 +220,14 @@ class MovieList extends StatelessWidget {
               onTap: () {
                 Navigator.pushNamed(
                   context,
-                  MOVIE_DETAIL_ROUTE,
+                  movieDetailRoute,
                   arguments: movie.id,
                 );
               },
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(16)),
                 child: CachedNetworkImage(
-                  imageUrl: '$BASE_IMAGE_URL${movie.posterPath}',
+                  imageUrl: '$baseImageURL${movie.posterPath}',
                   placeholder: (context, url) => const Center(
                     child: CircularProgressIndicator(),
                   ),

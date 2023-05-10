@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class TVDetailPage extends StatefulWidget {
-  static const ROUTE_NAME = '/detail-tv';
+  static const routeName = '/detail-tv';
 
   final int id;
   const TVDetailPage({super.key, required this.id});
@@ -111,7 +111,7 @@ class TVDetailContent extends StatelessWidget {
     return Stack(
       children: [
         CachedNetworkImage(
-          imageUrl: '$BASE_IMAGE_URL${tv.posterPath}',
+          imageUrl: '$baseImageURL${tv.posterPath}',
           width: screenWidth,
           placeholder: (context, url) => const Center(
             child: CircularProgressIndicator(),
@@ -150,53 +150,9 @@ class TVDetailContent extends StatelessWidget {
                               onPressed: () async {
                                 if (!isAddedWatchlist) {
                                   await context.read<TVDetailCubit>().addWatchlist(tv);
-                                  // await Provider.of<TVDetailNotifier>(
-                                  //     context,
-                                  //     listen: false)
-                                  //     . addTVWatchlist(tv);
                                 } else {
                                   await context.read<TVDetailCubit>().removeFromWatchlist(tv.id);
-                                  // await Provider.of<TVDetailNotifier>(
-                                  //     context,
-                                  //     listen: false)
-                                  //     .removeTVFromWatchlist(tv);
                                 }
-                                // final watchlistMessage = context.read<TVDetailCubit>().state.watchlistMessage;
-                                // if (watchlistMessage.isNotEmpty) {
-                                //   if (watchlistMessage == TVDetailCubit
-                                //       .watchlistAddSuccessMessage
-                                //       || watchlistMessage == TVDetailCubit
-                                //           .watchlistRemoveSuccessMessage
-                                //   ) {
-                                //   ScaffoldMessenger.of(context).showSnackBar(
-                                //     SnackBar(content: Text(watchlistMessage)));
-                                //   } else {
-                                //     showDialog(context: context, builder: (context) {
-                                //       return AlertDialog(
-                                //         content: Text(watchlistMessage),
-                                //       );
-                                //     });
-                                //   }
-                                // }
-                                // final message =
-                                //     Provider.of<TVDetailNotifier>(context,
-                                //         listen: false)
-                                //         .watchlistMessage;
-                                //
-                                // if (message == TVDetailNotifier.watchlistAddSuccessMessage
-                                //     || message == TVDetailNotifier.watchlistRemoveSuccessMessage
-                                // ) {
-                                //   ScaffoldMessenger.of(context).showSnackBar(
-                                //       SnackBar(content: Text(message)));
-                                // } else {
-                                //   showDialog(
-                                //       context: context,
-                                //       builder: (context) {
-                                //         return AlertDialog(
-                                //           content: Text(message),
-                                //         );
-                                //       });
-                                // }
                               },
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
@@ -242,109 +198,6 @@ class TVDetailContent extends StatelessWidget {
                               style: kHeading6,
                             ),
 														_recommendationTVsWidget(recommendations),
-                            // SizedBox(
-                            //   key: const Key('tv_recommendations_loaded'),
-                            //   height: 150,
-                            //   child: ListView.builder(
-                            //     scrollDirection: Axis.horizontal,
-                            //     itemBuilder: (context, index) {
-                            //       final tv = recommendations[index];
-                            //       return Padding(
-                            //         padding: const EdgeInsets.all(4.0),
-                            //         child: InkWell(
-                            //           onTap: () {
-                            //             Navigator.pushReplacementNamed(
-                            //               context,
-                            //               TVDetailPage.ROUTE_NAME,
-                            //               arguments: tv.id,
-                            //             );
-                            //           },
-                            //           child: ClipRRect(
-                            //             borderRadius: const BorderRadius.all(
-                            //               Radius.circular(8),
-                            //             ),
-                            //             child: CachedNetworkImage(
-                            //               key: const Key('tv_recommendations_loaded_image'),
-                            //               imageUrl:
-                            //               'https://image.tmdb.org/t/p/w500${tv.posterPath}',
-                            //               placeholder: (context, url) =>
-                            //                   const Center(
-                            //                     child:
-                            //                     CircularProgressIndicator(),
-                            //                   ),
-                            //               errorWidget:
-                            //                   (context, url, error) =>
-                            //                   const Icon(Icons.error),
-                            //             ),
-                            //           ),
-                            //         ),
-                            //       );
-                            //     },
-                            //     itemCount: recommendations.length,
-                            //   ),
-                            // )
-                            // Consumer<TVDetailNotifier>(
-                            //   builder: (context, data, child) {
-                            //     if (data.recommendationState ==
-                            //         RequestState.Loading) {
-                            //       return Center(
-                            //         child: CircularProgressIndicator(
-                            //           key: Key('tv_recommendations_loading'),
-                            //         ),
-                            //       );
-                            //     } else if (data.recommendationState ==
-                            //         RequestState.Error) {
-                            //       return Text(data.message);
-                            //     } else if (data.recommendationState ==
-                            //         RequestState.Loaded) {
-                            //       return Container(
-                            //         key: Key('tv_recommendations_loaded'),
-                            //         height: 150,
-                            //         child: ListView.builder(
-                            //           scrollDirection: Axis.horizontal,
-                            //           itemBuilder: (context, index) {
-                            //             final tv = recommendations[index];
-                            //             return Padding(
-                            //               padding: const EdgeInsets.all(4.0),
-                            //               child: InkWell(
-                            //                 onTap: () {
-                            //                   Navigator.pushReplacementNamed(
-                            //                     context,
-                            //                     TVDetailPage.ROUTE_NAME,
-                            //                     arguments: tv.id,
-                            //                   );
-                            //                 },
-                            //                 child: ClipRRect(
-                            //                   borderRadius: BorderRadius.all(
-                            //                     Radius.circular(8),
-                            //                   ),
-                            //                   child: CachedNetworkImage(
-                            //                     key: Key('tv_recommendations_loaded_image'),
-                            //                     imageUrl:
-                            //                     'https://image.tmdb.org/t/p/w500${tv.posterPath}',
-                            //                     placeholder: (context, url) =>
-                            //                         Center(
-                            //                           child:
-                            //                           CircularProgressIndicator(),
-                            //                         ),
-                            //                     errorWidget:
-                            //                         (context, url, error) =>
-                            //                         Icon(Icons.error),
-                            //                   ),
-                            //                 ),
-                            //               ),
-                            //             );
-                            //           },
-                            //           itemCount: recommendations.length,
-                            //         ),
-                            //       );
-                            //     } else {
-                            //       return Container(
-                            //         key: Key('tv_recommendations_empty'),
-                            //       );
-                            //     }
-                            //   },
-                            // ),
                           ],
                         ),
                       ),
@@ -413,7 +266,7 @@ class TVDetailContent extends StatelessWidget {
 								onTap: () {
 									Navigator.pushReplacementNamed(
 										context,
-										TVDetailPage.ROUTE_NAME,
+										TVDetailPage.routeName,
 										arguments: tv.id,
 									);
 								},
@@ -424,7 +277,7 @@ class TVDetailContent extends StatelessWidget {
 									child: CachedNetworkImage(
 										key: const Key('tv_recommendations_loaded_image'),
 										imageUrl:
-										'$BASE_IMAGE_URL${tv.posterPath}',
+										'$baseImageURL${tv.posterPath}',
 										placeholder: (context, url) =>
 												const Center(
 													child:

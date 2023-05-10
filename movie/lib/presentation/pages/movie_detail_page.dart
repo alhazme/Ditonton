@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class MovieDetailPage extends StatefulWidget {
-  static const ROUTE_NAME = '/detail-movie';
+  static const routeName = '/detail-movie';
 
   final int id;
   const MovieDetailPage({super.key, required this.id});
@@ -107,7 +107,7 @@ class DetailContent extends StatelessWidget {
     return Stack(
       children: [
         CachedNetworkImage(
-          imageUrl: '$BASE_IMAGE_URL${movie.posterPath}',
+          imageUrl: '$baseImageURL${movie.posterPath}',
           width: screenWidth,
           placeholder: (context, url) => const Center(
             child: CircularProgressIndicator(),
@@ -249,7 +249,7 @@ class DetailContent extends StatelessWidget {
                   onTap: () {
                     Navigator.pushReplacementNamed(
                       context,
-                      MovieDetailPage.ROUTE_NAME,
+                      MovieDetailPage.routeName,
                       arguments: movie.id,
                     );
                   },
@@ -260,7 +260,7 @@ class DetailContent extends StatelessWidget {
                     child: CachedNetworkImage(
                       key: const Key('movie_recommendations_loaded_image'),
                       imageUrl:
-                      '$BASE_IMAGE_URL${movie.posterPath}',
+                      '$baseImageURL${movie.posterPath}',
                       placeholder: (context, url) =>
                           const Center(
                             child:

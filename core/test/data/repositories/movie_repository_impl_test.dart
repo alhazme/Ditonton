@@ -104,6 +104,20 @@ void main() {
       expect(result,
           equals(const Left(ConnectionFailure('Failed to connect to the network'))));
     });
+
+    test(
+        'should return verify SSL Certificate failure when the SSL certificate failed to verify',
+        () async {
+      // arrange
+      when(mockRemoteDataSource.getNowPlayingMovies())
+          .thenThrow(const TlsException('Failed to verify SSL certificate'));
+      // act
+      final result = await repository.getNowPlayingMovies();
+      // assert
+      verify(mockRemoteDataSource.getNowPlayingMovies());
+      expect(result,
+          equals(const Left(SSLFailure('Failed to verify SSL certificate'))));
+    });
   });
 
   group('Popular Movies', () {
@@ -144,6 +158,19 @@ void main() {
       expect(
           result, const Left(ConnectionFailure('Failed to connect to the network')));
     });
+
+    test(
+        'should return verify SSL Certificate failure when the SSL certificate failed to verify',
+        () async {
+      // arrange
+      when(mockRemoteDataSource.getPopularMovies())
+          .thenThrow(const TlsException('Failed to verify SSL certificate'));
+      // act
+      final result = await repository.getPopularMovies();
+      // assert
+      expect(result,
+          equals(const Left(SSLFailure('Failed to verify SSL certificate'))));
+    });
   });
 
   group('Top Rated Movies', () {
@@ -182,6 +209,19 @@ void main() {
       // assert
       expect(
           result, const Left(ConnectionFailure('Failed to connect to the network')));
+    });
+
+    test(
+        'should return verify SSL Certificate failure when the SSL certificate failed to verify',
+        () async {
+      // arrange
+      when(mockRemoteDataSource.getTopRatedMovies())
+          .thenThrow(const TlsException('Failed to verify SSL certificate'));
+      // act
+      final result = await repository.getTopRatedMovies();
+      // assert
+      expect(result,
+          equals(const Left(SSLFailure('Failed to verify SSL certificate'))));
     });
   });
 
@@ -250,6 +290,19 @@ void main() {
       expect(result,
           equals(const Left(ConnectionFailure('Failed to connect to the network'))));
     });
+
+    test(
+        'should return verify SSL Certificate failure when the SSL certificate failed to verify',
+        () async {
+      // arrange
+      when(mockRemoteDataSource.getMovieDetail(tId))
+          .thenThrow(const TlsException('Failed to verify SSL certificate'));
+      // act
+      final result = await repository.getMovieDetail(tId);
+      // assert
+      expect(result,
+          equals(const Left(SSLFailure('Failed to verify SSL certificate'))));
+    });
   });
 
   group('Get Movie Recommendations', () {
@@ -296,6 +349,19 @@ void main() {
       expect(result,
           equals(const Left(ConnectionFailure('Failed to connect to the network'))));
     });
+
+    test(
+        'should return verify SSL Certificate failure when the SSL certificate failed to verify',
+        () async {
+      // arrange
+      when(mockRemoteDataSource.getMovieRecommendations(tId))
+          .thenThrow(const TlsException('Failed to verify SSL certificate'));
+      // act
+      final result = await repository.getMovieRecommendations(tId);
+      // assert
+      expect(result,
+          equals(const Left(SSLFailure('Failed to verify SSL certificate'))));
+    });
   });
 
   group('Seach Movies', () {
@@ -336,6 +402,19 @@ void main() {
       // assert
       expect(
           result, const Left(ConnectionFailure('Failed to connect to the network')));
+    });
+
+    test(
+        'should return verify SSL Certificate failure when the SSL certificate failed to verify',
+        () async {
+      // arrange
+      when(mockRemoteDataSource.searchMovies(tQuery))
+          .thenThrow(const TlsException('Failed to verify SSL certificate'));
+      // act
+      final result = await repository.searchMovies(tQuery);
+      // assert
+      expect(result,
+          equals(const Left(SSLFailure('Failed to verify SSL certificate'))));
     });
   });
 }

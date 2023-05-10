@@ -6,7 +6,7 @@ import 'package:tv/presentation/widgets/tv_card.dart';
 import 'package:flutter/material.dart';
 
 class PopularTvsPage extends StatefulWidget {
-  static const ROUTE_NAME = '/popular-tv';
+  static const routeName = '/popular-tv';
 
   const PopularTvsPage({super.key});
 

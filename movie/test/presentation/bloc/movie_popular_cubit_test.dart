@@ -19,8 +19,6 @@ void main() {
   late MoviePopularState moviePopularState;
   late MockGetPopularMovies mockGetPopularMovies;
 
-  const tId = 1;
-
   setUp(() {
     mockGetPopularMovies = MockGetPopularMovies();
     moviePopularCubit = MoviePopularCubit(

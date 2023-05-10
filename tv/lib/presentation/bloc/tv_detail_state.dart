@@ -2,7 +2,6 @@ import 'package:core/domain/entities/tv.dart';
 import 'package:core/domain/entities/tv_detail.dart';
 import 'package:core/utils/state_enum.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 
 class TVDetailState extends Equatable {
 
@@ -14,7 +13,6 @@ class TVDetailState extends Equatable {
   final bool isAddedtoWatchlist;
   final String watchlistMessage;
 
-  @immutable
   const TVDetailState({
     this.message = '',
     this.tvDetailState = RequestState.Empty,

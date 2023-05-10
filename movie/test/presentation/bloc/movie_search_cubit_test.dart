@@ -19,8 +19,6 @@ void main() {
   late MovieSearchState movieSearchState;
   late MockSearchMovies mockSearchMovies;
 
-  const tId = 1;
-
   setUp(() {
     mockSearchMovies = MockSearchMovies();
     movieSearchCubit = MovieSearchCubit(

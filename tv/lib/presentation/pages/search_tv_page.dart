@@ -7,7 +7,7 @@ import 'package:tv/presentation/widgets/tv_card.dart';
 import 'package:flutter/material.dart';
 
 class SearchTVPage extends StatelessWidget {
-  static const ROUTE_NAME = '/search-tv';
+  static const routeName = '/search-tv';
 
   const SearchTVPage({super.key});
 

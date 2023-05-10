@@ -1,6 +1,6 @@
-import 'package:bloc/bloc.dart';
 import 'package:core/domain/entities/movie.dart';
 import 'package:core/domain/entities/movie_detail.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:watchlist/domain/usecases/get_watchlist_status.dart';
 import 'package:watchlist/domain/usecases/remove_watchlist.dart';
 import 'package:core/utils/state_enum.dart';

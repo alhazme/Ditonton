@@ -1,6 +1,6 @@
-import 'package:bloc/bloc.dart';
 import 'package:core/domain/entities/movie.dart';
 import 'package:core/utils/state_enum.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie/domain/usecases/get_popular_movies.dart';
 import 'package:movie/presentation/bloc/movie_popular_state.dart';
 

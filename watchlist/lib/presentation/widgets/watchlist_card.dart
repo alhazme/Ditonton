@@ -19,13 +19,13 @@ class WatchlistCard extends StatelessWidget {
           if (watchlist.category == 'movie') {
             Navigator.pushNamed(
               context,
-              MOVIE_DETAIL_ROUTE,
+              movieDetailRoute,
               arguments: watchlist.id,
             );
           } else {
             Navigator.pushNamed(
               context,
-              TV_DETAIL_ROUTE,
+              tvDetailRoute,
               arguments: watchlist.id,
             );
           }
@@ -67,7 +67,7 @@ class WatchlistCard extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
                 child: CachedNetworkImage(
-                  imageUrl: '$BASE_IMAGE_URL${watchlist.posterPath}',
+                  imageUrl: '$baseImageURL${watchlist.posterPath}',
                   width: 80,
                   placeholder: (context, url) => const Center(
                     child: CircularProgressIndicator(),

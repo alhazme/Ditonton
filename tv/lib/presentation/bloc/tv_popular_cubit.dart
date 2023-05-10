@@ -1,6 +1,6 @@
-import 'package:bloc/bloc.dart';
 import 'package:core/domain/entities/tv.dart';
 import 'package:core/utils/state_enum.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tv/domain/usecases/get_popular_tvs.dart';
 import 'package:tv/presentation/bloc/tv_popular_state.dart';
 

@@ -107,6 +107,20 @@ void main() {
               equals(
                   const Left(ConnectionFailure('Failed to connect to the network'))));
         });
+
+    test(
+        'should return verify SSL Certificate failure when the SSL certificate failed to verify',
+        () async {
+      // arrange
+      when(mockRemoteDataSource.getNowPlayingTVs())
+          .thenThrow(const TlsException('Failed to verify SSL certificate'));
+      // act
+      final result = await repository.getNowPlayingTVs();
+      // assert
+      verify(mockRemoteDataSource.getNowPlayingTVs());
+      expect(result,
+          equals(const Left(SSLFailure('Failed to verify SSL certificate'))));
+    });
   });
 
   group('Popular TVs', () {
@@ -148,6 +162,20 @@ void main() {
               result,
               const Left(ConnectionFailure('Failed to connect to the network')));
         });
+
+    test(
+        'should return verify SSL Certificate failure when the SSL certificate failed to verify',
+        () async {
+      // arrange
+      when(mockRemoteDataSource.getPopularTVs())
+          .thenThrow(const TlsException('Failed to verify SSL certificate'));
+      // act
+      final result = await repository.getPopularTVs();
+      // assert
+      verify(mockRemoteDataSource.getPopularTVs());
+      expect(result,
+          equals(const Left(SSLFailure('Failed to verify SSL certificate'))));
+    });
   });
 
   group('Top Rated TVs', () {
@@ -188,6 +216,20 @@ void main() {
               result,
               const Left(ConnectionFailure('Failed to connect to the network')));
         });
+
+    test(
+        'should return verify SSL Certificate failure when the SSL certificate failed to verify',
+        () async {
+      // arrange
+      when(mockRemoteDataSource.getTopRatedTVs())
+          .thenThrow(const TlsException('Failed to verify SSL certificate'));
+      // act
+      final result = await repository.getTopRatedTVs();
+      // assert
+      verify(mockRemoteDataSource.getTopRatedTVs());
+      expect(result,
+          equals(const Left(SSLFailure('Failed to verify SSL certificate'))));
+    });
   });
 
   group('Get TV Detail', () {
@@ -318,6 +360,20 @@ void main() {
               equals(
                   const Left(ConnectionFailure('Failed to connect to the network'))));
         });
+
+    test(
+        'should return verify SSL Certificate failure when the SSL certificate failed to verify',
+        () async {
+      // arrange
+      when(mockRemoteDataSource.getTVDetail(tId))
+          .thenThrow(const TlsException('Failed to verify SSL certificate'));
+      // act
+      final result = await repository.getTVDetail(tId);
+      // assert
+      verify(mockRemoteDataSource.getTVDetail(tId));
+      expect(result,
+          equals(const Left(SSLFailure('Failed to verify SSL certificate'))));
+    });
   });
 
   group('Get TV Recommendations', () {
@@ -365,6 +421,20 @@ void main() {
               equals(
                   const Left(ConnectionFailure('Failed to connect to the network'))));
         });
+
+    test(
+        'should return verify SSL Certificate failure when the SSL certificate failed to verify',
+        () async {
+      // arrange
+      when(mockRemoteDataSource.getTVRecommendations(tId))
+          .thenThrow(const TlsException('Failed to verify SSL certificate'));
+      // act
+      final result = await repository.getTVRecommendations(tId);
+      // assert
+      verify(mockRemoteDataSource.getTVRecommendations(tId));
+      expect(result,
+          equals(const Left(SSLFailure('Failed to verify SSL certificate'))));
+    });
   });
 
   group('Seach TVs', () {
@@ -407,5 +477,19 @@ void main() {
               result,
               const Left(ConnectionFailure('Failed to connect to the network')));
         });
+
+    test(
+        'should return verify SSL Certificate failure when the SSL certificate failed to verify',
+        () async {
+      // arrange
+      when(mockRemoteDataSource.searchTVs(tQuery))
+          .thenThrow(const TlsException('Failed to verify SSL certificate'));
+      // act
+      final result = await repository.searchTVs(tQuery);
+      // assert
+      verify(mockRemoteDataSource.searchTVs(tQuery));
+      expect(result,
+          equals(const Left(SSLFailure('Failed to verify SSL certificate'))));
+    });
   });
 }

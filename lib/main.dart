@@ -59,48 +59,48 @@ class MyApp extends StatelessWidget {
 			navigatorObservers: [routeObserver],
 			onGenerateRoute: (RouteSettings settings) {
 				switch (settings.name) {
-					case HomeMoviePage.ROUTE_NAME:
+					case HomeMoviePage.routeName:
 						return MaterialPageRoute(
 								builder: (_) => BlocProvider<MovieHomeCubit>(
 									create: (_) => di.locator(),
 									child: HomeMoviePage(),
 								)
 						);
-					case HomeTVPage.ROUTE_NAME:
+					case HomeTVPage.routeName:
 						return MaterialPageRoute(builder: (_) => BlocProvider<TVListCubit>(
 								create: (_) => di.locator(),
 								child: HomeTVPage()
 							)
 						);
-					case PopularMoviesPage.ROUTE_NAME:
+					case PopularMoviesPage.routeName:
 						return CupertinoPageRoute(
 							builder: (_) => BlocProvider<MoviePopularCubit>(
 								create: (_) => di.locator(),
 								child: PopularMoviesPage()
 							)
 						);
-					case PopularTvsPage.ROUTE_NAME:
+					case PopularTvsPage.routeName:
 						return CupertinoPageRoute(
 							builder: (_) => BlocProvider<TVPopularCubit>(
 								create: (_) => di.locator(),
 								child: PopularTvsPage()
 							)
 						);
-					case TopRatedMoviesPage.ROUTE_NAME:
+					case TopRatedMoviesPage.routeName:
 						return CupertinoPageRoute(
 							builder: (_) => BlocProvider<MovieTopRatedCubit>(
 								create: (_) => di.locator(),
 								child: TopRatedMoviesPage(),
 							)
 						);
-					case TopRatedTVsPage.ROUTE_NAME:
+					case TopRatedTVsPage.routeName:
 						return CupertinoPageRoute(
 							builder: (_) => BlocProvider<TVTopRatedCubit>(
 								create: (_) => di.locator(),
 								child: TopRatedTVsPage()
 							)
 						);
-					case MovieDetailPage.ROUTE_NAME:
+					case MovieDetailPage.routeName:
 						final id = settings.arguments as int;
 						return MaterialPageRoute(
 							builder: (_) => BlocProvider<MovieDetailCubit>(
@@ -108,7 +108,7 @@ class MyApp extends StatelessWidget {
 									child: MovieDetailPage(id: id)
 							)
 						);
-					case TVDetailPage.ROUTE_NAME:
+					case TVDetailPage.routeName:
 						final id = settings.arguments as int;
 						return MaterialPageRoute(
 							builder: (_) => BlocProvider<TVDetailCubit>(
@@ -116,28 +116,28 @@ class MyApp extends StatelessWidget {
 								child: TVDetailPage(id: id),
 							),
 						);
-					case SearchMoviePage.ROUTE_NAME:
+					case SearchMoviePage.routeName:
 						return CupertinoPageRoute(
 							builder: (_) => BlocProvider<MovieSearchCubit>(
 								create: (_) => di.locator(),
 								child: SearchMoviePage()
 							)
 						);
-					case SearchTVPage.ROUTE_NAME:
+					case SearchTVPage.routeName:
 						return CupertinoPageRoute(
 							builder: (_) => BlocProvider<TVSearchCubit>(
 								create: (_) => di.locator(),
 								child: SearchTVPage()
 							)
 						);
-					case WatchlistPage.ROUTE_NAME:
+					case WatchlistPage.routeName:
 						return MaterialPageRoute(
 							builder: (_) => BlocProvider<WatchlistCubit>(
 								create: (_) => di.locator(),
 								child: WatchlistPage()
 							)
 						);
-					case AboutPage.ROUTE_NAME:
+					case AboutPage.routeName:
 						return MaterialPageRoute(builder: (_) => AboutPage());
 					default:
 						return MaterialPageRoute(builder: (_) {

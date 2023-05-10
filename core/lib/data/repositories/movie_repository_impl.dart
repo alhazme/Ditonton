@@ -23,7 +23,9 @@ class MovieRepositoryImpl implements MovieRepository {
       return const Left(ServerFailure(''));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the network'));
-    }
+    } on TlsException {
+			return const Left(SSLFailure('Failed to verify SSL certificate'));
+		}
   }
 
   @override
@@ -35,6 +37,8 @@ class MovieRepositoryImpl implements MovieRepository {
       return const Left(ServerFailure(''));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the network'));
+    } on TlsException {
+			return const Left(SSLFailure('Failed to verify SSL certificate'));
     }
   }
 
@@ -47,6 +51,8 @@ class MovieRepositoryImpl implements MovieRepository {
       return const Left(ServerFailure(''));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the network'));
+    } on TlsException {
+			return const Left(SSLFailure('Failed to verify SSL certificate'));
     }
   }
 
@@ -59,6 +65,8 @@ class MovieRepositoryImpl implements MovieRepository {
       return const Left(ServerFailure(''));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the network'));
+    } on TlsException {
+			return const Left(SSLFailure('Failed to verify SSL certificate'));
     }
   }
 
@@ -71,6 +79,8 @@ class MovieRepositoryImpl implements MovieRepository {
       return const Left(ServerFailure(''));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the network'));
+    } on TlsException {
+			return const Left(SSLFailure('Failed to verify SSL certificate'));
     }
   }
 
@@ -83,6 +93,8 @@ class MovieRepositoryImpl implements MovieRepository {
       return const Left(ServerFailure(''));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the network'));
+    } on TlsException {
+			return const Left(SSLFailure('Failed to verify SSL certificate'));
     }
   }
 }
