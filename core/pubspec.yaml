@@ -17,13 +17,17 @@ dependencies:
   equatable: ^2.0.5
   google_fonts: ^5.0.0
   flutter_rating_bar: ^4.0.1
-  cached_network_image: ^3.2.3
+  # cached_network_image: ^3.2.3
+  cached_network_image:
+    git:
+      url: https://github.com/prashantsolankispaceo/cached_network_image.git
+      path: cached_network_image
   get_it: ^7.6.0
   sqflite: ^2.2.8+4
   path_provider: ^2.0.15
   ssl_pinning_plugin: ^2.0.0
-  firebase_core: ^2.13.1
-  firebase_crashlytics: ^3.3.2
+  firebase_core: ^2.14.0
+  firebase_crashlytics: ^3.3.3
 
 dev_dependencies:
   mockito: ^5.0.8
@@ -37,7 +41,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-
   # To add assets to your package, add an assets section, like this:
   assets:
     - assets/circle-g.png

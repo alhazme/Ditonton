@@ -5,7 +5,7 @@ publish_to: none
 homepage:
 
 environment:
-  sdk: '>=2.19.6 <=3.3.8'
+  sdk: ">=2.19.6 <=3.3.8"
   flutter: ">=1.17.0"
 
 dependencies:
@@ -20,9 +20,13 @@ dependencies:
   equatable: ^2.0.5
   flutter_bloc: ^8.1.1
   get_it: ^7.1.3
-  firebase_core: ^2.11.0
-  firebase_crashlytics: ^3.2.0
-  cached_network_image: ^3.0.0
+  firebase_core: ^2.14.0
+  firebase_crashlytics: ^3.3.3
+  # cached_network_image: ^3.0.0
+  cached_network_image:
+    git:
+      url: https://github.com/prashantsolankispaceo/cached_network_image.git
+      path: cached_network_image
 
 dev_dependencies:
   mockito: ^5.0.8
